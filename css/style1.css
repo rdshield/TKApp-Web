@@ -1,0 +1,124 @@
+html, body {
+	height: 100%;
+	margin:0;
+}
+
+body {
+	position: relative;
+	padding: 50px 0 0 0;
+	box-sizing: border-box;
+}
+
+.header {
+  height: 50px;
+  background-color: #041c2c;
+  position: fixed;
+  top:-1px;
+  left:0;
+  right:0;
+}
+
+.topNav *{
+  color: #fff;
+}
+
+.topNav .left {
+  float: left;
+}
+
+.left .button {
+	border: 0;
+	background: none;
+	box-shadow: none;
+	border-radius: 0px;
+	float: left;
+	padding: 5px 6px;
+	color:white;
+	text-decoration: none;
+	background-color: #A6192E;
+}
+
+.right a {
+	color:white;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 0;
+	top: 0;
+	margin: 0;
+}
+
+.topNav .center {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.topNav .right {
+  position: absolute;
+  right: 0;
+}
+
+.content {
+  min-height: 200px;
+  background-color: gray;
+}
+
+.sidenav{
+	display: none;
+	height: 100%;
+	width: 200px;
+	background-color:#041c2c;
+	position:fixed!important;
+	z-index:2;
+	overflow:auto;
+}
+
+.sidenav a {
+		float: right;
+		width: 100%;
+		height: 40px;
+		color:white;
+		text-align: center;
+		font-weight: bold;
+		padding: 10px 0px;
+		text-decoration: none;
+		font-size:17px;	
+}
+
+.sidenav a:hover {
+		color:black;
+		font-size:17px;
+		background-color:#A6192E;	
+}
+
+.info {
+	height:100%;
+	width: 100%;
+	color: white;
+	background-color: gray;
+}
+
+.bar {
+	width: 18px;
+    height: 3px;
+    background-color: black;
+    margin: 2px 0;
+	border-radius: 25px;
+}
+
+.rightbutton {
+	height: 38px;
+	padding: 8px 5px 4px;
+	display: block;
+	background-color: #A6192E;
+}
+
+#login {
+	display: block;
+	alignte
+	align-items: center;
+	width: 400px;
+	height: 300px;
+	color: white;
+	background-color: #041c2c;
+}
