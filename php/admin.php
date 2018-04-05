@@ -11,7 +11,7 @@
 		<div class="info">
 			<?php include("http://ec2-52-53-204-249.us-west-1.compute.amazonaws.com/php/sidenav.php"); ?>	
 			<div class="content">
-
+				<h2> ADMIN PAGE </h2>
 			</div>
 		</div>
 	</body>

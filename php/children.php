@@ -11,7 +11,9 @@
 		<div class="info">
 			<?php include("../php/sidenav.php"); ?>
 			<div class="content">
-
+				<div id="container">
+					<h2> CHILD PAGE </h2>
+				</div>
 			</div>
 		</div>
 	</body>

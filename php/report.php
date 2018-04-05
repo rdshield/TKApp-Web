@@ -10,7 +10,9 @@
 		</div>
 		<div class="info">
 			<?php include("../php/sidenav.php"); ?>
-			
+				<div id = "container">
+					<h2> REPORT PAGE </h2>
+				</div>
 			<div class="content">
 
 			</div>

@@ -17,8 +17,6 @@
 			</section>
 		</div>
 		<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="js/sample.js"></script>
 		<script src="js/sidebar.js"></script>
-		<script src="js/amazon-cognito-identity.min.js"></script>
 	</body>
 </html> 

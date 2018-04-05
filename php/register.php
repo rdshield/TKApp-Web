@@ -9,10 +9,9 @@
 		</div>
 		<div class="info">
 			<?php include("../php/sidenav.php"); ?>
-			REGISTRATION
 			<div class="content">
 				<div id = "container">
-					
+					<h2> REGISTRATION PAGE </h2>
 				</div>
 			</div>
 		</div>

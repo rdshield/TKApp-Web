@@ -117,10 +117,76 @@ body {
 
 #login {
 	display: block;
-	alignte
 	align-items: center;
 	width: 400px;
 	height: 300px;
 	color: white;
 	background-color: #041c2c;
 }
+
+
+#signupWindow {
+	transform: translatey(200px);
+	text-align: center;
+	width:33%;
+	height:33%;
+	background-color: tan;
+	color: white;
+	display:block;
+	min-height:300px;
+	min-width:350px;
+	max-width:500px;
+	margin: auto;
+	border: 4px solid #A6192E;
+	background-image: "/images/black-felt.png";
+}
+
+
+#logo {
+	padding-top: 10px;
+	margin-bottom: 20px;
+}
+
+#submitArrow {
+	margin: 25px;
+	height: 25px;
+	opacity: 0.7;
+}
+#submitArrow:hover {
+	opacity: 1.0;
+}
+#userId, #userPW {
+	align-text: left;
+}
+
+.input {
+	width: 300px;
+	min-height: 50px;
+	display:block;
+	margin: auto;
+	padding-bottom: 5px;
+}
+
+#inputFields {
+	margin: auto;
+	display:block;
+	min-height: 50px;
+	width: 300px;
+}
+
+#content2 {
+	padding: 10px;
+	background-color: tan;
+}
+
+.input label{
+	display: block;
+	float: left;
+	width: 100px;
+	left:auto;
+	right:auto;
+	padding-right: 2px;
+	;
+	text-align: right;
+}
+
