@@ -35,19 +35,18 @@ Top Navigation Bar			 Last Update: 04/07/18
 	<div class="nav-element right">
 	<nav>
 		<!-- Login Button - Will change to User Name and Logout/Settings Links -->
-		<div class="rightbutton">				
+		<div class="button">				
 			<a href="login.php">	
 				<span>Login</span>
-				<img src="http://ec2-18-144-21-247.us-west-1.compute.amazonaws.com/images/circle.png" style=" vertical-align: middle;" height=35px width=35px>		
 			</a>
 		</div>
-		
-		<!-- Temporary Button to get back to index page - Development - REMOVE AT Production -->
-		<div class="rightbutton" style="background-color:green">
+				<!-- Temporary Button to get back to index page - Development - REMOVE AT Production -->
+		<div class="button" style ="background-color:green" >
 			<a href="index.php">	
 				<span>Home</span>
 			</a>
 		</div>
+
 	</nav>
 	</div>
 </div>

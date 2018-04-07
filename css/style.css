@@ -1,7 +1,6 @@
 html, body {
 	height: 100%;
 	margin:0;
-	background-color: black;
 }
 
 body {
@@ -19,12 +18,24 @@ body {
   right:0;
 }
 
-.left {}
-.right {}
-
-.topNav .left {
-  float: left;
+.left {
+	width: 25%;
+	float: left;
 }
+
+.center {
+	width: 60%;
+	margin: 0 auto;
+	text-align: center;
+	width: 50%;
+}
+
+.right {
+	float: right;
+	width: 25%;
+	display: inline-block;
+}
+
 
 .topNav .left .button {
 	float: left;
@@ -40,15 +51,10 @@ body {
 	border-radius: 25px;
 }
 
-.topNav .center {
-  width: 60%;
-  margin: 0 auto;
-  text-align: center;
-}
-
 .topNav .right {
-  position: absolute;
+  float: right;
   right: 0;
+  top: 0;
 }
 
 .topNav .right a {
@@ -57,14 +63,23 @@ body {
 	font-weight: bold;
 }
 
-.rightbutton {
-	height: 38px;
-	padding: 8px 5px 4px;
+.topNav .right .button {
+	float: right;
+	height: 35px;
+	padding: 15px 8px 0 8px ;
+	padding-bottom: -5px;
 	background-color: #A6192E;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .content {
   margin-left: 200px;
+  background-color: tan;
+}
+
+.container {
+	background-color: gray;
 }
 
 .sidenav{
@@ -100,7 +115,6 @@ body {
 	height:100%;
 	width: 100%;
 	color: white;
-	background-color: black;
 }
 
 .input {
@@ -149,7 +163,6 @@ body {
 	max-width:500px;
 	margin: auto;
 	border: 4px solid #A6192E;
-	background-image: "./images/black-felt.png";
 }
 
 #logo {
