@@ -1,20 +1,40 @@
 <!DOCTYPE html>
+
+<!-- 
+##################################################
+Registration Page			 Last Update: 04/07/18
+--------------------------------------------------	
+
+
+##################################################
+-->
+
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<Title> Team Kids - Registration </Title>
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
 	</head>
-	<body>
-		<div class="header">
-			<?php include("../php/topnav.php"); ?>
-		</div>
-		<div class="info">
-			<?php include("../php/sidenav.php"); ?>
-			<div class="content">
-				<div id = "container">
-					<h2> REGISTRATION PAGE </h2>
-				</div>
-			</div>
-		</div>
-	</body>
 	
+	<body>
+		<!-- Space for the Top Bar - Currently set at 50 px by 100% width -->
+		<div class="header">
+			<?php include("./php/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
+		</div>
+		
+		<!-- Space for the space below the Top Bar - Contains Side-bar and content container -->	
+		<div class="info">
+			<!-- Section for Content (Margin is set to line up content with the sidebar showing by default)-->
+			<?php include("./php/sidenav.php"); ?> <!-- PHP Call for Side-Bar -->
+		
+			<section id="content" style="margin-left:200px">
+				<!-- Actual Container for data content -->
+				<div id="container">
+					<h2> REGISTRATION </h2>
+				</div>
+			</section>
+		</div>
+
+		<!-- JQuery Calls - Keep at the bottom to minimize slow-down on page load -->
+		<script src="js/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
+	</body>
 </html> 

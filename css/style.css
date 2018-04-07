@@ -14,38 +14,30 @@ body {
   height: 50px;
   background-color: #041c2c;
   position: fixed;
-  top:-1px;
+  top:0;
   left:0;
   right:0;
 }
 
-.topNav *{
-  color: #fff;
-}
+.left {}
+.right {}
 
 .topNav .left {
   float: left;
 }
 
-.left .button {
-	border: 0;
-	background: none;
-	box-shadow: none;
-	border-radius: 0px;
+.topNav .left .button {
 	float: left;
 	padding: 5px 6px;
-	color:white;
-	text-decoration: none;
 	background-color: #A6192E;
 }
 
-.right a {
-	color:white;
-	text-decoration: none;
-	font-weight: bold;
-	padding: 0;
-	top: 0;
-	margin: 0;
+.bar {
+	width: 18px;
+    height: 3px;
+    background-color: white;
+    margin: 2px 0;
+	border-radius: 25px;
 }
 
 .topNav .center {
@@ -59,10 +51,20 @@ body {
   right: 0;
 }
 
+.topNav .right a {
+	color:white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.rightbutton {
+	height: 38px;
+	padding: 8px 5px 4px;
+	background-color: #A6192E;
+}
+
 .content {
   margin-left: 200px;
-  min-height: 200px;
-  background-color: gray;
 }
 
 .sidenav{
@@ -71,7 +73,7 @@ body {
 	width: 200px;
 	background-color:#041c2c;
 	position:fixed!important;
-	z-index:2;
+	z-index:1;
 	overflow:auto;
 }
 
@@ -85,6 +87,7 @@ body {
 		padding: 10px 0px;
 		text-decoration: none;
 		font-size:17px;	
+		margin-top: 20px;
 }
 
 .sidenav a:hover {
@@ -97,22 +100,31 @@ body {
 	height:100%;
 	width: 100%;
 	color: white;
-	background-color: gray;
+	background-color: black;
 }
 
-.bar {
-	width: 18px;
-    height: 3px;
-    background-color: white;
-    margin: 2px 0;
-	border-radius: 25px;
+.input {
+	width: 300px;
+	min-height: 50px;
+	display:block;
+	margin: auto;
+	padding-bottom: 5px;
 }
 
-.rightbutton {
-	height: 38px;
-	padding: 8px 5px 4px;
+.input label{
 	display: block;
-	background-color: #A6192E;
+	float: left;
+	width: 100px;
+	left:auto;
+	right:auto;
+	padding-right: 2px;
+	;
+	text-align: right;
+}
+
+.links {
+	color: white;
+	display: block;
 }
 
 #login {
@@ -123,7 +135,6 @@ body {
 	color: white;
 	background-color: #041c2c;
 }
-
 
 #signupWindow {
 	transform: translatey(200px);
@@ -138,9 +149,8 @@ body {
 	max-width:500px;
 	margin: auto;
 	border: 4px solid #A6192E;
-	background-image: "/images/black-felt.png";
+	background-image: "./images/black-felt.png";
 }
-
 
 #logo {
 	padding-top: 10px;
@@ -152,19 +162,13 @@ body {
 	height: 25px;
 	opacity: 0.7;
 }
+
 #submitArrow:hover {
 	opacity: 1.0;
 }
+
 #userId, #userPW {
 	align-text: left;
-}
-
-.input {
-	width: 300px;
-	min-height: 50px;
-	display:block;
-	margin: auto;
-	padding-bottom: 5px;
 }
 
 #inputFields {
@@ -173,20 +177,3 @@ body {
 	min-height: 50px;
 	width: 300px;
 }
-
-#content2 {
-	padding: 10px;
-	background-color: tan;
-}
-
-.input label{
-	display: block;
-	float: left;
-	width: 100px;
-	left:auto;
-	right:auto;
-	padding-right: 2px;
-	;
-	text-align: right;
-}
-
