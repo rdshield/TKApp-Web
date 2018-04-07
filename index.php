@@ -43,6 +43,7 @@ When pulling in the page via AJAX, the "container" portion will be stripped to a
 
 		<!-- JQuery Calls - Keep at the bottom to minimize slow-down on page load -->
 		<script src="js/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
+		<script src="js/navigation.js"> </script> 		<!-- Navigation via AJAX -->
 		<script src="js/sidebar.js"></script> 			<!-- Logic for Sidebar Toggle -->
 	</body>
 </html> 

@@ -35,5 +35,6 @@ Primary Login Screen for TKApp
 		
 		<!-- JQuery Calls - Keep at the bottom to minimize slow-down on page load -->
 		<script src="js/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
+		<script src="js/navigation.js"> </script> <!-- Navigation via AJAX -->
 	</body>
 </html> 

@@ -29,6 +29,9 @@ Registration Page			 Last Update: 04/07/18
 			<section id="content" style="margin-left:200px">
 				<!-- Actual Container for data content -->
 				<div id="container">
+					<div class='links'>
+						<a href="login.php">	<span>Already have a Login?</span> 	</a>
+					</div>
 					<h2> REGISTRATION </h2>
 				</div>
 			</section>
