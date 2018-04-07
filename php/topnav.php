@@ -16,7 +16,7 @@ Top Navigation Bar			 Last Update: 04/07/18
 	<div class="nav-element left">
 		<nav>
 			<!-- Button for Toggling Sidebar-View -->
-			<div id="sbToggle" class="button" > <!-- Display currently hidden, as not being used -->
+			<div id="sbToggle" class="button" style="display:none" > <!-- Display currently hidden, as not being used -->
 				<div style="margin:13px 10px;">
 					<div class="bar"></div>
 					<div class="bar"></div>
