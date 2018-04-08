@@ -19,7 +19,7 @@ Primary Login Screen for TKApp
 	<body>
 		<!-- Space for the Top Bar - Currently set at 50 px by 100% width -->
 		<div class="header">
-			<?php include("./php/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
+			<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
 		</div>
 		
 		<!-- Space for the space below the Top Bar - Contains Side-bar and content container -->
@@ -28,7 +28,7 @@ Primary Login Screen for TKApp
 			<section id="content">
 				<!-- Actual Container for data content -->
 				<div id="container">
-					<?php include("./php/login.php"); ?> <!-- PHP Call for Login Box -->
+					<?php include("./php/part/signin.php"); ?> <!-- PHP Call for Login Box -->
 				</div>
 			</section>
 		</div>

@@ -1,4 +1,5 @@
 $('#submit').on('click',function() {
+	console.log("HELLO");
 	var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 
 	AWSCognito.config.region = 'us-west-2';

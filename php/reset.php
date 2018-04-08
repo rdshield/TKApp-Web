@@ -2,7 +2,7 @@
 
 <!-- 
 ##################################################
-Reports Page				 Last Update: 04/07/18
+Registration Page			 Last Update: 04/07/18
 --------------------------------------------------	
 
 ##################################################
@@ -10,7 +10,7 @@ Reports Page				 Last Update: 04/07/18
 
 <html>
 	<head>
-		<Title> Team Kids App </Title>
+		<Title> Team Kids - Password Reset </Title>
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
 	</head>
 	
@@ -28,13 +28,12 @@ Reports Page				 Last Update: 04/07/18
 			<section id="content" style="margin-left:200px">
 				<!-- Actual Container for data content -->
 				<div id="container">
-					<h2> REPORT PAGE </h2>
+					<h2> PASSWORD RESET </h2>
 				</div>
 			</section>
 		</div>
 
 		<!-- JQuery Calls - Keep at the bottom to minimize slow-down on page load -->
 		<script src="js/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
-		<script src="js/sidebar.js"></script> 			<!-- Logic for Sidebar Toggle -->
 	</body>
 </html> 

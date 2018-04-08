@@ -10,6 +10,7 @@ $('#sidebar a').on('click', function(e) {
 })
 
 $('.links a').on('click', function(e) {
+	console.log
 	e.preventDefault();
 	var url = this.href;
 	

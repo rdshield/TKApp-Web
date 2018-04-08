@@ -31,9 +31,9 @@ Section - Login Window		 Last Update: 04/07/18
 	
 	<!--Links to other Unauthenticated Pages -->
 	<div class='links'>
-		<a href="register.php">	<span>Register a New Account</span> 	</a>
+		<a href="./php/register.php">	<span>Register a New Account</span> 	</a>
 		<p>  </p>
-		<a href="reset.php">	<span>Forgot Your Password?</span> 	</a>
+		<a href="./php/reset.php">	<span>Forgot Your Password?</span> 	</a>
 		<p>  </p>
 	</div>
 </div>

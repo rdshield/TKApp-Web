@@ -25,13 +25,13 @@ When pulling in the page via AJAX, the "container" portion will be stripped to a
 	<body>
 		<!-- Space for the Top Bar - Currently set at 50 px by 100% width -->
 		<div class="header">
-			<?php include("./php/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
+			<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
 		</div>
 		
 		<!-- Space for the space below the Top Bar - Contains Side-bar and content container -->	
 		<div class="info">
 			<!-- Section for Content (Margin is set to line up content with the sidebar showing by default)-->
-			<?php include("./php/sidenav.php"); ?> <!-- PHP Call for Side-Bar -->
+			<?php include("./php/part/sidenav.php"); ?> <!-- PHP Call for Side-Bar -->
 		
 			<section id="content" style="margin-left:200px">
 				<!-- Actual Container for data content -->
