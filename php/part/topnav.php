@@ -40,10 +40,16 @@ Top Navigation Bar			 Last Update: 04/07/18
 				<span>Login</span>
 			</a>
 		</div>
-				<!-- Temporary Button to get back to index page - Development - REMOVE AT Production -->
+				<!-- Temporary Buttons to get back to index page - Development - REMOVE AT Production -->
 		<div class="button" style ="background-color:green" >
 			<a href="index.php">	
 				<span>Home</span>
+			</a>
+		</div>
+		
+		<div class="button" style ="background-color:cyan" >
+			<a href="testlogin.html">	
+				<span>Login Test</span>
 			</a>
 		</div>
 
