@@ -4,4 +4,4 @@
     EventEmitter.emit('LoginForm:mount')
   })
 
-})(window.ready, window.EventEmitter)
+})(document.ready, document.EventEmitter)

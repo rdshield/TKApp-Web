@@ -49,7 +49,7 @@ Top Navigation Bar			 Last Update: 04/07/18
 		
 		<div class="button" style ="background-color:blue" >
 			<a href="testlogin.html">	
-				<span>Login Test</span>
+				<span>Test</span>
 			</a>
 		</div>
 

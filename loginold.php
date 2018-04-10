@@ -8,7 +8,6 @@
 	</head>
 	
 	<body>
-		<?php include("./php/part/templates.php"); ?>
 		<!-- Space for the Top Bar - Currently set at 50 px by 100% width -->
 		<div class="header">
 			<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
@@ -19,13 +18,15 @@
 			<!-- Section for Content - No Side bar for Login Screen-->			
 			<section id="content">
 				<!-- Actual Container for data content -->
-				<div id="root"> </div>
+				<div id="container">
+					<?php include("./php/part/signin.php"); ?> <!-- PHP Call for Login Box -->
+				</div>
 			</section>
 		</div>
 		
 		<!-- Scripts -->
-		<script src="/js/login/lib/aws-cognito-sdk.min.js"></script>
 		<script src="/js/login/lib/amazon-cognito-identity.min.js"></script>
+		<script src="/js/login/lib/aws-cognito-sdk.min.js"></script>
 		<script src="/js/login/config.js"></script>
 		<script src="/js/login/utils.js"></script>
 		<script src="/js/login/EventEmmiter.js"></script>

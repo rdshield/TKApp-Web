@@ -19,9 +19,9 @@ Section - Login Window		 Last Update: 04/07/18
 		<div class="input">
 			<!-- Input Fields - Need to figure out how to secure them -->
 			<div id="inputFields">
-				<label for="uname"><b>User Name:</b></label> <input id='userID' type="text" placeholder="Username" name="uname" required>
+				<label for="uname"><b>User Name:</b></label> <input class='userIn' id='userID' type="text" placeholder="  Username" name="uname" required>
 				<p></p>
-				<label for="psw"><b>Password:  </b></label>	<input id='userPW' type="password" placeholder="Password" name="psw" required>					
+				<label for="psw"><b>Password:  </b></label>	<input class='userIn' id='userPW' type="password" placeholder="  Password" name="psw" required>					
 			</div>
 		</div>
 	</form>
