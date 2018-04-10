@@ -16,7 +16,7 @@
 							<label class="Control__label" for="password">Password</label>
 							<input class="Control__input" name="password" type="password" placeholder="Password" />
 						</div>
-						<input class="Control__input" type="submit" value="Let's go" />
+						<input class="Control__input" type="submit" value="Login" />
 						<a class="Control__link" href="#signup"> Create a New Account </a>
 					</form>
 				</div>
