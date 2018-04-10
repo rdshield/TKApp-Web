@@ -143,10 +143,6 @@ body {
   background-color: beige;
 }
 
-#container {
-
-}
-
 #login {
 	display: block;
 	align-items: center;
@@ -159,12 +155,11 @@ body {
 #signupWindow {
 	transform: translatey(200px);
 	text-align: center;
-	width:33%;
-	height:33%;
+	width:40%;
 	background-color: tan;
 	color: white;
 	display:block;
-	min-height:300px;
+	min-height:450px;
 	min-width:350px;
 	max-width:500px;
 	margin: auto;

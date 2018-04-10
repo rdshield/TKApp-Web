@@ -1,28 +1,30 @@
 		<!-- Templates -->
 		  <script type="text/html" id="LoginForm">
 			<div class="LoginForm">
-			  <div id="logo">
-				<img src="./images/tklogo.png" style=" vertical-align: middle;" height=100px>
-				<h2> Application Login </h2>
-			  </div>
-			  
-			  <form class="form">
-				<div class="Control">
-				  <label class="Control__label" for="email">Email</label>
-				  <input class="Control__input" name="email" type="text" placeholder="Email" />
+				
+				<div id="signupWindow">
+					<div id="logo">
+						<img src="./images/tklogo.png" style=" vertical-align: middle;" height=100px>
+						<h2> Application Login </h2>
+					</div>
+					<form class="form">
+						<div class="Control">
+							<label class="Control__label" for="email">Email</label>
+							<input class="Control__input" name="email" type="text" placeholder="Email" />
+						</div>
+						<div class="Control">
+							<label class="Control__label" for="password">Password</label>
+							<input class="Control__input" name="password" type="password" placeholder="Password" />
+						</div>
+						<input class="Control__input" type="submit" value="Let's go" />
+						<a class="Control__link" href="#signup"> Create a New Account </a>
+					</form>
 				</div>
-				<div class="Control">
-				  <label class="Control__label" for="password">Password</label>
-				  <input class="Control__input" name="password" type="password" placeholder="Password" />
-				</div>
-				<input class="Control__input" type="submit" value="Let's go" />
-				<a class="Control__link" href="#signup"> Create a New Account </a>
-			  </form>
 			</div>
 		  </script>
 		  <script type="text/html" id="SignupForm">
 			<div id="signupWindow">
-			  <div class="title">Sign Up</div>
+			  <div class="title"><h2>Sign Up</h2></div>
 			  <form class="form">
 				<div class="Control">
 				  <label class="Control__label" for="email">Email</label>

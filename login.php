@@ -4,7 +4,11 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<Title> Team Kids Login </Title>
-		<link rel="stylesheet" type="text/css" href="./css/style.css">
+		<link rel="stylesheet" type="text/css" href="./css/style.css">		
+  	    <link rel="stylesheet" media="all" href="/css/login/Control.css">
+		<link rel="stylesheet" media="all" href="/css/login/Alert.css">
+		<link rel="stylesheet" media="all" href="/css/login/Button.css">
+		<link rel="stylesheet" media="all" href="/css/login/Well.css">
 	</head>
 	
 	<body>

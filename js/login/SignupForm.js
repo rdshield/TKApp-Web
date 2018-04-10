@@ -56,7 +56,7 @@
       stopLoading()
       addAlert({
         type: 'success',
-        message: 'Usuario creado correctamente.',
+        message: 'Your account has been created. Please check your email to verify your account.',
       })
       console.log(result)
     })

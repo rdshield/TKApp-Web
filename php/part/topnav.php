@@ -48,8 +48,14 @@ Top Navigation Bar			 Last Update: 04/07/18
 		</div>
 		
 		<div class="button" style ="background-color:blue" >
-			<a href="testlogin.html">	
+			<a href="testlogin.php">	
 				<span>Test</span>
+			</a>
+		</div>
+		
+		<div class="button" style ="background-color:purple" >
+			<a href="loginold.php">	
+				<span>Old</span>
 			</a>
 		</div>
 
