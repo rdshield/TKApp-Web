@@ -5,7 +5,7 @@
 				<div id="signupWindow">
 					<div id="logo">
 						<img src="./images/tklogo.png" style=" vertical-align: middle;" height=100px>
-						<h2> Application Login </h2>
+						<div class="title"><h2> Application Login </h2></div>
 					</div>
 					<form class="form">
 						<div class="Control">

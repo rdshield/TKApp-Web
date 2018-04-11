@@ -48,6 +48,11 @@
     EventEmitter.emit('LoginForm:unmount');
     EventEmitter.emit('Welcome:mount');
   }
+ 
+  function redirectToHomePage() {
+    EventEmitter.emit('LoginForm:unmount');
+    window.location.replace("./Home.php","Home")
+  }
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -97,7 +102,7 @@
         addAlert(message);
       }
     })
-    .catch(redirectToWelcomePage)
+    .catch(redirectToHomePage)
   })
 
   EventEmitter.on('LoginForm:unmount', function() {

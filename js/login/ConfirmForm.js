@@ -38,7 +38,7 @@
     $close && $close.removeEventListener('click', handleClose);
   }
 
-  function handelResendCode(event) {
+  function handleResendCode(event) {
     event.preventDefault();
     Cognito.resendConfirmationCode()
     .then(function(result) {
@@ -109,19 +109,22 @@
         type: 'warning',
         message: 'You must confirm your email address.',
       })
-      $resend.addEventListener('click', handelResendCode);
+      $resend.addEventListener('click', handleResendCode);
       $link.addEventListener('click', handleLoginLink);
       $form.addEventListener('submit', handleSubmit);
       $root.appendChild($container);
     })
     .catch(function() {
+	  console.log("A");
       EventEmitter.emit('ConfirmForm:unmount');
+	  console.log("B");
       EventEmitter.emit('Welcome:mount');
+	  console.log("C");
     })
   })
 
   EventEmitter.on('ConfirmForm:unmount', function() {
-    $resend.removeEventListener('click', handelResendCode);
+    $resend.removeEventListener('click', handleResendCode);
     $link.removeEventListener('click', handleLoginLink);
     $form.removeEventListener('submit', handleSubmit);
     $container.remove();

@@ -41,24 +41,35 @@
     EventEmitter.emit('SignupForm:unmount');
     EventEmitter.emit('LoginForm:mount');
   }
+  
+  function redirectToLoginPage() {
+    EventEmitter.emit('SignupForm:unmount');
+    EventEmitter.emit('LoginForm:mount');
+  }
 
   function handleSubmit(event) {
     var $inputs = $container.getElementsByTagName('input'),
       attributes;
     event.preventDefault()
     if ($inputs.password.value !== $inputs.repeatPassword.value) {
+	  addAlert({
+        type: 'error',
+        message: 'Passwords do not match!',
+      })
       console.log('Passwords do not match!')
       return;
     }
     startLoading()
     Cognito.signUp($inputs.email.value, $inputs.password.value)
     .then(function(result) {
-      stopLoading()
-      addAlert({
+      stopLoading();
+      console.log(result);
+	  addAlert({
         type: 'success',
-        message: 'Your account has been created. Please check your email to verify your account.',
+        message: 'Your request has been received. Check your email for a validation key. Redirecting back to login...',
       })
-      console.log(result)
+	  setTimeout(redirectToLoginPage, 3000);
+	  
     })
     .catch(function(error) {
       stopLoading()
