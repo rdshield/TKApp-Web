@@ -5,10 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<Title> Team Kids Login </Title>
 		<link rel="stylesheet" type="text/css" href="./css/style.css">		
-  	    <link rel="stylesheet" media="all" href="/css/login/Control.css">
-		<link rel="stylesheet" media="all" href="/css/login/Alert.css">
-		<link rel="stylesheet" media="all" href="/css/login/Button.css">
-		<link rel="stylesheet" media="all" href="/css/login/Well.css">
+  	    <link rel="stylesheet" media="all" href="/css/Control.css">
+		<link rel="stylesheet" media="all" href="/css/Alert.css">
+		<link rel="stylesheet" media="all" href="/css/Button.css">
+		<link rel="stylesheet" media="all" href="/css/Well.css">
 	</head>
 	
 	<body>
@@ -34,9 +34,9 @@
 		<script src="/js/utils.js"></script>
 		<script src="/js/EventEmmiter.js"></script>
 		<script src="/js/Cognito.js"></script>
-		<script src="/js/LoginForm.js"></script>
-		<script src="/js/ConfirmForm.js"></script>
-		<script src="/js/SignupForm.js"></script>
+		<script src="/js/pages/LoginForm.js"></script>
+		<script src="/js/pages/ConfirmForm.js"></script>
+		<script src="/js/pages/SignupForm.js"></script>
 		<script src="/js/Welcome.js"></script>
 		<script src="/js/index.js"></script>
 			
