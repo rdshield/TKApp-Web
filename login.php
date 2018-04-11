@@ -28,17 +28,17 @@
 		</div>
 		
 		<!-- Scripts -->
-		<script src="/js/login/lib/aws-cognito-sdk.min.js"></script>
-		<script src="/js/login/lib/amazon-cognito-identity.min.js"></script>
-		<script src="/js/login/config.js"></script>
-		<script src="/js/login/utils.js"></script>
-		<script src="/js/login/EventEmmiter.js"></script>
-		<script src="/js/login/Cognito.js"></script>
-		<script src="/js/login/LoginForm.js"></script>
-		<script src="/js/login/ConfirmForm.js"></script>
-		<script src="/js/login/SignupForm.js"></script>
-		<script src="/js/login/Welcome.js"></script>
-		<script src="/js/login/index.js"></script>
+		<script src="/js/lib/aws-cognito-sdk.min.js"></script>
+		<script src="/js/lib/amazon-cognito-identity.min.js"></script>
+		<script src="/js/config.js"></script>
+		<script src="/js/utils.js"></script>
+		<script src="/js/EventEmmiter.js"></script>
+		<script src="/js/Cognito.js"></script>
+		<script src="/js/LoginForm.js"></script>
+		<script src="/js/ConfirmForm.js"></script>
+		<script src="/js/SignupForm.js"></script>
+		<script src="/js/Welcome.js"></script>
+		<script src="/js/index.js"></script>
 			
 		<!-- JQuery Calls - Keep at the bottom to minimize slow-down on page load -->
 		<script src="js/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
