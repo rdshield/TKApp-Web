@@ -22,7 +22,7 @@
 
   function stopLoading() {
     $button.disabled = false;
-    $button.value = 'Here you go.'
+    $button.value = 'Confirm';
   }
 
   function addAlert(options) {
@@ -115,11 +115,8 @@
       $root.appendChild($container);
     })
     .catch(function() {
-	  console.log("A");
       EventEmitter.emit('ConfirmForm:unmount');
-	  console.log("B");
       EventEmitter.emit('Welcome:mount');
-	  console.log("C");
     })
   })
 

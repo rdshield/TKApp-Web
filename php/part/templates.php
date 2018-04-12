@@ -1,7 +1,9 @@
 		<!-- Templates -->
 		  <script type="text/html" id="LoginForm">
 			<div class="LoginForm">
-				
+				<div class="header">
+					<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
+				</div>
 				<div id="signupWindow">
 					<div id="logo">
 						<img src="./images/tklogo.png" style=" vertical-align: middle;" height=100px>
@@ -22,7 +24,12 @@
 				</div>
 			</div>
 		  </script>
+		  
+		  
 		  <script type="text/html" id="SignupForm">
+			<div class="header">
+				<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
+			</div>
 			<div id="signupWindow">
 			  <div class="title"><h2>Sign Up</h2></div>
 			  <form class="form">
@@ -47,14 +54,21 @@
 			  </form>
 			</div>
 		  </script>
+		  
+		  
 		  <script type="text/html" id="Alert">
 			<div class="Alert Alert__<%= type %>">
 			  <span class="Alert__close"></span>
 			  <%= message %>
 			</div>
 		  </script>
+		  
+		  
 		  <script type="text/html" id="ConfirmForm">
 			<div class="ConfirmForm">
+			<div class="header">
+					<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
+			</div>
 			  <div class="title">Confirm email</div>
 			  <form class="form">
 				<div class="Control">
@@ -72,6 +86,8 @@
 			  </form>
 			</div>
 		  </script>
+		  
+		  
 		  <script type="text/html" id="Welcome">
 			<div class="Well Well__info">
 			  <div class="title">Welcome <%= email %></div>
