@@ -25,7 +25,7 @@
 		<!-- Scripts -->
 		<script src="/js/lib/aws-cognito-sdk.min.js"></script>
 		<script src="/js/lib/amazon-cognito-identity.min.js"></script>
-		<script src="js/lib/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
+		<script src="/js/lib/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
 		<script src="/js/config.js"></script>
 		<script src="/js/utils.js"></script>
 		<script src="/js/EventEmmiter.js"></script>
