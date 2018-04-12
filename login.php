@@ -13,11 +13,6 @@
 	
 	<body>
 		<?php include("./php/part/templates.php"); ?>
-		<!-- Space for the Top Bar - Currently set at 50 px by 100% width -->
-		<div class="header">
-			<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
-		</div>
-		
 		<!-- Space for the space below the Top Bar - Contains Side-bar and content container -->
 		<div class="info">
 			<!-- Section for Content - No Side bar for Login Screen-->			
@@ -30,6 +25,7 @@
 		<!-- Scripts -->
 		<script src="/js/lib/aws-cognito-sdk.min.js"></script>
 		<script src="/js/lib/amazon-cognito-identity.min.js"></script>
+		<script src="js/lib/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
 		<script src="/js/config.js"></script>
 		<script src="/js/utils.js"></script>
 		<script src="/js/EventEmmiter.js"></script>
@@ -39,9 +35,6 @@
 		<script src="/js/pages/SignupForm.js"></script>
 		<script src="/js/Welcome.js"></script>
 		<script src="/js/index.js"></script>
-			
-		<!-- JQuery Calls - Keep at the bottom to minimize slow-down on page load -->
-		<script src="js/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
 		<script src="js/navigation.js"> </script> <!-- Navigation via AJAX -->
 	</body>
 </html> 
