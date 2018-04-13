@@ -24,7 +24,6 @@ if (strpos(currPageName(),"login") !== false) { ?>
 ?>
 	<!-- Setup to Sidebar with the following options -->
 	<div class="sidenav" id="sidebar" style="display:none"> <!-- Display Style sets the visibility by default - Required to avoid loading issues for sidebar -->
-		<a href="/php/register.php"> Register </a>
 		<a href="/php/admin.php"> Admin </a>
 		<a href="/php/report.php"> Report </a>
 	</div>

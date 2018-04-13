@@ -87,10 +87,10 @@
 			</div>
 		  </script>
 		  
-		  
-		  <script type="text/html" id="Welcome">
-			<div class="Well Well__info">
-			  <div class="title">Welcome <%= email %></div>
-			  <button type="button" class="Button">Bye!</button>
+		  <script type="text/html" id="topNavButton">
+			<div class="button">				
+				<a href="<%= link %>">	
+					<span><%= name %></span>
+				</a>
 			</div>
 		  </script>

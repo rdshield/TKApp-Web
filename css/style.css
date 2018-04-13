@@ -1,3 +1,22 @@
+:root {
+  --tkred:   #A6192E;
+  --tkdblue: #041c2c;
+  --tkgreen: #5DB860;
+  --grey: #bdbdc7;
+  --light-grey: rgba(255, 255, 255, .5);
+  --very-light-grey: rgba(255,255,255, .35);
+  --dark-grey: #444;
+  --almost-black: rgba(0,0,0, .55);
+  --light-blue: #08c;
+  --light-green: rgba(0,246,255,.5);
+  --dark-blue: #0a5378;
+  --red: #FF595E;
+  --green: #8AC926;
+  --orange: #FFCA3A;
+  --blue: #1982C4;
+  --purple: #6A4C93;
+}
+
 html, body {
 	height: 100%;
 	margin:0;
@@ -11,7 +30,7 @@ body {
 
 .header {
   height: 50px;
-  background-color: #041c2c;
+  background-color: var(--tkdblue);
   position: fixed;
   top:0;
   left:0;
@@ -39,7 +58,7 @@ body {
 .topNav .left .button {
 	float: left;
 	padding: 5px 6px;
-	background-color: #A6192E;
+	background-color: var(--tkred);
 }
 
 .bar {
@@ -67,7 +86,7 @@ body {
 	height: 35px;
 	padding: 15px 20px 0 20px ;
 	padding-bottom: -5px;
-	background-color: #A6192E;
+	background-color: var(--tkred);
 	margin-left: 5px;
 	margin-right: 5px;
 }
@@ -80,7 +99,7 @@ body {
 	display: 'block';
 	height: 100%;
 	width: 200px;
-	background-color:#041c2c;
+	background-color:var(--tkdblue);
 	position:fixed!important;
 	z-index:2;
 	overflow:auto;
@@ -102,7 +121,7 @@ body {
 .sidenav a:hover {
 		color:black;
 		font-size:17px;
-		background-color:#A6192E;	
+		background-color:var(--tkred);	
 }
 
 .info {
@@ -148,7 +167,7 @@ body {
 	width: 400px;
 	height: 300px;
 	color: white;
-	background-color: #041c2c;
+	background-color: var(--tkdblue);
 }
 
 #signupWindow {
@@ -162,7 +181,7 @@ body {
 	min-width:350px;
 	max-width:500px;
 	margin: auto;
-	border: 4px solid #A6192E;
+	border: 4px solid var(--tkred);
 	border-radius: 4em;
 }
 

@@ -9,11 +9,11 @@
   	    <link rel="stylesheet" media="all" href="/css/Control.css">
 		<link rel="stylesheet" media="all" href="/css/Alert.css">
 		<link rel="stylesheet" media="all" href="/css/Button.css">
-		<link rel="stylesheet" media="all" href="/css/Well.css">
 	</head>
 	
 	<body>
 		<?php include("./php/part/templates.php"); ?>
+		<?php include("./php/part/topnav.php"); ?>
 		<!-- Space for the space below the Top Bar - Contains Side-bar and content container -->
 		<div class="info">
 			<!-- Section for Content - No Side bar for Login Screen-->			
@@ -34,7 +34,6 @@
 		<script src="/js/pages/LoginForm.js"></script>
 		<script src="/js/pages/ConfirmForm.js"></script>
 		<script src="/js/pages/SignupForm.js"></script>
-		<script src="/js/Welcome.js"></script>
 		<script src="/js/index.js"></script>
 		<script src="js/navigation.js"> </script> <!-- Navigation via AJAX -->
 	</body>
