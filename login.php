@@ -13,7 +13,11 @@
 	
 	<body>
 		<?php include("./php/part/templates.php"); ?>
-		<?php include("./php/part/topnav.php"); ?>
+		
+		<div class="header">
+			<!-- PHP Call for Top Navigation Bar -->
+			<?php include("./php/part/topnav.php"); ?> 
+		</div>
 		<!-- Space for the space below the Top Bar - Contains Side-bar and content container -->
 		<div class="info">
 			<!-- Section for Content - No Side bar for Login Screen-->			

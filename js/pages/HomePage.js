@@ -1,5 +1,5 @@
 (function(EventEmitter, tmpl, Cognito){
-  /* LoginForm */
+  /* HomePage */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
     $title,
@@ -37,17 +37,6 @@
     $close && $close.removeEventListener('click', handleClose);
   }
 
-  function handleSignupLink(event) {
-    event.preventDefault();
-    EventEmitter.emit('LoginForm:unmount')
-    EventEmitter.emit('HomePage:mount')
-  }
-
-  function redirectToHomePage() {
-    EventEmitter.emit('LoginForm:unmount');
-    window.location.replace("./Home.php","Home")
-  }
-
   function handleSubmit(event) {
     event.preventDefault()
     var $inputs = $container.getElementsByTagName('input');
@@ -82,10 +71,10 @@
     })
   }
 
-  EventEmitter.on('LoginForm:mount', function(message) {
+  EventEmitter.on('HomePage:mount', function(message) {
     Cognito.isNotAuthenticated()
     .then(function() {
-      $container.innerHTML = tmpl('LoginForm', {})
+      $container.innerHTML = tmpl('HomePage', {})
       $link = $container.getElementsByClassName('Control__link')[0];
       $form = $container.getElementsByClassName('form')[0];
       $title = $container.getElementsByClassName('title')[0];
@@ -96,10 +85,10 @@
         addAlert(message);
       }
     })
-    .catch(redirectToHomePage)
+    .catch(redirectToWelcomePage)
   })
 
-  EventEmitter.on('LoginForm:unmount', function() {
+  EventEmitter.on('HomePage:unmount', function() {
     $link && $link.removeEventListener('click', handleSignupLink);
     $form && $form.removeEventListener('submit', handleSubmit);
     $container.remove();

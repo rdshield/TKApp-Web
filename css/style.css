@@ -91,6 +91,24 @@ body {
 	margin-right: 5px;
 }
 
+.topNav .right .button2 {
+	font-family: "Garamond", Gadget, sans-serif;
+	float:right;
+	color: white;
+	background-color: var(--tkred);
+	padding: 16px 10px;
+	text-align:center;
+	border: none;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 16px;
+	margin-left: 5px;
+}
+
+.topNav .right .button2 :hover {
+	color: black;
+}
+
 .topNav .right .button :hover {
 	color: black;
 }

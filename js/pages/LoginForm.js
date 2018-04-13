@@ -37,16 +37,26 @@
     $close && $close.removeEventListener('click', handleClose);
   }
 
+  function addTNButton(name, event) {  
+	document.getElementById('topNavRight').insertAdjacentHTML('beforeend', tmpl('topNavButton', {name}));
+	$button=document.getElementById(name);
+	$button.addEventListener('click', event);
+  }
+    
   function handleSignupLink(event) {
     event.preventDefault();
     EventEmitter.emit('LoginForm:unmount')
     EventEmitter.emit('SignupForm:mount')
   }
 
-  function redirectToWelcomePage() {
-	
+  function handleLoginLink() {
     EventEmitter.emit('LoginForm:unmount');
-    EventEmitter.emit('Welcome:mount');
+    EventEmitter.emit('LoginForm:mount');
+  }
+  
+  function handleHomePage() {
+    EventEmitter.emit('LoginForm:unmount');
+    EventEmitter.emit('Home:mount');
   }
 
   function handleSubmit(event) {
@@ -60,7 +70,7 @@
         type: 'success',
         message: 'Log in successful! Redirecting...'
       })
-      setTimeout(redirectToWelcomePage, 50)
+      setTimeout(redirectToHomePage, 50)
       console.log(result)
     })
     .catch(function(error) {
@@ -93,11 +103,14 @@
       $link.addEventListener('click', handleSignupLink);
       $form.addEventListener('submit', handleSubmit);
       $root.appendChild($container);
+	  addTNButton('Login', redirectToLoginPage);
+	  addTNButton('Home',  redirectToHomePage );
+	  
       if (message) {
         addAlert(message);
       }
     })
-    .catch(redirectToWelcomePage)
+    .catch(redirectToHomePage)
   })
 
   EventEmitter.on('LoginForm:unmount', function() {

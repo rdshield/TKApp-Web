@@ -1,9 +1,7 @@
 		<!-- Templates -->
 		  <script type="text/html" id="LoginForm">
 			<div class="LoginForm">
-				<div class="header">
-					<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
-				</div>
+				
 				<div id="signupWindow">
 					<div id="logo">
 						<img src="./images/tklogo.png" style=" vertical-align: middle;" height=100px>
@@ -24,8 +22,7 @@
 				</div>
 			</div>
 		  </script>
-		  
-		  
+ 
 		  <script type="text/html" id="SignupForm">
 			<div class="header">
 				<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
@@ -55,15 +52,6 @@
 			</div>
 		  </script>
 		  
-		  
-		  <script type="text/html" id="Alert">
-			<div class="Alert Alert__<%= type %>">
-			  <span class="Alert__close"></span>
-			  <%= message %>
-			</div>
-		  </script>
-		  
-		  
 		  <script type="text/html" id="ConfirmForm">
 			<div class="ConfirmForm">
 			<div class="header">
@@ -86,11 +74,37 @@
 			  </form>
 			</div>
 		  </script>
+
+		  <script type="text/html" id="HomePage>
+			<div class="HomePage">
+				<div class="header">
+					<?php include("./php/part/topnav.php"); ?> <!-- PHP Call for Top Navigation Bar -->
+				</div>
+				<div class="info">
+					<!-- Section for Content (Margin is set to line up content with the sidebar showing by default)-->
+					<?php include("./php/part/sidenav.php"); ?> <!-- PHP Call for Side-Bar -->
+					<section id="content" style="margin-left:200px">
+						<div class="title"></div>
+						<!-- Actual Container for data content -->
+						<div id="container">
+							MAIN PAGE
+						</div>
+					</section>
+				</div>
+			</div>
+		  </script>
+		  
+		  <script type="text/html" id="Alert">
+			<div class="Alert Alert__<%= type %>">
+			  <span class="Alert__close"></span>
+			  <%= message %>
+			</div>
+		  </script>
 		  
 		  <script type="text/html" id="topNavButton">
-			<div class="button">				
-				<a href="<%= link %>">	
-					<span><%= name %></span>
-				</a>
+			<button class="button2" id="<%= name %>" >	
+				<span><%= name %></span>
+			</button>
+
 			</div>
 		  </script>
