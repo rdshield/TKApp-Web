@@ -2,6 +2,8 @@
 
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
+	$tnLeft = document.getElementById('topNavLeft'),
+	$tnRight = document.getElementById('topNavRight'),
     $button,
     $link,
     $title,
@@ -35,22 +37,21 @@
   function handleClose(event) {
     event.target.parentNode.remove()
   }
+  
+  function redirectToLogin() {
+	EventEmitter.emit('SignupForm:unmount');
+    EventEmitter.emit('LoginForm:mount');
+  }
 
   function handleLoginLink(event) {
     event.preventDefault();
     EventEmitter.emit('SignupForm:unmount');
     EventEmitter.emit('LoginForm:mount');
   }
-  
-  function redirectToLoginPage() {
-    EventEmitter.emit('SignupForm:unmount');
-    EventEmitter.emit('LoginForm:mount');
-  }
 
   function handleSubmit(event) {
-    var $inputs = $container.getElementsByTagName('input'),
-      attributes;
-    event.preventDefault()
+	event.preventDefault()
+    var $inputs = $container.getElementsByTagName('input'), attributes;
     if ($inputs.password.value !== $inputs.repeatPassword.value) {
 	  addAlert({
         type: 'error',
@@ -68,11 +69,13 @@
         type: 'success',
         message: 'Your request has been received. Check your email for a validation key. Redirecting back to login...',
       })
-	  setTimeout(redirectToLoginPage, 3000);
-	  
+	  setTimeout(redirectToLogin, 3500);	  
     })
     .catch(function(error) {
-      stopLoading()
+	  $fills = $container.getElementsByClassName('Control__input');
+	  $fills[1].value='';
+	  $fills[2].value='';
+      stopLoading();
       addAlert({
         type: 'error',
         message: error.message,
@@ -85,11 +88,12 @@
     Cognito.isNotAuthenticated()
     .then(function() {
       $container.innerHTML = tmpl('SignupForm', {})
-      $link = $container.getElementsByClassName('Control__link')[0]
       $form = $container.getElementsByTagName('form')[0]
       $title = $container.getElementsByClassName('title')[0]
-      $link.addEventListener('click', handleLoginLink)
       $form.addEventListener('submit', handleSubmit)
+	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'b2Login', msg:'Back to Login' }) );
+	  $b = document.getElementById('topNav__b2Login');
+	  $b.addEventListener('click', handleLoginLink);
       $root.appendChild($container)
     })
     .catch(function() {
@@ -99,9 +103,13 @@
   })
 
   EventEmitter.on('SignupForm:unmount', function() {
-    $link.removeEventListener('click', handleLoginLink)
     $form.removeEventListener('submit', handleSubmit)
-    $container.remove()
+	$b = document.getElementById('topNav__b2Login');
+	$b && $b.removeEventListener('click', handleLoginLink);
+	while ($tnRight.firstChild) {
+		$tnRight.removeChild($tnRight.firstChild);
+	}
+    $container.remove();
   })
 
 })(

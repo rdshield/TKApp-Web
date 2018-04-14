@@ -2,6 +2,8 @@
   /* LoginForm */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
+	$tnLeft = document.getElementById('topNavLeft'),
+	$tnRight = document.getElementById('topNavRight'),
     $title,
     $close,
     $alert,
@@ -27,22 +29,27 @@
     $close.addEventListener('click', handleClose);
   }
 
-  function handleClose(event) {
-    event.target.parentNode.remove()
-  }
-
   function removeAlert() {
     $alert = $container.getElementsByClassName('Alert')[0];
     $alert && $alert.remove();
     $close && $close.removeEventListener('click', handleClose);
   }
 
-  function addTNButton(name, event) {  
-	document.getElementById('topNavRight').insertAdjacentHTML('beforeend', tmpl('topNavButton', {name}));
-	$button=document.getElementById(name);
-	$button.addEventListener('click', event);
+  function handleClose(event) {
+    event.target.parentNode.remove()
   }
-    
+  
+  function redirectToLogin() {
+	EventEmitter.emit('LoginForm:unmount');
+    EventEmitter.emit('LoginForm:mount');
+  }
+  
+  function redirectToHome() {
+	EventEmitter.emit('LoginForm:unmount');
+    EventEmitter.emit('HomeForm:mount');
+  }
+  
+  
   function handleSignupLink(event) {
     event.preventDefault();
     EventEmitter.emit('LoginForm:unmount')
@@ -54,7 +61,7 @@
     EventEmitter.emit('LoginForm:mount');
   }
   
-  function handleHomePage() {
+  function handleHomeLink() {
     EventEmitter.emit('LoginForm:unmount');
     EventEmitter.emit('Home:mount');
   }
@@ -70,10 +77,14 @@
         type: 'success',
         message: 'Log in successful! Redirecting...'
       })
-      setTimeout(redirectToHomePage, 50)
+      setTimeout(redirectToHome, 50) 
       console.log(result)
     })
+	
     .catch(function(error) {
+	  $fills = $container.getElementsByClassName('Control__input');
+	  $fills[0].value='';
+	  $fills[1].value='';
       stopLoading();
       console.log(error.message)
       // If the user needs to enter its confirmation code switch to the
@@ -92,7 +103,7 @@
       console.error(error)
     })
   }
-
+  
   EventEmitter.on('LoginForm:mount', function(message) {
     Cognito.isNotAuthenticated()
     .then(function() {
@@ -101,21 +112,36 @@
       $form = $container.getElementsByClassName('form')[0];
       $title = $container.getElementsByClassName('title')[0];
       $link.addEventListener('click', handleSignupLink);
-      $form.addEventListener('submit', handleSubmit);
+      $form.addEventListener('submit', handleSubmit);	  
+	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Login', msg:'Login' }));
+	  $b = document.getElementById('topNav__Login');
+	  $b.addEventListener('click', handleLoginLink);
+	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Home' , msg:'Home'  }));
+	  $c = document.getElementById('topNav__Home');
+	  $c.addEventListener('click', handleHomeLink);
       $root.appendChild($container);
-	  addTNButton('Login', redirectToLoginPage);
-	  addTNButton('Home',  redirectToHomePage );
-	  
+
       if (message) {
         addAlert(message);
       }
     })
-    .catch(redirectToHomePage)
+    .catch(redirectToHome)
   })
-
+ 
   EventEmitter.on('LoginForm:unmount', function() {
     $link && $link.removeEventListener('click', handleSignupLink);
     $form && $form.removeEventListener('submit', handleSubmit);
-    $container.remove();
+	$b = document.getElementById('topNav__Login');
+	$b && $b.removeEventListener('click', handleLoginLink);
+	$c = document.getElementById('topNav__Home');
+	$c && $c.removeEventListener('click', handleHomeLink);
+	while ($tnRight.firstChild) {
+		$tnRight.removeChild($tnRight.firstChild);
+	}
+	$container.remove();
   })
-})(window.EventEmitter, window.tmpl, window.Cognito)
+})(
+  window.EventEmitter, 
+  window.tmpl, 
+  window.Cognito
+)

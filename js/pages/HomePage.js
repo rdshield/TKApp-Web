@@ -2,6 +2,8 @@
   /* HomePage */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
+	$tnLeft = document.getElementById('topNavLeft'),
+	$tnRight = document.getElementById('topNavRight'),
     $title,
     $close,
     $alert,
@@ -29,6 +31,33 @@
 
   function handleClose(event) {
     event.target.parentNode.remove()
+  }
+  
+  function handleSignOut(event) {
+    event.preventDefault();
+    Cognito.signOut()
+    .then(function() {
+      addAlert({
+        type: 'success',
+        message: 'Logging out. Please wait...'
+      })
+      setTimeout(function() {
+        EventEmitter.emit('Welcome:unmount');
+        EventEmitter.emit('LoginForm:mount');
+      }, 3000)
+    })
+    .catch(function(error) {
+      addAlert({
+        type: 'error',
+        message: error.message,
+      })
+      console.error(error);
+    })
+  }
+  
+  function redirectToLogin(message) {
+    EventEmitter.emit('HomePage:unmount');
+    EventEmitter.emit('LoginForm:mount', message);
   }
 
   function removeAlert() {
@@ -72,7 +101,7 @@
   }
 
   EventEmitter.on('HomePage:mount', function(message) {
-    Cognito.isNotAuthenticated()
+    Cognito.isAuthenticated()
     .then(function() {
       $container.innerHTML = tmpl('HomePage', {})
       $link = $container.getElementsByClassName('Control__link')[0];
@@ -80,12 +109,16 @@
       $title = $container.getElementsByClassName('title')[0];
       $link.addEventListener('click', handleSignupLink);
       $form.addEventListener('submit', handleSubmit);
+	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Logout', msg:'Logout' }) );
+	  $b = document.getElementById('topNav__Logout');
+	  $b.addEventListener('click', HandleSignOut);
+      $root.appendChild($container);
       $root.appendChild($container);
       if (message) {
         addAlert(message);
       }
     })
-    .catch(redirectToWelcomePage)
+    .catch(redirectToLogin("Please login.")
   })
 
   EventEmitter.on('HomePage:unmount', function() {

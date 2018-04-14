@@ -2,16 +2,14 @@
   var email,
     $root = document.getElementById('root'),
     $container = document.createElement('div'),
+	$tnLeft = document.getElementById('topNavLeft'),
+	$tnRight = document.getElementById('topNavRight'),
     $alert,
     $button,
     $link,
     $form,
     $title,
     $close;
-
-  function handleClose(event) {
-    event.target.parentNode.remove()
-  }
 
   function startLoading() {
     removeAlert();
@@ -36,6 +34,10 @@
     $alert = $container.getElementsByClassName('Alert')[0];
     $alert && $alert.remove();
     $close && $close.removeEventListener('click', handleClose);
+  }
+  
+  function handleClose(event) {
+    event.target.parentNode.remove()
   }
 
   function handleResendCode(event) {
@@ -73,7 +75,7 @@
     startLoading();
     Cognito.confirm(email, $inputs.code.value)
     .then(function(result) {
-      //stopLoading();
+      stopLoading();
       addAlert({
         type: 'success',
         message: 'Email confirmation done. Redirecting',
@@ -83,7 +85,7 @@
           type: 'info',
           message: 'Please re-enter your credentials.'
         })
-      }, 3000);
+      }, 2500);
       console.log(result);
     })
     .catch(function(error) {
@@ -95,14 +97,13 @@
       console.log(error);
     })
   }
-
+ 
   EventEmitter.on('ConfirmForm:mount', function(options) {
     Cognito.isNotAuthenticated()
     .then(function() {
       email = options.email;
       $container.innerHTML = tmpl('ConfirmForm', {})
       $resend = $container.getElementsByClassName('Control__link')[0]
-      $link = $container.getElementsByClassName('Control__link')[1];
       $form = $container.getElementsByClassName('form')[0];
       $title = $container.getElementsByClassName('title')[0];
       addAlert({
@@ -110,8 +111,10 @@
         message: 'You must confirm your email address.',
       })
       $resend.addEventListener('click', handleResendCode);
-      $link.addEventListener('click', handleLoginLink);
       $form.addEventListener('submit', handleSubmit);
+	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'b2Login', msg:'Back to Login' }) );
+	  $b = document.getElementById('topNav__b2Login');
+	  $b.addEventListener('click', handleLoginLink);
       $root.appendChild($container);
     })
     .catch(function() {
@@ -122,9 +125,13 @@
 
   EventEmitter.on('ConfirmForm:unmount', function() {
     $resend.removeEventListener('click', handleResendCode);
-    $link.removeEventListener('click', handleLoginLink);
     $form.removeEventListener('submit', handleSubmit);
-    $container.remove();
+	$b = document.getElementById('topNav__b2Login');
+	$b && $b.removeEventListener('click', handleLoginLink);
+	while ($tnRight.firstChild) {
+		$tnRight.removeChild($tnRight.firstChild);
+	}
+	$container.remove()
   })
 
 })(window.EventEmitter, window.tmpl, window.Cognito)
