@@ -46,9 +46,8 @@
 	</div>
 </script>
   
-  <script type="text/html" id="ConfirmForm">
+<script type="text/html" id="ConfirmForm">
 	<div class="ConfirmForm">
-
 	  <div class="title">Confirm email</div>
 	  <form class="form">
 		<div class="Control">
@@ -62,35 +61,47 @@
 		<hr />
 	  </form>
 	</div>
-  </script>
+</script>
 
-  <script type="text/html" id="HomePage>
+<script type="text/html" id="HomePage">
 	<div class="HomePage">
-		<div class="info">
-			<!-- Section for Content (Margin is set to line up content with the sidebar showing by default)-->
-			<?php include("./php/part/sidenav.php"); ?> <!-- PHP Call for Side-Bar -->
-			<section id="content" style="margin-left:200px">
-				<div class="title"></div>
-				<!-- Actual Container for data content -->
-				<div id="container">
-					MAIN PAGE
-				</div>
-			</section>
-		</div>
+		<div class="title"></div>
+		MAIN PAGE		
 	</div>
-  </script>
-  
-  <script type="text/html" id="Alert">
+</script>
+
+<script type="text/html" id="ChildPage">
+	<div class="HomePage">
+		<div class="title"></div>
+		CHILD PAGE		
+	</div>
+</script>
+
+<script type="text/html" id="AdminLogin">
+	<div class="HomePage">
+		<div class="title"></div>
+		ADMIN LOGIN		
+	</div>
+</script>
+
+<script type="text/html" id="AdminPage">
+	<div class="HomePage">
+		<div class="title"></div>
+		ADMIN PAGE	
+	</div>
+</script>
+ 
+ <script type="text/html" id="Alert">
 	<div class="Alert Alert__<%= type %>">
 	  <span class="Alert__close"></span>
 	  <%= message %>
 	</div>
-  </script>
+</script>
   
-  <script type="text/html" id="topNavButton">
+<script type="text/html" id="topNavButton">
 	<button class="button2" id="topNav__<%= name %>" >	
 		<span><%= msg %></span>
 	</button>
 
 	</div>
-  </script>
+</script>

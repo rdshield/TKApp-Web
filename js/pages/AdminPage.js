@@ -1,5 +1,5 @@
 (function(EventEmitter, tmpl, Cognito){
-  /* HomePage */
+  /* AdminPage */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
 	$tnLeft = document.getElementById('topNavLeft'),
@@ -28,12 +28,12 @@
   }
 
   function setupTNLeft(){
-	  $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
-	  $c = document.getElementById('topNav__LHome');
-	  $c.addEventListener('click', handleHomeLink);
-	  $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChild', msg:'My Children' }));
-	  $b = document.getElementById('topNav__LChild');
-	  $b.addEventListener('click', handleChildLink);
+	  $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Challenges'  }));
+	  $c = document.getElementById('topNav__LChallenges');
+	  $c.addEventListener('click', handleChallengeLink);
+	  $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LUsers', msg:'Guardians' }));
+	  $b = document.getElementById('topNav__LUsers');
+	  $b.addEventListener('click', handleUserLink);
 	  
   }  
 
@@ -42,6 +42,16 @@
 	  $b = document.getElementById('topNav__Logout');
 	  $b.addEventListener('click', handleLogOut);
   }  
+  
+  function handleChallengeLink() {
+    EventEmitter.emit('HomePage:unmount');
+    EventEmitter.emit('HomePage:mount');
+  }
+  
+  function handleUserLink() {
+    EventEmitter.emit('HomePage:unmount');
+    EventEmitter.emit('HomePage:mount');
+  }
   
   function handleHomeLink() {
     EventEmitter.emit('HomePage:unmount');
@@ -59,7 +69,7 @@
     window.location.replace("./index.html","Login") 
   }
   
-  EventEmitter.on('HomePage:mount', function(message) {
+  EventEmitter.on('AdminPage:mount', function(message) {
 	
     Cognito.isNotAuthenticated()
     .then(function() {
@@ -75,7 +85,7 @@
   })
 
  
-  EventEmitter.on('HomePage:unmount', function() {
+  EventEmitter.on('AdminPage:unmount', function() {
 	$b = document.getElementById('topNav__LHome');
 	$b && $b.removeEventListener('click', handleHomeLink);
 	$c = document.getElementById('topNav__LChild');

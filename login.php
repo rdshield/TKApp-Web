@@ -39,6 +39,7 @@
 		<script src="/js/pages/LoginForm.js"></script>
 		<script src="/js/pages/ConfirmForm.js"></script>
 		<script src="/js/pages/SignupForm.js"></script>
+		<script src="/js/pages/HomePage.js"></script>
 		<script src="/js/index.js"></script>
 		<script src="js/navigation.js"> </script> <!-- Navigation via AJAX -->
 	</body>

@@ -61,6 +61,21 @@ body {
 	background-color: var(--tkred);
 }
 
+.topNav .left .button2 {
+	font-family: "Garamond", Gadget, sans-serif;
+	float:left;
+	color: white;
+	background-color: var(--tkgreen);
+	padding: 16px 10px;
+	text-align:center;
+	border: none;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 16px;
+	margin-left: 5px;
+}
+
+
 .bar {
 	width: 18px;
     height: 3px;
@@ -173,7 +188,7 @@ body {
 }
 
 #content {
-
+  color: black;
   width: 100%;
   height: 100%;
   background-color: beige;

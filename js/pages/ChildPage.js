@@ -11,6 +11,13 @@
     $form,
     $link;
 
+  function startLoading() {
+    removeAlert()
+    $button = $container.querySelectorAll('input[type=submit]')[0];
+    $button.disabled = true;
+    $button.value = 'Loading...';
+  }
+
   function addAlert(options) {
     $title.insertAdjacentHTML('afterend', tmpl('Alert', options));
     $close = $container.getElementsByClassName('Alert__close')[0];
