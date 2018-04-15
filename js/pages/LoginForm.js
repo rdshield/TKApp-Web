@@ -83,7 +83,6 @@
 	
     .catch(function(error) {
 	  $fills = $container.getElementsByClassName('Control__input');
-	  $fills[0].value='';
 	  $fills[1].value='';
       stopLoading();
       console.log(error.message)
@@ -93,6 +92,7 @@
         EventEmitter.emit('ConfirmForm:mount', {
           email: $inputs.email.value,
         });
+		$fills[0].value='';
         EventEmitter.emit('LoginForm:unmount');
         return;
       }
@@ -100,6 +100,7 @@
         type: 'error',
         message: error.message,
       })
+  	  $fills[0].value='';
       console.error(error)
     })
   }
