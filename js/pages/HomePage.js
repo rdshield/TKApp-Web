@@ -13,14 +13,9 @@
 
   function startLoading() {
     removeAlert()
-    $button = $container.querySelectorAll('input[type=submit]')[0];
-    $button.disabled = true;
-    $button.value = 'Loading...';
   }
 
   function stopLoading() {
-    $button.disabled = false;
-    $button.value = 'Login';
   }
 
   function addAlert(options) {
@@ -41,11 +36,8 @@
         type: 'success',
         message: 'Logging out. Please wait...'
       })
-      setTimeout(function() {
-        EventEmitter.emit('Welcome:unmount');
-        EventEmitter.emit('LoginForm:mount');
-      }, 3000)
-    })
+      setTimeout(redirectToLogin('You have been successfully logged out.', 3000)
+	}
     .catch(function(error) {
       addAlert({
         type: 'error',
