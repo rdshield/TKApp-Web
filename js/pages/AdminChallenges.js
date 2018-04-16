@@ -54,7 +54,7 @@
 	}
 	
 	function handleHomeLink() {
-		EventEmitter.emit('AdminHome:unmount');
+		EventEmitter.emit('AdminChallenges:unmount');
 		EventEmitter.emit('AdminHome:mount');
 	}
   

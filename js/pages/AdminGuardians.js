@@ -50,7 +50,7 @@
 
 	function handleChallengeLink() {
 		EventEmitter.emit('AdminGuardians:unmount');
-		EventEmitter.emit('AdminChallenge:mount');
+		EventEmitter.emit('AdminChallenges:mount');
 	}
   
 	function handleUserLink() {
@@ -59,7 +59,7 @@
 	}
 	
 	function handleHomeLink() {
-		EventEmitter.emit('AdminHome:unmount');
+		EventEmitter.emit('AdminGuardians:unmount');
 		EventEmitter.emit('AdminHome:mount');
 	}
   
