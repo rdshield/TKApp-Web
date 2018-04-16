@@ -12,8 +12,6 @@
 	</head>
 	
 	<body>
-		<?php include("./php/part/templates.php"); ?>
-		
 		<div class="header">
 			<!-- PHP Call for Top Navigation Bar -->
 			<?php include("./php/part/topnav.php"); ?> 
@@ -28,7 +26,11 @@
 			</section>
 		</div>
 		
+		
 		<!-- Scripts -->
+		<?php include("./php/part/templates.php"); ?>
+		
+		
 		<script src="/js/config/adminconfig.js"></script>
 		<script src="/js/lib/aws-cognito-sdk.min.js"></script>
 		<script src="/js/lib/amazon-cognito-identity.min.js"></script>
@@ -37,7 +39,7 @@
 		<script src="/js/lib/EventEmmiter.js"></script>
 		<script src="/js/lib/Cognito.js"></script>
 		<script src="/js/pages/AdminLogin.js"></script>
-		<script src="/js/pages/AdminPage.js"></script>
+		<script src="/js/pages/AdminHome.js"></script>
 		<script src="/js/pages/AdminChallenges.js"></script>
 		<script src="/js/pages/AdminGuardians.js"></script>
 		<script src="/js/pages/AdminSettings.js"></script>

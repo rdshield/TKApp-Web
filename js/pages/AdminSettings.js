@@ -28,6 +28,9 @@
 	}
 
 	function setupTNLeft(){
+		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
+		$temp = document.getElementById('topNav__LHome');
+		$temp.addEventListener('click', handleHomeLink);
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Challenges'  }));
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.addEventListener('click', handleChallengeLink);
@@ -47,17 +50,22 @@
 
 	function handleChallengeLink() {
 		EventEmitter.emit('AdminSettings:unmount');
-		EventEmitter.emit('ChallengePage:mount');
+		EventEmitter.emit('AdminChallenge:mount');
 	}
   
+  	function handleHomeLink() {
+		EventEmitter.emit('AdminHome:unmount');
+		EventEmitter.emit('AdminHome:mount');
+	}
+	
 	function handleUserLink() {
 		EventEmitter.emit('AdminSettings:unmount');
-		EventEmitter.emit('ChallengePage:mount');
+		EventEmitter.emit('AdminChallenge:mount');
 	}
   
 	function handleSettingsLink() {
 		EventEmitter.emit('AdminSettings:unmount');
-		EventEmitter.emit('SettingsPage:mount');
+		EventEmitter.emit('AdminSettings:mount');
 	}
   
 	function handleLogOut() {
@@ -69,7 +77,7 @@
 	EventEmitter.on('AdminSettings:mount', function(message) {
 	    Cognito.isNotAuthenticated()
 		.then(function() {
-			$container.innerHTML = tmpl('SettingsPage', {})
+			$container.innerHTML = tmpl('AdminSettings', {})
 			setupTNLeft();
 			setupTNRight();
 			$root.appendChild($container);
@@ -79,6 +87,8 @@
 	})
 
 	EventEmitter.on('AdminSettings:unmount', function() {
+		$temp = document.getElementById('topNav__LHome');
+		$temp.removeEventListener('click', handleHomeLink);
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.removeEventListener('click', handleChallengeLink);
 		$temp = document.getElementById('topNav__LUsers');

@@ -51,22 +51,22 @@
 	}
 	  
 	function redirectToLogin() {
-		EventEmitter.emit('LoginForm:unmount');
-		EventEmitter.emit('LoginForm:mount');
+		EventEmitter.emit('AdminLogin:unmount');
+		EventEmitter.emit('AdminLogin:mount');
 	}
 	  
 	function redirectToHome() {
-		EventEmitter.emit('LoginForm:unmount');
-		EventEmitter.emit('AdminPage:mount');
+		EventEmitter.emit('AdminLogin:unmount');
+		EventEmitter.emit('AdminHome:mount');
 	}
 	  
 	function handleLoginLink() {
-		EventEmitter.emit('LoginForm:unmount');
-		EventEmitter.emit('LoginForm:mount');
+		EventEmitter.emit('AdminLogin:unmount');
+		EventEmitter.emit('AdminLogin:mount');
 	}
 	  
 	function handleHomeLink() {
-		EventEmitter.emit('LoginForm:unmount');
+		EventEmitter.emit('AdminLogin:unmount');
 		EventEmitter.emit('HomePage:mount');
 	}
 
@@ -98,10 +98,10 @@
 		})
 	}
 	  
-	EventEmitter.on('LoginForm:mount', function(message) {
+	EventEmitter.on('AdminLogin:mount', function(message) {
 		Cognito.isNotAuthenticated()
 		.then(function() {
-		  $container.innerHTML = tmpl('AdminLoginForm', {})
+		  $container.innerHTML = tmpl('AdminLogin', {})
 		  $form = $container.getElementsByClassName('form')[0];
 		  $title = $container.getElementsByClassName('title')[0];
 		  $form.addEventListener('submit', handleSubmit);	
@@ -117,7 +117,7 @@
 		.catch(redirectToHome)
 	  })
 	 
-	  EventEmitter.on('LoginForm:unmount', function() {
+	  EventEmitter.on('AdminLogin:unmount', function() {
 		$form && $form.removeEventListener('submit', handleSubmit);
 		$temp = document.getElementById('topNav__Login');
 		$temp && $temp.removeEventListener('click', handleLoginLink);

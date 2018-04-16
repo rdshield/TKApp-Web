@@ -1,5 +1,5 @@
 (function(EventEmitter, tmpl, Cognito){
-	/* AdminPage */
+	/* AdminHome */
 	var $root = document.getElementById('root'), 
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
@@ -28,6 +28,9 @@
 	}
 
 	function setupTNLeft(){
+		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
+		$temp = document.getElementById('topNav__LHome');
+		$temp.addEventListener('click', handleHomeLink);
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Challenges'  }));
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.addEventListener('click', handleChallengeLink);
@@ -46,30 +49,35 @@
 	}
 
 	function handleChallengeLink() {
-		EventEmitter.emit('AdminPage:unmount');
-		EventEmitter.emit('ChallengePage:mount');
+		EventEmitter.emit('AdminHome:unmount');
+		EventEmitter.emit('AdminChallenges:mount');
+	}
+  
+	function handleHomeLink() {
+		EventEmitter.emit('AdminHome:unmount');
+		EventEmitter.emit('AdminHome:mount');
 	}
   
 	function handleGuardiansLink() {
-		EventEmitter.emit('AdminPage:unmount');
-		EventEmitter.emit('GuardiansPage:mount');
+		EventEmitter.emit('AdminHome:unmount');
+		EventEmitter.emit('AdminGuardians:mount');
 	}
   
 	function handleSettingsLink() {
-		EventEmitter.emit('AdminPage:unmount');
-		EventEmitter.emit('SettingsPage:mount');
+		EventEmitter.emit('AdminHome:unmount');
+		EventEmitter.emit('AdminSettings:mount');
 	}
   
 	function handleLogOut() {
-		EventEmitter.emit('AdminPage:unmount');
+		EventEmitter.emit('AdminHome:unmount');
 		Cognito.signOut();
 		window.location.replace("./admin.php","Admin Login") 
 	}
   
-	EventEmitter.on('AdminPage:mount', function(message) {
+	EventEmitter.on('AdminHome:mount', function(message) {
 	    Cognito.isNotAuthenticated()
 		.then(function() {
-			$container.innerHTML = tmpl('AdminPage', {})
+			$container.innerHTML = tmpl('AdminHome', {})
 			setupTNLeft();
 			setupTNRight();
 			$root.appendChild($container);
@@ -77,7 +85,7 @@
 			if (message) {	addAlert(message);	}
 		})
 		.catch(function(error) {
-			$container.innerHTML = tmpl('AdminPage', {})
+			$container.innerHTML = tmpl('AdminHome', {})
 			setupTNLeft();
 			setupTNRight();
 			$root.appendChild($container);
@@ -86,7 +94,9 @@
 		})
 	})
 
-	EventEmitter.on('AdminPage:unmount', function() {
+	EventEmitter.on('AdminHome:unmount', function() {
+		$temp = document.getElementById('topNav__LHome');
+		$temp.removeEventListener('click', handleHomeLink);
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.removeEventListener('click', handleChallengeLink);
 		$temp = document.getElementById('topNav__LUsers');

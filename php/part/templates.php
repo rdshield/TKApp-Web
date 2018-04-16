@@ -77,7 +77,7 @@
 	</div>
 </script>
 
-<script type="text/html" id="AdminLoginForm">
+<script type="text/html" id="AdminLogin">
 	<div class="AdminLoginForm">			
 		<div id="signupWindow">
 			<div id="logo">
@@ -99,28 +99,28 @@
 	</div>
 </script>
 
-<script type="text/html" id="AdminPage">
+<script type="text/html" id="AdminHome">
 	<div class="AdminPage">
 		<div class="title"></div>
 		ADMIN PAGE	
 	</div>
 </script>
 
-<script type="text/html" id="GuardiansPage">
+<script type="text/html" id="AdminGuardians">
 	<div class="GuardiansPage">
 		<div class="title"></div>
 		ADMIN GUARDIANS PAGE	
 	</div>
 </script>
 
-<script type="text/html" id="SettingsPage">
+<script type="text/html" id="AdminSettings">
 	<div class="SettingsPage">
 		<div class="title"></div>
 		ADMIN SETTING PAGE	
 	</div>
 </script>
 
-<script type="text/html" id="ChallengePage">
+<script type="text/html" id="AdminChallenges">
 	<div class="ChallengesPage">
 		<div class="title"></div>
 		ADMIN CHALLENGES PAGE	

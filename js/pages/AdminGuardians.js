@@ -28,6 +28,9 @@
 	}
 
 	function setupTNLeft(){
+		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
+		$temp = document.getElementById('topNav__LHome');
+		$temp.addEventListener('click', handleHomeLink);
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Challenges'  }));
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.addEventListener('click', handleChallengeLink);
@@ -46,30 +49,35 @@
 	}
 
 	function handleChallengeLink() {
-		EventEmitter.emit('GuardianPage:unmount');
-		EventEmitter.emit('ChallengePage:mount');
+		EventEmitter.emit('AdminGuardians:unmount');
+		EventEmitter.emit('AdminChallenge:mount');
 	}
   
 	function handleUserLink() {
-		EventEmitter.emit('GuardianPage:unmount');
-		EventEmitter.emit('ChallengePage:mount');
+		EventEmitter.emit('AdminGuardians:unmount');
+		EventEmitter.emit('AdminGuardians:mount');
+	}
+	
+	function handleHomeLink() {
+		EventEmitter.emit('AdminHome:unmount');
+		EventEmitter.emit('AdminHome:mount');
 	}
   
 	function handleSettingsLink() {
-		EventEmitter.emit('GuardianPage:unmount');
-		EventEmitter.emit('SettingsPage:mount');
+		EventEmitter.emit('AdminGuardians:unmount');
+		EventEmitter.emit('AdminSettings:mount');
 	}
   
 	function handleLogOut() {
-		EventEmitter.emit('GuardianPage:unmount');
+		EventEmitter.emit('AdminGuardians:unmount');
 		Cognito.signOut();
 		window.location.replace("./admin.php","Admin Login") 
 	}
   
-	EventEmitter.on('GuardianPage:mount', function(message) {
+	EventEmitter.on('AdminGuardians:mount', function(message) {
 	    Cognito.isNotAuthenticated()
 		.then(function() {
-			$container.innerHTML = tmpl('GuardiansPage', {})
+			$container.innerHTML = tmpl('AdminGuardians', {})
 			setupTNLeft();
 			setupTNRight();
 			$root.appendChild($container);
@@ -78,7 +86,9 @@
 		})
 	})
 
-	EventEmitter.on('GuardianPage:unmount', function() {
+	EventEmitter.on('AdminGuardians:unmount', function() {
+		$temp = document.getElementById('topNav__LHome');
+		$temp.removeEventListener('click', handleHomeLink);
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.removeEventListener('click', handleChallengeLink);
 		$temp = document.getElementById('topNav__LUsers');
