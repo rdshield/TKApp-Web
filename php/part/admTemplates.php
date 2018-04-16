@@ -105,29 +105,8 @@
 		ADMIN PAGE	
 	</div>
 </script>
-
-<script type="text/html" id="GuardiansPage">
-	<div class="GuardiansPage">
-		<div class="title"></div>
-		ADMIN GUARDIANS PAGE	
-	</div>
-</script>
-
-<script type="text/html" id="SettingsPage">
-	<div class="SettingsPage">
-		<div class="title"></div>
-		ADMIN SETTING PAGE	
-	</div>
-</script>
-
-<script type="text/html" id="ChallengePage">
-	<div class="ChallengesPage">
-		<div class="title"></div>
-		ADMIN CHALLENGES PAGE	
-	</div>
-</script>
  
-<script type="text/html" id="Alert">
+ <script type="text/html" id="Alert">
 	<div class="Alert Alert__<%= type %>">
 	  <span class="Alert__close"></span>
 	  <%= message %>

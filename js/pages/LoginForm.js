@@ -1,5 +1,5 @@
 (function(EventEmitter, tmpl, Cognito){
-  /* LoginForm */
+  /* Login Form */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
 	$tnLeft = document.getElementById('topNavLeft'),
@@ -46,7 +46,7 @@
   
   function redirectToHome() {
 	EventEmitter.emit('LoginForm:unmount');
-    EventEmitter.emit('HomeForm:mount');
+    EventEmitter.emit('HomePage:mount');
   }
   
   
@@ -61,11 +61,6 @@
     EventEmitter.emit('LoginForm:mount');
   }
   
-  function handleHomeLink() {
-    EventEmitter.emit('LoginForm:unmount');
-    EventEmitter.emit('HomePage:mount');
-  }
-
   function handleSubmit(event) {
     event.preventDefault()
     var $inputs = $container.getElementsByTagName('input');
@@ -119,7 +114,7 @@
 	  $b.addEventListener('click', handleLoginLink);
 	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Home' , msg:'Home'  }));
 	  $c = document.getElementById('topNav__Home');
-	  $c.addEventListener('click', handleHomeLink);
+	  $c.addEventListener('click', redirectToHome);
       $root.appendChild($container);
 
       if (message) {
@@ -135,7 +130,7 @@
 	$b = document.getElementById('topNav__Login');
 	$b && $b.removeEventListener('click', handleLoginLink);
 	$c = document.getElementById('topNav__Home');
-	$c && $c.removeEventListener('click', handleHomeLink);
+	$c && $c.removeEventListener('click', redirectToHome);
 	while ($tnRight.firstChild) {
 		$tnRight.removeChild($tnRight.firstChild);
 	}

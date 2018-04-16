@@ -1,5 +1,5 @@
 (function(EventEmitter, tmpl, Cognito){
-  /* HomePage */
+  /* ChildPage */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
 	$tnLeft = document.getElementById('topNavLeft'),
@@ -51,13 +51,13 @@
   }  
   
   function handleHomeLink() {
-    EventEmitter.emit('HomePage:unmount');
+    EventEmitter.emit('ChildPage:unmount');
     EventEmitter.emit('HomePage:mount');
   }
   
   function handleChildLink() {
-    EventEmitter.emit('HomePage:unmount');
-    EventEmitter.emit('HomePage:mount');
+    EventEmitter.emit('ChildPage:unmount');
+    EventEmitter.emit('ChildPage:mount');
   }
   
   function handleLogOut() {
@@ -66,11 +66,23 @@
     window.location.replace("./index.html","Login") 
   }
   
-  EventEmitter.on('HomePage:mount', function(message) {
-	
+  EventEmitter.on('ChildPage:mount', function(message) {
+	console.log("A");
     Cognito.isNotAuthenticated()
     .then(function() {
-      $container.innerHTML = tmpl('HomePage', {})
+		console.log("B");
+      $container.innerHTML = tmpl('ChildPage', {})
+	  setupTNLeft();
+	  setupTNRight();
+      $root.appendChild($container);
+
+      if (message) {
+        addAlert(message);
+      }
+    })
+	.catch(function(error) {
+		console.log("C");
+      $container.innerHTML = tmpl('ChildPage', {})
 	  setupTNLeft();
 	  setupTNRight();
       $root.appendChild($container);
@@ -82,7 +94,7 @@
   })
 
  
-  EventEmitter.on('HomePage:unmount', function() {
+  EventEmitter.on('ChildPage:unmount', function() {
 	$b = document.getElementById('topNav__LHome');
 	$b && $b.removeEventListener('click', handleHomeLink);
 	$c = document.getElementById('topNav__LChild');

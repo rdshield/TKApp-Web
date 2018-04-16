@@ -50,7 +50,7 @@
   
   function handleChildLink() {
     EventEmitter.emit('HomePage:unmount');
-    EventEmitter.emit('HomePage:mount');
+    EventEmitter.emit('ChildPage:mount');
   }
   
   function handleLogOut() {
@@ -63,6 +63,16 @@
 	
     Cognito.isNotAuthenticated()
     .then(function() {
+      $container.innerHTML = tmpl('HomePage', {})
+	  setupTNLeft();
+	  setupTNRight();
+      $root.appendChild($container);
+
+      if (message) {
+        addAlert(message);
+      }
+    })
+	.catch(function(error) {
       $container.innerHTML = tmpl('HomePage', {})
 	  setupTNLeft();
 	  setupTNRight();

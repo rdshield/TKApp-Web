@@ -1,5 +1,5 @@
 (function(EventEmitter, tmpl, Cognito){
-	/* AdminPage */
+	/* Admin Settings Page */
 	var $root = document.getElementById('root'), 
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
@@ -33,7 +33,7 @@
 		$temp.addEventListener('click', handleChallengeLink);
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LUsers', msg:'Guardians' }));
 		$temp = document.getElementById('topNav__LUsers');
-		$temp.addEventListener('click', handleGuardiansLink);
+		$temp.addEventListener('click', handleUserLink);
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LAdmins', msg:'Admin Settings' }));
 		$temp = document.getElementById('topNav__LAdmins');
 		$temp.addEventListener('click', handleSettingsLink);
@@ -46,51 +46,43 @@
 	}
 
 	function handleChallengeLink() {
-		EventEmitter.emit('AdminPage:unmount');
+		EventEmitter.emit('AdminSettings:unmount');
 		EventEmitter.emit('ChallengePage:mount');
 	}
   
-	function handleGuardiansLink() {
-		EventEmitter.emit('AdminPage:unmount');
-		EventEmitter.emit('GuardiansPage:mount');
+	function handleUserLink() {
+		EventEmitter.emit('AdminSettings:unmount');
+		EventEmitter.emit('ChallengePage:mount');
 	}
   
 	function handleSettingsLink() {
-		EventEmitter.emit('AdminPage:unmount');
+		EventEmitter.emit('AdminSettings:unmount');
 		EventEmitter.emit('SettingsPage:mount');
 	}
   
 	function handleLogOut() {
-		EventEmitter.emit('AdminPage:unmount');
+		EventEmitter.emit('AdminSettings:unmount');
 		Cognito.signOut();
 		window.location.replace("./admin.php","Admin Login") 
 	}
   
-	EventEmitter.on('AdminPage:mount', function(message) {
+	EventEmitter.on('AdminSettings:mount', function(message) {
 	    Cognito.isNotAuthenticated()
 		.then(function() {
-			$container.innerHTML = tmpl('AdminPage', {})
+			$container.innerHTML = tmpl('SettingsPage', {})
 			setupTNLeft();
 			setupTNRight();
 			$root.appendChild($container);
 
 			if (message) {	addAlert(message);	}
 		})
-		.catch(function(error) {
-			$container.innerHTML = tmpl('AdminPage', {})
-			setupTNLeft();
-			setupTNRight();
-			$root.appendChild($container);
-
-			if (message) {	addAlert(message);	}			
-		})
 	})
 
-	EventEmitter.on('AdminPage:unmount', function() {
+	EventEmitter.on('AdminSettings:unmount', function() {
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.removeEventListener('click', handleChallengeLink);
 		$temp = document.getElementById('topNav__LUsers');
-		$temp.removeEventListener('click', handleGuardiansLink);
+		$temp.removeEventListener('click', handleUserLink);
 		$temp = document.getElementById('topNav__LAdmins');
 		$temp.removeEventListener('click', handleSettingsLink);
 		$temp = document.getElementById('topNav__Logout');
