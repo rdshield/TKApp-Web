@@ -59,10 +59,15 @@
     window.location.replace("./index.html","Login") 
   }
   
+    function redirectToLogin(message) {
+    EventEmitter.emit('HomePage:unmount');
+    EventEmitter.emit('LoginForm:mount', message);
+  }
+  
   EventEmitter.on('HomePage:mount', function(message) {
-	
-    Cognito.isNotAuthenticated()
+    Cognito.isAuthenticated()
     .then(function() {
+	
       $container.innerHTML = tmpl('HomePage', {})
 	  setupTNLeft();
 	  setupTNRight();
@@ -73,15 +78,11 @@
       }
     })
 	.catch(function(error) {
-      $container.innerHTML = tmpl('HomePage', {})
-	  setupTNLeft();
-	  setupTNRight();
-      $root.appendChild($container);
-
-      if (message) {
-        addAlert(message);
-      }
-    })
+		redirectToLogin({
+          type: 'info',
+          message: ' Please log in. '
+		})
+	})
   })
 
  

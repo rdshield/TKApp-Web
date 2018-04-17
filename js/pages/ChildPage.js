@@ -67,10 +67,8 @@
   }
   
   EventEmitter.on('ChildPage:mount', function(message) {
-	console.log("A");
     Cognito.isNotAuthenticated()
     .then(function() {
-		console.log("B");
       $container.innerHTML = tmpl('ChildPage', {})
 	  setupTNLeft();
 	  setupTNRight();
@@ -81,7 +79,6 @@
       }
     })
 	.catch(function(error) {
-		console.log("C");
       $container.innerHTML = tmpl('ChildPage', {})
 	  setupTNLeft();
 	  setupTNRight();
