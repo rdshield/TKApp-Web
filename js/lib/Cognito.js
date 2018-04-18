@@ -75,7 +75,17 @@
     });
     return new Promise(function(resolve, reject) {
       User.authenticateUser(authenticationDetails, {
-        onSuccess: resolve,
+        onSuccess: function(session) {
+			const Tokens = {
+				accessToken: session.getAccessToken().getJwtToken(),
+				idToken: session.getIdToken().getJwtToken(),
+				refreshToken: session.getRefreshToken().getToken()
+			}
+			User['tokens'] = Tokens;
+			AWS.config.update({region: 'us-west-02'});
+			console.log( AWS.config );
+			resolve(User);
+		},
         onFailure: reject,
       })
     })
