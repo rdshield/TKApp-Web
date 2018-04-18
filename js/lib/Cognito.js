@@ -75,17 +75,7 @@
     });
     return new Promise(function(resolve, reject) {
       User.authenticateUser(authenticationDetails, {
-        onSuccess: function(session) {
-			const Tokens = {
-				accessToken: session.getAccessToken().getJwtToken(),
-				idToken: session.getIdToken().getJwtToken(),
-				refreshToken: session.getRefreshToken().getToken()
-			}
-			User['tokens'] = Tokens;
-			AWS.config.update({region: 'us-west-02'});
-			console.log( AWS.config );
-			resolve(User);
-		},
+        onSuccess: resolve,
         onFailure: reject,
       })
     })
@@ -106,6 +96,12 @@
         if (session.isValid() === false){
           reject('Session is invalid');
         }
+		AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+			IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
+			Logins: {
+				'cognito-idp.us-west-2.amazonaws.com/us-west-2_3isz7XCIF': session.getIdToken().getJwtToken()
+			}
+		});
         resolve();
         return;
       })
@@ -145,20 +141,6 @@
         })
       })
     )
-  }
-  
-  function getInfo() {
-	  var cUser = UserPool.getCurrentUser();
-	  	  if (cUser != null) {
-			  cUser.getSession(function(err,session) {
-					if(err) {
-						console.log(err);
-						return;
-					}
-					console.log('session validity: ' + session.isValid());
-					console.log('session token: ' + session.getIdToken().getJwtToken());
-			  })
-		  }
   }
 
   function signOut() {
