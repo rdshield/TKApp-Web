@@ -76,6 +76,7 @@
       if (message) {
         addAlert(message);
       }
+	  console.log(Cognito.getInfo());
     })
 	.catch(function(error) {
 		redirectToLogin({

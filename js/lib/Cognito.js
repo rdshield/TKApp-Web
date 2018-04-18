@@ -146,6 +146,20 @@
       })
     )
   }
+  
+  function getInfo() {
+	  var cUser = UserPool.getCurrentUser();
+	  	  if (cUser != null) {
+			  cUser.getSession(function(err,session) {
+					if(err) {
+						console.log(err);
+						return;
+					}
+					console.log('session validity: ' + session.isValid());
+					console.log('session token: ' + session.getIdToken().getJwtToken());
+			  })
+		  }
+  }
 
   function signOut() {
     User || (User = UserPool.getCurrentUser())
