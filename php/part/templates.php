@@ -41,6 +41,10 @@
 			</label>
 			<input class="Control__input" name="repeatPassword" type="password" placeholder="Repeat Password" />
 		</div>
+		<div class="Control">
+			<label class="Control__label" for="name">Name (First and Last)</label>
+			<input class="Control__input" name="name" type="text" placeholder="Please enter your full name" />
+		</div>
 		<input class="Control__input" type="submit" value="Sign me up!" />
 	  </form>
 	</div>
