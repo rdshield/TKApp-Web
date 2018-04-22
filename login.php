@@ -37,7 +37,7 @@
 		<script src="/js/lib/utils.js"></script>
 		<script src="/js/lib/EventEmmiter.js"></script>
 		<script src="/js/lib/Cognito.js"></script>
-		<script src="/js/lib/db.js"></script>
+		<script src="/js/lib/DynamoDB.js"></script>
 		<script src="/js/pages/LoginForm.js"></script>
 		<script src="/js/pages/ConfirmForm.js"></script>
 		<script src="/js/pages/SignupForm.js"></script>

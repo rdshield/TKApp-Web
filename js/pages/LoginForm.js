@@ -1,4 +1,4 @@
-(function(EventEmitter, tmpl, Cognito){
+(function(EventEmitter, tmpl, Cognito, DynamoDB){
   /* Login Form */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
@@ -139,5 +139,6 @@
 })(
   window.EventEmitter, 
   window.tmpl, 
-  window.Cognito
+  window.Cognito,
+  window.DynamoDB
 )

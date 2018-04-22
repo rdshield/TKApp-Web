@@ -1,4 +1,4 @@
-(function(EventEmitter, tmpl, Cognito){
+(function(EventEmitter, tmpl, Cognito, DynamoDB){
   /* HomePage */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
@@ -65,6 +65,7 @@
   }
   
   EventEmitter.on('HomePage:mount', function(message) {
+	DynamoDB.updateCredentials();
     Cognito.isAuthenticated()
     .then(function() {
 	
@@ -103,5 +104,6 @@
 })(
   window.EventEmitter, 
   window.tmpl, 
-  window.Cognito
+  window.Cognito,
+  window.DynamoDB
 )
