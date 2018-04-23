@@ -105,5 +105,6 @@
   window.EventEmitter, 
   window.tmpl, 
   window.Cognito,
-  window.DynamoDB
+  window.DynamoDB,
+  window.AWS,
 )

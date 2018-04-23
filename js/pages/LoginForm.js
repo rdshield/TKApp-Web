@@ -72,6 +72,7 @@
         type: 'success',
         message: 'Log in successful! Redirecting...'
       })
+	  Cognito.isAuthenticated();
       setTimeout(redirectToHome, 50) 
       console.log(result)
     })

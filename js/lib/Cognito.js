@@ -1,6 +1,7 @@
-(function(win, CognitoUserPool) {
+(function(win, CognitoUserPool, AWS) {
 
-  var CognitoUserPool = window.AmazonCognitoIdentity.CognitoUserPool,
+  var AWS = window.AWS,
+    CognitoUserPool = window.AmazonCognitoIdentity.CognitoUserPool,
     AWSCognito = window.AWSCognito,
     CognitoIdentityServiceProvider = AWSCognito.CognitoIdentityServiceProvider,CognitoUserAttribute = CognitoIdentityServiceProvider.CognitoUserAttribute,
     CognitoUser = CognitoIdentityServiceProvider.CognitoUser,
@@ -102,6 +103,7 @@
 				'cognito-idp.us-west-2.amazonaws.com/us-west-2_3isz7XCIF': session.getIdToken().getJwtToken()
 			}
 		});
+		AWS.config.region = 'us-west-2';
         resolve();
         return;
       })

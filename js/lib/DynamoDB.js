@@ -1,16 +1,10 @@
 (function(win, DynamoDB) {
 
 var DynamoDB = window.DynamoDB,
-docClient;
+    docClient= new AWS.DynamoDB.DocumentClient();
 
-var docClient = new AWS.DynamoDB.DocumentClient();
-
-function getCreds()
-{
-	console.log(AWS.config.credentials);
-}
 function updateCredentials(){
-	AWS.config.region = 'us-west-2';
+	console.log(AWS.config.credentials);
 	AWS.config.credentials.get(function(err) {
         if (!err) {
 			readItem();
@@ -40,7 +34,6 @@ function readItem() {
 
   window.DynamoDB = Object.freeze({
 	updateCredentials: updateCredentials,
-	getCreds: getCreds,
 	readItem: readItem,
   })
   
