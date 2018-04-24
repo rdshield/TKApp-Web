@@ -1,7 +1,7 @@
 (function(win) {
 
 var docClient;
-		
+
 function connect(){
 	AWS.config.region = 'us-west-2';
 	AWS.config.credentials.get(function(err) {
@@ -9,27 +9,32 @@ function connect(){
 			console.error(err);
 		}
 	});
-	docClient = new AWS.DynamoDB.DocumentClient();
+	console.log(AWS.config);
 }
 
-function readItem(table,id) {
-	var params = {
-		TableName: table,
-		Key:{
-			"userId": id,
-			
-		}
-	}
-    var a = docClient.get(params, function(err,data) {
+function getParams(tableId, keyId, value) {
+	params = {TableName : tableId}; 
+	var a = {}; a[keyId] = value;
+	params.Key = a;
+	
+	return params;
+}
+
+function readItem(params) {
+	//console.log(params);
+	docClient = new AWS.DynamoDB.DocumentClient();
+	return new Promise(function(resolve, reject) {
+		 docClient.get(params, function(err,data) {
 			if(!err) {
-				console.log("Success",data.Item);
+				//console.log("Success",data.Item);
+				resolve(data.Item);
 			}
 			else { 
-				console.log("Unable to find item -" + err);
-				
+				//console.log("Unable to find item -" + err);
+				reject(err);
 			}
+		});
 	});
-	console.log(a.Item);
 }
 
 function writeItem(table, id, value)
@@ -42,7 +47,7 @@ function writeItem(table, id, value)
 	connect: connect,
 	readItem: readItem,
 	writeItem: writeItem,
-	
+	getParams: getParams,
   })
   
 

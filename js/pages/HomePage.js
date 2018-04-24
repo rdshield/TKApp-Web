@@ -65,11 +65,18 @@
   }
   
   EventEmitter.on('HomePage:mount', function(message) { 
-	DBClient.connect();
-	DBClient.readItem('user','6eb07c24-15de-43a2-adda-2d1d33c6adc2');
     Cognito.isAuthenticated()
     .then(function() {
-	
+		DBClient.connect();
+		var params = DBClient.getParams('user','userId',Cognito.getSub());
+		var a = DBClient.readItem(params);
+		console.log(a);
+		
+		var params2 = DBClient.getParams('children','childId',"test");
+		var b = DBClient.readItem(params2);
+		console.log(b);
+		//DBClient.readItem(params);
+
       $container.innerHTML = tmpl('HomePage', {})
 	  setupTNLeft();
 	  setupTNRight();

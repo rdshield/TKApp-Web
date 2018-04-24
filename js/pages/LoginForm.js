@@ -1,15 +1,15 @@
 (function(EventEmitter, tmpl, Cognito){
   /* Login Form */
   var $root = document.getElementById('root'), 
-    $container = document.createElement('div'),
-	$tnLeft = document.getElementById('topNavLeft'),
-	$tnRight = document.getElementById('topNavRight'),
-    $title,
-    $close,
-    $alert,
-    $button,
-    $form,
-    $link;
+      $container = document.createElement('div'),
+	  $tnLeft = document.getElementById('topNavLeft'),
+	  $tnRight = document.getElementById('topNavRight'),
+      $title,
+      $close,
+      $alert,
+      $button,
+      $form,
+      $link;
 
   function startLoading() {
     removeAlert()
