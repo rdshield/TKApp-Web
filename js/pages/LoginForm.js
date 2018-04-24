@@ -1,4 +1,4 @@
-(function(EventEmitter, tmpl, Cognito, DynamoDB){
+(function(EventEmitter, tmpl, Cognito){
   /* Login Form */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
@@ -74,7 +74,6 @@
       })
 	  Cognito.isAuthenticated();
       setTimeout(redirectToHome, 50) 
-      console.log(result)
     })
 	
     .catch(function(error) {
@@ -141,5 +140,4 @@
   window.EventEmitter, 
   window.tmpl, 
   window.Cognito,
-  window.DynamoDB
 )

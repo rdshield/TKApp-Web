@@ -1,17 +1,15 @@
 (function(win) {
 
-var docClient; // new AWS.DynamoDB.DocumentClient();
-
+var docClient;
+		
 function connect(){
-	console.log(AWS.config);
+	AWS.config.region = 'us-west-2';
 	AWS.config.credentials.get(function(err) {
-        if (!err) {
-			docClient = new AWS.DynamoDB.DocumentClient();
+        if (err) {
+			console.error(err);
 		}
-		else {
-			console.log(err);
-		}
-	})
+	});
+	docClient = new AWS.DynamoDB.DocumentClient();
 }
 
 function readItem(table,id) {
@@ -22,17 +20,16 @@ function readItem(table,id) {
 			
 		}
 	}
-	
-	docClient.get(params, function(err,data) {
-			if(!err) { 
-				console.log(data);
-				return data;
+    var a = docClient.get(params, function(err,data) {
+			if(!err) {
+				console.log("Success",data.Item);
 			}
 			else { 
 				console.log("Unable to find item -" + err);
-				return;
+				
 			}
-	})	
+	});
+	console.log(a.Item);
 }
 
 function writeItem(table, id, value)
@@ -41,7 +38,7 @@ function writeItem(table, id, value)
 }
 
 
-  window.DynamoDB = Object.freeze({
+  window.DBClient = Object.freeze({
 	connect: connect,
 	readItem: readItem,
 	writeItem: writeItem,

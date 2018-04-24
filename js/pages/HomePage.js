@@ -1,4 +1,4 @@
-(function(EventEmitter, tmpl, Cognito, DynamoDB){
+(function(EventEmitter, tmpl, Cognito, DBClient){
   /* HomePage */
   var $root = document.getElementById('root'), 
     $container = document.createElement('div'),
@@ -64,9 +64,9 @@
     EventEmitter.emit('LoginForm:mount', message);
   }
   
-  EventEmitter.on('HomePage:mount', function(message) {
-	DynamoDB.connect();
-	console.log(DynamoDB.readItem('user','6eb07c24-15de-43a2-adda-2d1d33c6adc2' ));
+  EventEmitter.on('HomePage:mount', function(message) { 
+	DBClient.connect();
+	DBClient.readItem('user','6eb07c24-15de-43a2-adda-2d1d33c6adc2');
     Cognito.isAuthenticated()
     .then(function() {
 	
@@ -106,6 +106,5 @@
   window.EventEmitter, 
   window.tmpl, 
   window.Cognito,
-  window.DynamoDB,
-  window.AWS,
+  window.DBClient,
 )
