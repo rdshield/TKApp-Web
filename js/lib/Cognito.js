@@ -98,12 +98,12 @@
           reject('Session is invalid');
         }
 		AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+			region: 'us-west-2',
 			IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
 			Logins: {
 				'cognito-idp.us-west-2.amazonaws.com/us-west-2_3isz7XCIF': session.getIdToken().getJwtToken()
 			}
 		});
-		AWS.config.region = 'us-west-2';
         resolve();
         return;
       })

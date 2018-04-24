@@ -1,13 +1,12 @@
-(function(win, DynamoDB) {
+(function(win) {
 
-var DynamoDB = window.DynamoDB,
-    docClient= new AWS.DynamoDB.DocumentClient();
+var docClient; // new AWS.DynamoDB.DocumentClient();
 
-function updateCredentials(){
-	console.log(AWS.config.credentials);
+function connect(){
+	console.log(AWS.config);
 	AWS.config.credentials.get(function(err) {
         if (!err) {
-			readItem();
+			docClient = new AWS.DynamoDB.DocumentClient();
 		}
 		else {
 			console.log(err);
@@ -15,28 +14,41 @@ function updateCredentials(){
 	})
 }
 
-function readItem() {
+function readItem(table,id) {
 	var params = {
-		TableName: 'users',
+		TableName: table,
 		Key:{
-			"userId": '6eb07c24-15de-43a2-adda-2d1d33c6adc2' 
+			"userId": id,
+			
 		}
 	}
 	
 	docClient.get(params, function(err,data) {
-			if(!err) { console.log("Item Found"); }
-			else {
-				console.log("Unable to find item -" + err); 
+			if(!err) { 
+				console.log(data);
+				return data;
+			}
+			else { 
+				console.log("Unable to find item -" + err);
+				return;
 			}
 	})	
-
 }
 
+function writeItem(table, id, value)
+{
+	
+}
+
+
   window.DynamoDB = Object.freeze({
-	updateCredentials: updateCredentials,
+	connect: connect,
 	readItem: readItem,
+	writeItem: writeItem,
+	
   })
   
 
+		//readItem('user','6eb07c24-15de-43a2-adda-2d1d33c6adc2' );
 
 })(window)

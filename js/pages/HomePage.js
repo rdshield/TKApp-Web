@@ -65,7 +65,8 @@
   }
   
   EventEmitter.on('HomePage:mount', function(message) {
-	DynamoDB.updateCredentials();
+	DynamoDB.connect();
+	console.log(DynamoDB.readItem('user','6eb07c24-15de-43a2-adda-2d1d33c6adc2' ));
     Cognito.isAuthenticated()
     .then(function() {
 	
