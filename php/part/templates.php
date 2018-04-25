@@ -70,7 +70,11 @@
 <script type="text/html" id="HomePage">
 	<div class="HomePage">
 		<div class="title"></div>
-		MAIN PAGE		
+		<div id="data">
+			<table id="table" style="width:95%">
+
+			</table>
+		</div>		
 	</div>
 </script>
 

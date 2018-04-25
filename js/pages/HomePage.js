@@ -69,8 +69,23 @@
     .then(function() {
 		DBClient.connect();
 	
-	  var a = DBClient.readItems('challenges');
-	  console.log(a);
+	  DBClient.readItems('challenges').then(function(data) {
+		for(var i=0 ; i < data.Count ; i++){
+			console.log(data.Items[i]);
+		}
+		$('#table').DataTable( {
+			data: data.Items, 
+			columns: [
+				{ title: 'Challenge ID#', data: 'challengeId'},
+				{ title: 'Challenge Name', data: 'challengeName'},
+				{ title: 'Description', data: 'challengeDesc' },
+				{ title: 'isActive', data: 'isActive' },
+				
+			]	
+		});
+	  
+	  });
+	  
 	
       $container.innerHTML = tmpl('HomePage', {})
 	  setupTNLeft();

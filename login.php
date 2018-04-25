@@ -9,6 +9,9 @@
   	    <link rel="stylesheet" media="all" href="/css/Control.css">
 		<link rel="stylesheet" media="all" href="/css/Alert.css">
 		<link rel="stylesheet" media="all" href="/css/Button.css">
+		<link rel="stylesheet" type="text/css" href="/css/datatables.css"/>
+ 
+
 	</head>
 	
 	<body>
@@ -34,6 +37,7 @@
 		<script src="/js/lib/amazon-cognito-identity.min.js"></script>
 		<script src="https://sdk.amazonaws.com/js/aws-sdk-2.224.1.min.js"></script>
 		<script src="/js/lib/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
+		<script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.16/datatables.min.js"></script>
 		<script src="/js/lib/utils.js"></script>
 		<script src="/js/lib/EventEmmiter.js"></script>
 		<script src="/js/lib/Cognito.js"></script>
