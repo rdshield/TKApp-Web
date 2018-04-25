@@ -1,0 +1,22 @@
+		/*Read Process for one entry*/
+		//var params = DBClient.setupSingleItemParams('user','userId',Cognito.getSub());
+		//console.log(DBClient.readItem(params));
+	
+		/*Write Process one entry*/
+		//var wparams = DBClient.getSingleWriteParams('user',{'userId':Cognito.getSub(),'email_address': 'rshield0587@test.com'});
+		//DBClient.writeItem(wparams);
+		
+		/*Write Process to Challenges*/
+		//var wparams = DBClient.getSingleWriteParams('challenges',{'challengeId': 4 ,'challengeName': 'Challenge #4', 'isActive': true});
+		//DBClient.writeItem(wparams);
+		
+		/*Read Process for Full Tables*/
+		console.log(DBClient.readItems('challenges'));
+
+		
+		/*Read Process for Full Tables with limits
+			Note: filter and exp (2nd/3rd argument) are tied to each other. As one requires the other in this instance and 
+			there are so many issues with Object (exp) comparision, those mappings are based on if filter is filled out.
+			Providing a filter with no exp will cause an error.
+		*/
+		//console.log(DBClient.readItems('challenges','isActive = :active',{':active' : true}));

@@ -68,11 +68,6 @@
     Cognito.isAuthenticated()
     .then(function() {
 		DBClient.connect();
-		var params = DBClient.getReadParams('user','userId',Cognito.getSub());
-		console.log(DBClient.readItem(params));
-		
-		var wparams = DBClient.getWriteParams('user',{'userId':Cognito.getSub(),'email_address': 'rshield0587@test.com'});
-		DBClient.writeItem(wparams);
 
       $container.innerHTML = tmpl('HomePage', {})
 	  setupTNLeft();

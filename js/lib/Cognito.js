@@ -109,17 +109,6 @@
         if (session.isValid() === false){
           reject('Session is invalid');
         }
-		/*		User.getUserAttributes(function(err,result) {
-			console.log(result);
-			if(err){
-				alert(err.message || JSON.stringify(err));
-				return;
-			}
-			for (i = 0; i < result.length; i++) {
-            
-			}
-		});
-		*/
 		AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 			region: 'us-west-2',
 			IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
