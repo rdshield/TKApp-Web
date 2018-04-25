@@ -50,9 +50,7 @@ function readItems(tableId,filter='',exp={}){
 		params.FilterExpression = filter; 
 		params.ExpressionAttributeValues = exp; 
 	}
-	
-	console.log(params);
-	
+
 	docClient = new AWS.DynamoDB.DocumentClient();
 	
 	return new Promise(function(resolve, reject) {

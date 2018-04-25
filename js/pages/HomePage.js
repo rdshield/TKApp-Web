@@ -68,7 +68,10 @@
     Cognito.isAuthenticated()
     .then(function() {
 		DBClient.connect();
-
+	
+	  var a = DBClient.readItems('challenges');
+	  console.log(a);
+	
       $container.innerHTML = tmpl('HomePage', {})
 	  setupTNLeft();
 	  setupTNRight();
