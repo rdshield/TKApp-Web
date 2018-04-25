@@ -14,6 +14,7 @@
 	sub = '';
 
   function signUp(email, password) {
+	  email = email.toLowerCase();
     var attributes = [new CognitoUserAttribute({
       Name: 'email',
       Value: email,
@@ -38,6 +39,7 @@
   }
 
   function confirm(username, code) {
+	username = username.toLowerCase();
     User = new CognitoUser({
       Username : username,
       Pool: UserPool,
@@ -67,6 +69,7 @@
   }
   
   function logIn(username, password) {
+	username = username.toLowerCase();
     var authenticationDetails = new AuthenticationDetails({
       Username: username,
       Password: password,

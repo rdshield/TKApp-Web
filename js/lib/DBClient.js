@@ -12,11 +12,17 @@ function connect(){
 	console.log(AWS.config);
 }
 
-function getParams(tableId, keyId, value) {
+function getReadParams(tableId, keyId, value) {
 	params = {TableName : tableId}; 
 	var a = {}; a[keyId] = value;
 	params.Key = a;
 	
+	return params;
+}
+
+function getWriteParams(tableId, info) {
+	params = info;
+	params.TableName = tableId;
 	return params;
 }
 
@@ -37,6 +43,21 @@ function readItem(params) {
 	});
 }
 
+function writeItem(params) {
+	console.log(params);
+	docClient = new AWS.DynamoDB.DocumentClient();
+	docClient.put(params, function(err,data) {
+		if(!err) {
+			console.log("Success - Write Completed");
+			resolve;
+		}
+		else { 
+			console.log("Unable to Write -" + err);
+			reject(err);
+		}
+	});
+}
+
 function writeItem(table, id, value)
 {
 	
@@ -47,7 +68,8 @@ function writeItem(table, id, value)
 	connect: connect,
 	readItem: readItem,
 	writeItem: writeItem,
-	getParams: getParams,
+	getReadParams: getReadParams,
+	getWriteParams: getWriteParams
   })
   
 
