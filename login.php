@@ -3,28 +3,36 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<Title> Team Kids - Login </Title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css">		
   	    <link rel="stylesheet" media="all" href="/css/Control.css">
 		<link rel="stylesheet" media="all" href="/css/Alert.css">
 		<link rel="stylesheet" media="all" href="/css/Button.css">
 		<link rel="stylesheet" type="text/css" href="/css/datatables.css"/>
- 
-
+		<script src="/js/lib/jquery-3.3.1.min.js"></script>
+		<script src="/js/lib/store.everything.min.js"></script>
 	</head>
 	
 	<body>
-		<?php include("./php/part/templates.php"); ?>
-		
+		<script>
+			init()
+			function init() {
+				if (!store.enabled) {
+					alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.')
+					return
+				}
+			}
+			store.clear();
+		</script>
+	
+		<?php include("./php/part/templates.php"); ?>		
 		<div class="header">
 			<!-- PHP Call for Top Navigation Bar -->
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
 		
-		<!-- Space for the space below the Top Bar - Contains Side-bar and content container -->
 		<div class="info">
-			<!-- Section for Content - No Side bar for Login Screen-->			
 			<section id="content">
 				<!-- Actual Container for data content -->
 				<div id="root"> </div>

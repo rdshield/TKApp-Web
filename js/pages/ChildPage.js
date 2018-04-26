@@ -69,6 +69,28 @@
   EventEmitter.on('ChildPage:mount', function(message) {
     Cognito.isNotAuthenticated()
     .then(function() {
+	    DBClient.connect();
+		$container.innerHTML = tmpl('AdminChallenges', {})
+		setupTNLeft();
+		setupTNRight();
+			
+	  DBClient.readItems('challenges').then(function(data) {
+		for(var i=0 ; i < data.Count ; i++){
+			console.log(data.Items[i]);
+		}
+		$('#table').DataTable( {
+			data: data.Items, 
+			columns: [
+				{ title: 'Challenge ID#', data: 'challengeId'},
+				{ title: 'Challenge Name', data: 'challengeName'},
+				{ title: 'Description', data: 'challengeDesc' },
+				{ title: 'isActive', data: 'isActive' },
+				
+			]	
+		});
+	  
+	  });
+		
       $container.innerHTML = tmpl('ChildPage', {})
 	  setupTNLeft();
 	  setupTNRight();

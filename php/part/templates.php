@@ -81,7 +81,11 @@
 <script type="text/html" id="ChildPage">
 	<div class="ChildPage">
 		<div class="title"></div>
-		CHILD PAGE		
+		<div id="data">
+			<table id="table" style="width:95%">
+
+			</table>
+		</div>		
 	</div>
 </script>
 
