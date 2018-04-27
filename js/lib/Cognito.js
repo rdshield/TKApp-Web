@@ -12,8 +12,8 @@
 		User,
 		sub = '';
 
-  function signUp(email, password) {
-		email = email.toLowerCase();
+  function signUp(params) {
+		email = params.email.toLowerCase();
 		var attributes = [new CognitoUserAttribute({
 			Name: 'email',
 			Value: email,
@@ -21,7 +21,7 @@
 		return new Promise(function(resolve, reject) {
 			UserPool.signUp(
 				email,
-				password,
+				params.password,
 				attributes,
 				null,
 				function(err, result) {

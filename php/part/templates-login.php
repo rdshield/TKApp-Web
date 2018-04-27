@@ -33,19 +33,19 @@
 		</div>
 		<div class="Control">
 			<label class="Control__label" for="fName">First Name</label>
-			<input class="Control__input" name"fName" type="text" placeholder="First Name" required />
-			<label class="Control__label" for="LName">Last Name</label>
-			<input class="Control__input" name="LName" type="text" placeholder="Last Name" required />
+			<input class="Control__input" name="fName" type="text" placeholder="First Name" required />
+			<label class="Control__label" for="lName">Last Name</label>
+			<input class="Control__input" name="lName" type="text" placeholder="Last Name" required />
 		</div>
 		<div class="Control">
 			<label class="Control__label" for="address">Street Address</label>
 			<input class="Control__input" name="address" type="text" placeholder="Address (Optional)" />
 			<label class="Control__label" for="city">City</label>
-			<input class="Control__input" name="city" type="text" placeholder="City" required />
+			<input class="Control__input" name="city" type="text" placeholder="City"  />
 			<label class="Control__label" for="state">State</label>
-			<input class="Control__input" name="state" type="text" placeholder="State" required />
+			<input class="Control__input" name="state" type="text" placeholder="State" />
 			<label class="Control__label" for="zipCode">Zip Code</label>
-			<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code" required />
+			<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code"  />
 		</div>
 		<div class="Control">
 			<label class="Control__label" for="phoneNum">Contact Number</label>
@@ -53,12 +53,13 @@
 		</div>
 		<div class="Control">
 			<label class="Control__label" for="joinEmail">Join our newsletter</label>
-			<input type="checkbox" name="joinEmail" value="Join our newsletter">
+			<input type="checkbox" name="joinEmail">
 			<label class="Control__label" for="method">How did you hear about TeamKids?</label>
-			<select class="Control__input" name="method">
+			<select id="methodOfNotice" class="Control__input" name="method">
 				<option value="web">Online</option>
 				<option value="print">Magazine</option>
 				<option value="wordOfMouth">Word of Mouth</option>	
+				<option value="other">Other</option>
 			</select>
 		</div>
 		<div class="Control">

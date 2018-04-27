@@ -60,11 +60,29 @@
       console.log('Passwords do not match!')
       return;
     }
+	if($inputs.address == null)  { $inputs.address.value = '';  }
+	if($inputs.phoneNum == null) { $inputs.phoneNum.value = '';	}
+	if($inputs.joinEmail.checked) { $inputs.joinEmail.value = true; }
+	else {  $inputs.joinEmail.value = false; } 
+	var params = {
+		email: $inputs.email.value,
+		password: $inputs.password.value,
+		firstName: $inputs.fName.value,
+		lastName: $inputs.lName.value,
+		address: $inputs.address.value,
+		city: $inputs.city.value,
+		zipCode: $inputs.zipCode.value,
+		phoneNum: $inputs.phoneNum.value,
+		joinEmail: $inputs.joinEmail.value,
+		methodOfNotice: document.getElementById('methodOfNotice').value,
+	}
+	
+	console.error(params);
     startLoading()
-    Cognito.signUp($inputs.email.value, $inputs.password.value)
+    Cognito.signUp(params)
     .then(function(result) {
       stopLoading();
-      console.log(result);
+      //console.log(result);
 	  addAlert({
         type: 'success',
         message: 'Your request has been received. Check your email for a validation key. Redirecting back to login...',
