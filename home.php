@@ -12,7 +12,7 @@
 	</head>
 	<body>
 	
-		<?php include("./php/part/templates.php"); ?>		
+		<?php include("./php/part/templates-home.php"); ?>		
 		<div class="header">
 			<!-- PHP Call for Top Navigation Bar -->
 			<?php include("./php/part/topnav.php"); ?> 
