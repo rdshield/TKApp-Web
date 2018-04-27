@@ -54,6 +54,15 @@
 			});
 		})
   }
+  
+  function forgotPassword(username) {
+		username = username.toLowerCase();
+		User = new CognitoUser({
+			Username : username,
+			Pool: UserPool,
+		});
+		
+  }
 
   function resendConfirmationCode() {
 		return new Promise(function(resolve, reject) {
@@ -121,7 +130,7 @@
 				store.set('userSub', sub);
 				store.set('userToken', a);
 				
-				console.log('Store info set');
+				//console.log('Store info set');
 				resolve();
 				return;
 			})
@@ -182,5 +191,6 @@
     signOut: signOut,
     isAuthenticated: isAuthenticated,
     isNotAuthenticated: isNotAuthenticated,
+	forgotPassword: forgotPassword,
   })
 })(window)

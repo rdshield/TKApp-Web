@@ -62,6 +62,11 @@
     EventEmitter.emit('LoginForm:mount');
   }
   
+  function handlePwReset() {
+	EventEmitter.emit('LoginForm:unmount');
+    EventEmitter.emit('pwResetForm:mount');
+  }
+  
   function handleSubmit(event) {
     event.preventDefault()
     var $inputs = $container.getElementsByTagName('input');
@@ -76,7 +81,6 @@
 	  Cognito.isAuthenticated();
       setTimeout(redirectToHome, 150);
     })
-	
     .catch(function(error) {
 	  $fills = $container.getElementsByClassName('Control__input');
 	  $fills[1].value='';
@@ -102,13 +106,14 @@
   }
   
   EventEmitter.on('LoginForm:mount', function(message) {
-    Cognito.isNotAuthenticated()
-    .then(function() {
+    Cognito.isNotAuthenticated().then(function() {
       $container.innerHTML = tmpl('LoginForm', {})
       $link = $container.getElementsByClassName('Control__link')[0];
+	  $forgotLink = $container.getElementsByClassName('pwReset')[0];
       $form = $container.getElementsByClassName('form')[0];
       $title = $container.getElementsByClassName('title')[0];
       $link.addEventListener('click', handleSignupLink);
+	  $forgotLink.addEventListener('click', handlePwReset);
       $form.addEventListener('submit', handleSubmit);	  
 	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Login', msg:'Login' }));
 	  $eventTemp = document.getElementById('topNav__Login');
@@ -118,12 +123,12 @@
       if (message) {
         addAlert(message);
       }
-    })
-    .catch(redirectToHome)
+    }) .catch(redirectToHome)
   })
  
   EventEmitter.on('LoginForm:unmount', function() {
     $link && $link.removeEventListener('click', handleSignupLink);
+	//$forgotLink && $forgotLink.removeEventListener('click', handlePwReset);
     $form && $form.removeEventListener('submit', handleSubmit);
 	$b = document.getElementById('topNav__Login');
 	$b && $b.removeEventListener('click', handleLoginLink);

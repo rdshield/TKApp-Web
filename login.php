@@ -16,11 +16,11 @@
 		<script>
 			init()
 			function init() {
-				console.log("Verifying if Store is supported by browser");
+				//console.log("Verifying if Store is supported by browser");
 				if (!store.enabled) {	alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.'); return }
 			}
-			
-		</script>	
+		</script>		
+		
 		<?php include("./php/part/templates-login.php"); ?>		
 		<div class="header">
 			<!-- PHP Call for Top Navigation Bar -->
@@ -45,6 +45,8 @@
 		<script type="text/javascript" src="/js/pages/LoginForm.js"></script>
 		<script type="text/javascript" src="/js/pages/ConfirmForm.js"></script>
 		<script type="text/javascript" src="/js/pages/SignupForm.js"></script>
+		<script type="text/javascript" src="/js/pages/pwResetForm.js"></script>
+		
 		<script type="text/javascript" src="/js/login.js"></script>
 	</body>
 </html> 

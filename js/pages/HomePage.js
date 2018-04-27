@@ -71,9 +71,9 @@
 		DBClient.connect();
 	
 	  DBClient.readItems('challenges').then(function(data) {
-		for(var i=0 ; i < data.Count ; i++){
+		/*for(var i=0 ; i < data.Count ; i++){
 			console.log(data.Items[i]);
-		}
+		}*/
 		$('#table').DataTable( {
 			data: data.Items, 
 			columns: [
