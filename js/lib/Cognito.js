@@ -1,126 +1,131 @@
-(function(win, CognitoUserPool) {
-
+(function(CognitoUserPool) {
   var CognitoUserPool = window.AmazonCognitoIdentity.CognitoUserPool,
-    AWSCognito = window.AWSCognito,
-    CognitoIdentityServiceProvider = AWSCognito.CognitoIdentityServiceProvider,
-	CognitoUserAttribute = CognitoIdentityServiceProvider.CognitoUserAttribute,
-    CognitoUser = CognitoIdentityServiceProvider.CognitoUser,
-    AuthenticationDetails = CognitoIdentityServiceProvider.AuthenticationDetails,
-    UserPool = new CognitoUserPool({
-      UserPoolId : window.USER_POOL_ID, // Your user pool id here
-      ClientId : window.CLIENT_ID, // Your client id here
-    }),
-    User,
-	sub = '';
+		AWSCognito = window.AWSCognito,
+		CognitoIdentityServiceProvider = AWSCognito.CognitoIdentityServiceProvider,
+		CognitoUserAttribute = CognitoIdentityServiceProvider.CognitoUserAttribute,
+		CognitoUser = CognitoIdentityServiceProvider.CognitoUser,
+		AuthenticationDetails = CognitoIdentityServiceProvider.AuthenticationDetails,
+		UserPool = new CognitoUserPool({
+			UserPoolId : window.USER_POOL_ID, // Your user pool id here
+			ClientId : window.CLIENT_ID, // Your client id here
+		}),
+		User,
+		sub = '';
 
   function signUp(email, password) {
-	  email = email.toLowerCase();
-    var attributes = [new CognitoUserAttribute({
-      Name: 'email',
-      Value: email,
-    })]
-    return new Promise(function(resolve, reject) {
-      UserPool.signUp(
-        email,
-        password,
-        attributes,
-        null,
-        function(err, result) {
-          if (err) {
-            reject(err);
-            return;
-          }
-          User = result.user;
-          resolve(User);
-          return;
-        }
-      )
-    });
+		email = email.toLowerCase();
+		var attributes = [new CognitoUserAttribute({
+			Name: 'email',
+			Value: email,
+		})]
+		return new Promise(function(resolve, reject) {
+			UserPool.signUp(
+				email,
+				password,
+				attributes,
+				null,
+				function(err, result) {
+					if (err) {
+						reject(err);
+						return;
+					}
+					User = result.user;
+					resolve(User);
+				return;
+				}
+			)
+		});
   }
 
   function confirm(username, code) {
-	username = username.toLowerCase();
-    User = new CognitoUser({
-      Username : username,
-      Pool: UserPool,
-    });
-    return new Promise(function(resolve, reject) {
-      User.confirmRegistration(code, true, function(err, result) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(result);
-        return;
-      });
-    })
+		username = username.toLowerCase();
+		User = new CognitoUser({
+			Username : username,
+			Pool: UserPool,
+		});
+		return new Promise(function(resolve, reject) {
+			User.confirmRegistration(code, true, function(err, result) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve(result);
+				return;
+			});
+		})
   }
 
   function resendConfirmationCode() {
-    return new Promise(function(resolve, reject) {
-      User.resendConfirmationCode(function(err, result) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(result);
-      });
-    });
+		return new Promise(function(resolve, reject) {
+			User.resendConfirmationCode(function(err, result) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve(result);
+			});
+		});
   }
   
   function logIn(username, password) {
-	username = username.toLowerCase();
-    var authenticationDetails = new AuthenticationDetails({
-      Username: username,
-      Password: password,
-    });
-    User = new CognitoUser({
-      Username: username,
-      Pool: UserPool,
-    });
-    return new Promise(function(resolve, reject) {
-      User.authenticateUser(authenticationDetails, {
-        onSuccess: resolve,
-        onFailure: reject,
-      })
-    })
+		username = username.toLowerCase();
+		var authenticationDetails = new AuthenticationDetails({
+			Username: username,
+			Password: password,
+		});
+		User = new CognitoUser({
+			Username: username,
+			Pool: UserPool,
+		});
+    
+		return new Promise(function(resolve, reject) {
+			User.authenticateUser(authenticationDetails, {
+				onSuccess: resolve,
+				onFailure: reject,
+			})
+		})
   }
   
   function getSub() {
-	  return sub;
+		return sub;
   }
 
   function getSession() {
-    User || (User = UserPool.getCurrentUser());
-    return new Promise(function(resolve, reject) {
-      if (User === null) {
-        reject('No current session found.');
-        return;
-      }
-      User.getSession(function(err, session) {
-		var a = session.getIdToken().getJwtToken();
-		var b = atob(a.split(".")[1]);
-		sub = JSON.parse(b).sub;
-		
-        if (err) {
-          reject(err);
-          return;
-        }
-        if (session.isValid() === false){
-          reject('Session is invalid');
-        }
-		AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-			region: 'us-west-2',
-			IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
-			Logins: {
-				'cognito-idp.us-west-2.amazonaws.com/us-west-2_3isz7XCIF': session.getIdToken().getJwtToken()
+		User || (User = UserPool.getCurrentUser());
+		return new Promise(function(resolve, reject) {
+			if (User === null) {
+				reject('No current session found.');
+				return;
 			}
-		});
-		AWS.config.region = 'us-west-2';
-        resolve();
-        return;
-      })
-    })
+			User.getSession(function(err, session) {
+				var a = session.getIdToken().getJwtToken();
+				var b = atob(a.split(".")[1]);
+				sub = JSON.parse(b).sub;
+		
+				if (err) {
+					reject(err);
+					return;
+				}
+				if (session.isValid() === false){
+					reject('Session is invalid');
+				}
+				AWS.config.region = 'us-west-2';
+				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+					region: 'us-west-2',
+					IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
+					Logins: {
+						'cognito-idp.us-west-2.amazonaws.com/us-west-2_3isz7XCIF': session.getIdToken().getJwtToken()
+					}
+				});
+				store.set('userCreds', AWS.config.credentials);
+				store.set('userSub', sub);
+				store.set('userToken', a);
+				
+				console.log('Store info set');
+				resolve();
+				return;
+			})
+		})
   }
 
   function isAuthenticated() {
@@ -159,11 +164,11 @@
   }
 
   function signOut() {
-    User || (User = UserPool.getCurrentUser())
-    if (!User) {
-      return Promise.reject('Current user session not found');
-    }
-    return Promise.resolve(User.signOut());
+		User || (User = UserPool.getCurrentUser())
+		if (!User) {
+			return Promise.reject('Current user session not found');
+		}
+		return Promise.resolve(User.signOut());
   }
 
   window.Cognito = Object.freeze({

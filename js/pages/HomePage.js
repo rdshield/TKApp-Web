@@ -56,12 +56,13 @@
   function handleLogOut() {
     EventEmitter.emit('HomePage:unmount');
 	Cognito.signOut();
+	store.clear();
     window.location.replace("./index.html","Login") 
   }
   
     function redirectToLogin(message) {
     EventEmitter.emit('HomePage:unmount');
-    EventEmitter.emit('LoginForm:mount', message);
+	window.location.replace('login.php');
   }
   
   EventEmitter.on('HomePage:mount', function(message) { 
@@ -98,10 +99,7 @@
     })
 	.catch(function(error) {
 		console.log(error);
-		redirectToLogin({
-          type: 'info',
-          message: ' Please log in. '
-		})
+		redirectToLogin()
 	})
   })
 

@@ -45,10 +45,11 @@
   }
   
   function redirectToHome() {
+	//console.log("Redirecting to Home Page");
 	EventEmitter.emit('LoginForm:unmount');
-    EventEmitter.emit('HomePage:mount');
+	window.location.replace('home.php');
+    //EventEmitter.emit('HomePage:mount');
   }
-  
   
   function handleSignupLink(event) {
     event.preventDefault();
@@ -70,17 +71,17 @@
       stopLoading()
       addAlert({
         type: 'success',
-        message: 'Log in successful! Redirecting...'
+        message: 'Log in successful! Redirecting to Home Page...'
       })
 	  Cognito.isAuthenticated();
-      setTimeout(redirectToHome, 50) 
+      setTimeout(redirectToHome, 150);
     })
 	
     .catch(function(error) {
 	  $fills = $container.getElementsByClassName('Control__input');
 	  $fills[1].value='';
       stopLoading();
-      console.log(error.message)
+      console.log(error.message);
       // If the user needs to enter its confirmation code switch to the
       // confirmation form page.
       if (error.message === 'User is not confirmed.') {
@@ -110,11 +111,8 @@
       $link.addEventListener('click', handleSignupLink);
       $form.addEventListener('submit', handleSubmit);	  
 	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Login', msg:'Login' }));
-	  $b = document.getElementById('topNav__Login');
-	  $b.addEventListener('click', handleLoginLink);
-	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Home' , msg:'Home'  }));
-	  $c = document.getElementById('topNav__Home');
-	  $c.addEventListener('click', redirectToHome);
+	  $eventTemp = document.getElementById('topNav__Login');
+	  $eventTemp.addEventListener('click', handleLoginLink);
       $root.appendChild($container);
 
       if (message) {
@@ -129,8 +127,6 @@
     $form && $form.removeEventListener('submit', handleSubmit);
 	$b = document.getElementById('topNav__Login');
 	$b && $b.removeEventListener('click', handleLoginLink);
-	$c = document.getElementById('topNav__Home');
-	$c && $c.removeEventListener('click', redirectToHome);
 	while ($tnRight.firstChild) {
 		$tnRight.removeChild($tnRight.firstChild);
 	}
