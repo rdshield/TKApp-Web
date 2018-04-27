@@ -29,23 +29,50 @@
 		<form class="form">
 		<div class="Control">
 			<label class="Control__label" for="email">Email</label>
-			<input class="Control__input" name="email" type="text" placeholder="Email" />
+			<input class="Control__input" name="email" type="text" placeholder="Email" required />
+		</div>
+		<div class="Control">
+			<label class="Control__label" for="fName">First Name</label>
+			<input class="Control__input" name"fName" type="text" placeholder="First Name" required />
+			<label class="Control__label" for="LName">Last Name</label>
+			<input class="Control__input" name="LName" type="text" placeholder="Last Name" required />
+		</div>
+		<div class="Control">
+			<label class="Control__label" for="address">Street Address</label>
+			<input class="Control__input" name="address" type="text" placeholder="Address (Optional)" />
+			<label class="Control__label" for="city">City</label>
+			<input class="Control__input" name="city" type="text" placeholder="City" required />
+			<label class="Control__label" for="state">State</label>
+			<input class="Control__input" name="state" type="text" placeholder="State" required />
+			<label class="Control__label" for="zipCode">Zip Code</label>
+			<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code" required />
+		</div>
+		<div class="Control">
+			<label class="Control__label" for="phoneNum">Contact Number</label>
+			<input class="Control__input" name="phoneNum" type="text" placeholder="(xxx)xxx-xxxx" />
+		</div>
+		<div class="Control">
+			<label class="Control__label" for="joinEmail">Join our newsletter</label>
+			<input type="checkbox" name="joinEmail" value="Join our newsletter">
+			<label class="Control__label" for="method">How did you hear about TeamKids?</label>
+			<select class="Control__input" name="method">
+				<option value="web">Online</option>
+				<option value="print">Magazine</option>
+				<option value="wordOfMouth">Word of Mouth</option>	
+			</select>
 		</div>
 		<div class="Control">
 			<label class="Control__label" for="password">Password</label>
-			<input class="Control__input" name="password" type="password" placeholder="Password" />
+			<input class="Control__input" name="password" type="password" placeholder="Password" required />
 		</div>
 		<div class="Control">
 			<label class="Control__label" for="repeatPassword">
 				Repeat Password
 			</label>
-			<input class="Control__input" name="repeatPassword" type="password" placeholder="Repeat Password" />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="name">Name (First and Last)</label>
-			<input class="Control__input" name="name" type="text" placeholder="Please enter your full name" />
+			<input class="Control__input" name="repeatPassword" type="password" placeholder="Repeat Password" required />
 		</div>
 		<input class="Control__input" type="submit" value="Sign me up!" />
+
 	  </form>
 	</div>
 </script>
