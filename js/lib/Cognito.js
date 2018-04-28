@@ -61,7 +61,17 @@
 			Username : username,
 			Pool: UserPool,
 		});
-		
+		User.forgotPassword({
+        onSuccess: function (data) {
+            // successfully initiated reset password request
+	          console.log('CodeDeliveryData from forgotPassword: ' + data);
+			  return(data);
+        },
+        onFailure: function(err) {
+            console.log(err);
+			return err;
+        },
+    });
   }
 
   function resendConfirmationCode() {

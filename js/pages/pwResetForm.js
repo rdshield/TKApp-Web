@@ -73,7 +73,15 @@
     event.preventDefault();
 	username = document.getElementById('email').value.toLowerCase();
     startLoading();
-    Cognito.forgotPassword(username);
+    Cognito.forgotPassword(username); /*==================Need to continue from here. Reset is passed, but need to determine whether username was found or not*/
+	/* $container.remove();
+	$container = document.createElement('div'),
+	$container.innerHTML = tmpl('pwdResetConfirm', {});
+	$root.appendChild($container); */
+  }
+  
+  function handleConfirm(event) {
+	
   }
  
   EventEmitter.on('pwResetForm:mount', function(options) {

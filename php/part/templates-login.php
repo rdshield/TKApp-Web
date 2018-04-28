@@ -82,6 +82,23 @@
 	</div>
 </script>
 
+<script type="text/html" id="ConfirmForm">
+	<div class="ConfirmForm">
+	  <div class="title">Confirm email</div>
+	  <form class="form">
+		<div class="Control">
+		  <label class="Control__label" for="code">Authorization code</label>
+		  <input class="Control__input" name="code" type="text" placeholder="Authorization code" />
+		</div>
+		<input class="Control__input" type="submit" value="Here you go" />
+		<a class="Control__link" href="#">
+		  Please, resend the authorization code.
+		</a>
+		<hr />
+	  </form>
+	</div>
+</script>
+
 <script type="text/html" id="pwdResetForm">
 	<div class="pwdResetForm">
 	  <div class="title"></div>
@@ -102,7 +119,7 @@
 	  <form class="form">
 		<div class="Control">
 		  <label class="Control__label" for="code">Authorization code</label>
-		  <input class="Control__input" name="code" type="text" placeholder="Authorization code" />
+		  <input class="Control__input" name="code" type="text" placeholder="Authorization code" required />
 		</div>
 		<div class="Control">
 			<label class="Control__label" for="password">New Password</label>
@@ -123,22 +140,7 @@
 	</div>
 </script> 
   
-<script type="text/html" id="ConfirmForm">
-	<div class="ConfirmForm">
-	  <div class="title">Confirm email</div>
-	  <form class="form">
-		<div class="Control">
-		  <label class="Control__label" for="code">Authorization code</label>
-		  <input class="Control__input" name="code" type="text" placeholder="Authorization code" />
-		</div>
-		<input class="Control__input" type="submit" value="Here you go" />
-		<a class="Control__link" href="#">
-		  Please, resend the authorization code.
-		</a>
-		<hr />
-	  </form>
-	</div>
-</script>
+
 
 <script type="text/html" id="Alert">
 	<div class="Alert Alert__<%= type %>">
