@@ -73,15 +73,43 @@
     event.preventDefault();
 	username = document.getElementById('email').value.toLowerCase();
     startLoading();
-    Cognito.forgotPassword(username); /*==================Need to continue from here. Reset is passed, but need to determine whether username was found or not*/
-	/* $container.remove();
+	//console.log(username);
+    Cognito.forgotPassword(username).then( function(result) {
+		stopLoading();
+		console.log(result);
+	/*
+	$container.remove();
 	$container = document.createElement('div'),
 	$container.innerHTML = tmpl('pwdResetConfirm', {});
-	$root.appendChild($container); */
+	$title = $container.getElementsByClassName('title')[0];
+	$root.appendChild($container);
+	$form = $container.getElementsByClassName('form')[0];
+	$form.addEventListener('submit', handleConfirm);
+	*/
+	});
+	
   }
   
   function handleConfirm(event) {
+	console.log("HANDLE CONFIRM");
+	var $inputs = $container.getElementsByTagName('input');
+	if ($inputs.password.value !== $inputs.repeatPassword.value) {
+	  addAlert({
+        type: 'error',
+        message: 'Passwords do not match!',
+      })
+      console.log('Passwords do not match!')
+      return;
+    }
+	cognitoUser.confirmPassword(verificationCode, newPassword, {
+                onSuccess() {
+                    console.log('Password confirmed!');
+                },
+                onFailure(err) {
+                    console.log('Password not confirmed!');
+                }
 	
+	})
   }
  
   EventEmitter.on('pwResetForm:mount', function(options) {
@@ -91,7 +119,7 @@
       $form = $container.getElementsByClassName('form')[0];
       $title = $container.getElementsByClassName('title')[0];
       $resend.addEventListener('click', handleResendCode);
-      $form.addEventListener('submit', handleSubmit);
+      $form.addEventListener('submit', redirectToLogin);
 	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'b2Login', msg:'Back to Login' }) );
 	  $b = document.getElementById('topNav__b2Login');
 	  $b.addEventListener('click', handleLoginLink);

@@ -28,7 +28,7 @@
 		
 		
 		<!-- Scripts -->
-		<?php include("./php/part/templates.php"); ?>
+		<?php include("./php/part/templates-full.php"); ?>
 		
 		
 		<script src="/js/config/adminconfig.js"></script>

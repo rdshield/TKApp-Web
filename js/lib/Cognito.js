@@ -61,17 +61,19 @@
 			Username : username,
 			Pool: UserPool,
 		});
-		User.forgotPassword({
-        onSuccess: function (data) {
-            // successfully initiated reset password request
-	          console.log('CodeDeliveryData from forgotPassword: ' + data);
-			  return(data);
-        },
-        onFailure: function(err) {
-            console.log(err);
-			return err;
-        },
-    });
+		return new Promise(function(resolve, reject) {
+			User.forgotPassword({
+				onSuccess: function(data) {
+					//console.log('Success');
+					reject(data);
+					return;
+				},
+				onFailure: function(err) {
+					resolve(err);
+					return;
+				},
+			});
+		});
   }
 
   function resendConfirmationCode() {
@@ -101,6 +103,10 @@
 			User.authenticateUser(authenticationDetails, {
 				onSuccess: resolve,
 				onFailure: reject,
+				newPasswordRequired: function(userAttributes, requiredAttributes) {
+					var newPw = window.prompt("Please enter a new password: (must include 8 characters, Capital and lowercase letter, and a number");
+					User.completeNewPasswordChallenge(newPw, requiredAttributes, this);
+				}
 			})
 		})
   }

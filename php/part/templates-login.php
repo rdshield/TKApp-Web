@@ -115,7 +115,9 @@
 </script> 
 
 <script type="text/html" id="pwdResetConfirm">
+
 	<div class="pwdResetConfirm">
+	  <div class="title"></div>
 	  <form class="form">
 		<div class="Control">
 		  <label class="Control__label" for="code">Authorization code</label>
@@ -133,9 +135,6 @@
 		</div>
 		
 		<input class="Control__input" type="submit" value="Submit" />
-		<a class="Control__link" href="#">
-		  Please, resend the authorization code.
-		</a>
 	  </form>
 	</div>
 </script> 
