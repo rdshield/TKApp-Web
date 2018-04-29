@@ -63,17 +63,20 @@
 		});
 		return new Promise(function(resolve, reject) {
 			User.forgotPassword({
-				onSuccess: function(data) {
-					//console.log('Success');
-					reject(data);
-					return;
+				onSuccess: function (result) {
+					console.log('call result: ' + result);
+					window.alert("A validation code has been sent to your phone or email. Please enter the code in the next prompt.");
 				},
 				onFailure: function(err) {
-					resolve(err);
-					return;
+					alert(err);
 				},
+				inputVerificationCode() {
+					var verificationCode = prompt('Please input verification code ' ,'');
+					var newPassword = prompt('Enter new password ' ,'');
+					User.confirmPassword(verificationCode, newPassword, this);
+				}
 			});
-		});
+		})
   }
 
   function resendConfirmationCode() {

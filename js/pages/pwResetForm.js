@@ -73,24 +73,13 @@
     event.preventDefault();
 	username = document.getElementById('email').value.toLowerCase();
     startLoading();
-	//console.log(username);
-    Cognito.forgotPassword(username).then( function(result) {
-		stopLoading();
-		console.log(result);
-	/*
-	$container.remove();
-	$container = document.createElement('div'),
-	$container.innerHTML = tmpl('pwdResetConfirm', {});
-	$title = $container.getElementsByClassName('title')[0];
-	$root.appendChild($container);
-	$form = $container.getElementsByClassName('form')[0];
-	$form.addEventListener('submit', handleConfirm);
-	*/
-	});
-	
+    Cognito.forgotPassword(username);
+	stopLoading();
+	redirectToLogin();
   }
   
   function handleConfirm(event) {
+	event.preventDefault();
 	console.log("HANDLE CONFIRM");
 	var $inputs = $container.getElementsByTagName('input');
 	if ($inputs.password.value !== $inputs.repeatPassword.value) {
@@ -119,7 +108,7 @@
       $form = $container.getElementsByClassName('form')[0];
       $title = $container.getElementsByClassName('title')[0];
       $resend.addEventListener('click', handleResendCode);
-      $form.addEventListener('submit', redirectToLogin);
+      $form.addEventListener('submit', handleSubmit);
 	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'b2Login', msg:'Back to Login' }) );
 	  $b = document.getElementById('topNav__b2Login');
 	  $b.addEventListener('click', handleLoginLink);
