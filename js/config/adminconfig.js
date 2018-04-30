@@ -1,2 +1,2 @@
-var USER_POOL_ID = 'us-west-2_J2pl8kPko';
-var CLIENT_ID = '3lr0qgprei41akfrotfknlprlq';
+var USER_POOL_ID = 'us-west-2_uIeebDVIz';
+var CLIENT_ID = '7qpv304pirs29ppl77rfu3iqk8';
