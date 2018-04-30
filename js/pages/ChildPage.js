@@ -35,12 +35,12 @@
   }
 
   function setupTNLeft(){
-	  $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
-	  $c = document.getElementById('topNav__LHome');
-	  $c.addEventListener('click', handleHomeLink);
-	  $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChild', msg:'My Children' }));
-	  $b = document.getElementById('topNav__LChild');
-	  $b.addEventListener('click', handleChildLink);
+	  // $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
+	  // $c = document.getElementById('topNav__LHome');
+	  // $c.addEventListener('click', handleHomeLink);
+	  // $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChild', msg:'My Children' }));
+	  // $b = document.getElementById('topNav__LChild');
+	  // $b.addEventListener('click', handleChildLink);
 	  
   }  
 
@@ -67,50 +67,39 @@
   }
   
   EventEmitter.on('ChildPage:mount', function(message) {
-    Cognito.isNotAuthenticated()
-    .then(function() {
-	    DBClient.connect();
-		$container.innerHTML = tmpl('AdminChallenges', {})
-		setupTNLeft();
-		setupTNRight();
+	  console.log('Running Child Page');
+	  Cognito.isNotAuthenticated().then(function() {
+			DBClient.connect();
+			$container.innerHTML = tmpl('ChildPage', {})
+			setupTNLeft();
+			setupTNRight();
 			
-	  DBClient.readItems('challenges').then(function(data) {
-		for(var i=0 ; i < data.Count ; i++){
-			console.log(data.Items[i]);
-		}
-		$('#table').DataTable( {
-			data: data.Items, 
-			columns: [
-				{ title: 'Challenge ID#', data: 'challengeId'},
-				{ title: 'Challenge Name', data: 'challengeName'},
-				{ title: 'Description', data: 'challengeDesc' },
-				{ title: 'isActive', data: 'isActive' },
-				
-			]	
-		});
-	  
-	  });
-		
-      $container.innerHTML = tmpl('ChildPage', {})
-	  setupTNLeft();
-	  setupTNRight();
-      $root.appendChild($container);
-
-      if (message) {
-        addAlert(message);
-      }
-    })
-	.catch(function(error) {
-      $container.innerHTML = tmpl('ChildPage', {})
-	  setupTNLeft();
-	  setupTNRight();
-      $root.appendChild($container);
-
-      if (message) {
-        addAlert(message);
-      }
-    })
-  })
+			DBClient.readItems('challenges').then(function(data) {
+				//for(var i=0 ; i < data.Count ; i++){
+					//console.log(data.Items[i]);
+				//}
+				$('#table').DataTable( {
+					data: data.Items, 
+					columns: [
+						{ title: 'Challenge ID#', data: 'challengeId'},
+						{ title: 'Challenge Name', data: 'challengeName'},
+						{ title: 'Description', data: 'challengeDesc' },
+						{ title: 'isActive', data: 'isActive' },
+					]	
+				});
+			});
+			
+			$root.appendChild($container);
+			if (message) {
+				addAlert(message);
+			}
+		}).catch(function(error) {
+			if (error) {
+				console.log(error);
+				addAlert(message);
+			}
+		})
+	})
 
  
   EventEmitter.on('ChildPage:unmount', function() {

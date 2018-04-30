@@ -5,10 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<Title> Team Kids - Login </Title>
-		<link rel="stylesheet" type="text/css" href="/css/style.css">		
-  	    <link rel="stylesheet" media="all" href="/css/Control.css">
-		<link rel="stylesheet" media="all" href="/css/Alert.css">
-		<link rel="stylesheet" media="all" href="/css/Button.css">
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
 		<script src="/js/lib/jquery-3.3.1.min.js"></script>
 		<script src="/js/lib/store.everything.min.js"></script>
 	</head>
@@ -21,6 +18,10 @@
 			}
 		</script>		
 		
+		<div class="header">
+			<!-- PHP Call for Top Navigation Bar -->
+			<?php include("./php/part/topnav.php"); ?> 
+		</div>
 		<?php include("./php/part/templates-login.php"); ?>		
 		<div class="header">
 		</div>

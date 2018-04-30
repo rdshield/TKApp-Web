@@ -2,7 +2,7 @@
 
   ready(function() {
 	
-    EventEmitter.emit('HomePage:mount')
+    EventEmitter.emit('ChildPage:mount')
   })
 
 })(window.ready, window.EventEmitter)
