@@ -80,8 +80,7 @@
 				{ title: 'Challenge ID#', data: 'challengeId'},
 				{ title: 'Challenge Name', data: 'challengeName'},
 				{ title: 'Description', data: 'challengeDesc' },
-				{ title: 'isActive', data: 'isActive' },
-				
+				{ title: 'isActive', data: 'isActive' },				
 			]	
 		});
 	  

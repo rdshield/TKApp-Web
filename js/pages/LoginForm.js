@@ -115,10 +115,7 @@
       $link.addEventListener('click', handleSignupLink);
 	  $forgotLink.addEventListener('click', handlePwReset);
       $form.addEventListener('submit', handleSubmit);	  
-	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Login', msg:'Login' }));
-	  $eventTemp = document.getElementById('topNav__Login');
-	  $eventTemp.addEventListener('click', handleLoginLink);
-      $root.appendChild($container);
+	  $root.appendChild($container);
 
       if (message) {
         addAlert(message);
@@ -132,9 +129,6 @@
     $form && $form.removeEventListener('submit', handleSubmit);
 	$b = document.getElementById('topNav__Login');
 	$b && $b.removeEventListener('click', handleLoginLink);
-	while ($tnRight.firstChild) {
-		$tnRight.removeChild($tnRight.firstChild);
-	}
 	$container.remove();
   })
 })(

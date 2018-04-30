@@ -12,13 +12,13 @@
 
 <script type="text/html" id="ChildPage">
 	<div class="ChildPage">
-		<div class="title"></div>
+		<div class="title">CHILD PAGE</div>
 		<div id="data">
 			<table id="table" style="width:95%">
 
 			</table>
 		</div>		
-	</div>
+	</div>	
 </script>
 
 <script type="text/html" id="Alert">

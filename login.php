@@ -23,8 +23,6 @@
 		
 		<?php include("./php/part/templates-login.php"); ?>		
 		<div class="header">
-			<!-- PHP Call for Top Navigation Bar -->
-			<?php include("./php/part/topnav.php"); ?> 
 		</div>
 		
 		<div class="info">
