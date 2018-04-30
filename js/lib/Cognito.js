@@ -145,11 +145,6 @@
 						'cognito-idp.us-west-2.amazonaws.com/us-west-2_3isz7XCIF': session.getIdToken().getJwtToken()
 					}
 				});
-				store.set('userCreds', AWS.config.credentials);
-				store.set('userSub', sub);
-				store.set('userToken', a);
-				
-				//console.log('Store info set');
 				resolve();
 				return;
 			})

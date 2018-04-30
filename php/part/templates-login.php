@@ -152,6 +152,4 @@
 	<button class="button2" id="topNav__<%= name %>" >	
 		<span><%= msg %></span>
 	</button>
-
-	</div>
 </script>

@@ -55,7 +55,6 @@
   function handleLogOut() {
     EventEmitter.emit('HomePage:unmount');
 	Cognito.signOut();
-	store.clear();
     window.location.replace("./index.html","Login") 
   }
   
@@ -75,6 +74,7 @@
 			if (message) {
 				addAlert(message);
 			}
+			console.log(Cognito.getSub());
 			handleChildLink();
 		}).catch(function(error) {
 			console.log(error);
