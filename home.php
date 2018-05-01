@@ -6,9 +6,10 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<Title> Team Kids - Home </Title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
-		<link rel="stylesheet" type="text/css" href="/css/datatables.css"/>
-		<script src="/js/lib/jquery-3.3.1.min.js"></script>
-		<script src="/js/lib/store.everything.min.js"></script>
+		<link rel="stylesheet" text="text/css" href="/css/tabulator.min.css">
+		<script type="text/javascript" src="/js/lib/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="/js/lib/jquery-ui.js"></script>
+		<script type="text/javascript" src="/js/lib/tabulator.min.js"></script>	
 	</head>
 	<body>
 	
@@ -29,7 +30,6 @@
 		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
 		<script type="text/javascript" src="/js/lib/amazon-cognito-identity.min.js"></script>
 		<script type="text/javascript" src="https://sdk.amazonaws.com/js/aws-sdk-2.224.1.min.js"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.16/datatables.min.js"></script>
 		<script type="text/javascript" src="/js/lib/utils.js"></script>
 		<script type="text/javascript" src="/js/lib/EventEmmiter.js"></script>
 		<script type="text/javascript" src="/js/lib/Cognito.js"></script>
@@ -37,5 +37,6 @@
 		<script type="text/javascript" src="/js/pages/HomePage.js"></script>
 		<script type="text/javascript" src="/js/pages/ChildPage.js"></script>
 		<script type="text/javascript" src="/js/index.js"></script>
+		<script type="text/javascript" src="/js/tableJQ.js"></script>
 	</body>
 </html> 

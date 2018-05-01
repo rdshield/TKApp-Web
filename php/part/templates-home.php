@@ -14,6 +14,7 @@
 	<div class="ChildPage">
 		<div class="title"></div>
 		<div id="data">
+			<button id="addRow" type="button"> + </button>
 			<table id="table" style="width:95%">
 
 			</table>

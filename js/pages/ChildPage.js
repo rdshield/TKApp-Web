@@ -75,16 +75,25 @@
 			setupTNLeft();
 			setupTNRight();
 			DBClient.readItems('children','parentId = :thisParent', {':thisParent': Cognito.getSub() }).then(function(data) {
-				for(var i=0 ; i < data.Count ; i++){
-					console.log(data.Items[i]);
-				}
-				$('#table').DataTable( {
-					data: data.Items, 
+				console.log(data);
+				$('#table').tabulator( { 
+					addRowPos:"bottom",
 					columns: [
-						{ title: "Child's Name", data: 'childName'},
-						{ title: "Child's Age", data: 'childAge'},
-					]	
+						{ title: "Child's Name", field: 'childName', sortable:true, editable:true, editor:'input'},
+						{ title: "Child's Age", field: 'childAge', sortable:true, sorter:"number", editable:true, editor:'number'},
+					],
+
+					// dataEdited:function(data){
+						// console.log(data[0]);
+						// DBClient.writeItem(DBClient.getSingleWriteParams('children', data[0]));
+					// }
 				});
+				$("button#addRow").on('click', function() {
+					console.log("A");
+					$("#table").tabulator("addRow");
+})
+;
+				$('#table').tabulator("setData", data.Items);
 			});
 			//console.log("Append Container")
 			$root.appendChild($container);

@@ -7,17 +7,8 @@
 		<Title> Team Kids - Login </Title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
 		<script src="/js/lib/jquery-3.3.1.min.js"></script>
-		<script src="/js/lib/store.everything.min.js"></script>
 	</head>
 	<body>
-		<script>
-			init()
-			function init() {
-				//console.log("Verifying if Store is supported by browser");
-				if (!store.enabled) {	alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.'); return }
-			}
-		</script>		
-		
 		<div class="header">
 			<!-- PHP Call for Top Navigation Bar -->
 			<?php include("./php/part/topnav.php"); ?> 
@@ -45,7 +36,6 @@
 		<script type="text/javascript" src="/js/pages/ConfirmForm.js"></script>
 		<script type="text/javascript" src="/js/pages/SignupForm.js"></script>
 		<script type="text/javascript" src="/js/pages/pwResetForm.js"></script>
-		
 		<script type="text/javascript" src="/js/login.js"></script>
 	</body>
 </html> 
