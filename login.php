@@ -13,7 +13,7 @@
 			<!-- PHP Call for Top Navigation Bar -->
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
-		<?php include("./php/part/templates-login.php"); ?>		
+			
 		<div class="header">
 		</div>
 		
@@ -25,6 +25,7 @@
 		</div>
 		
 		<!-- Scripts -->
+		<?php include("./php/part/templates-login.php"); ?>	
 		<script type="text/javascript" src="/js/config/config.js"></script>
 		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
 		<script type="text/javascript" src="/js/lib/amazon-cognito-identity.min.js"></script>

@@ -68,7 +68,6 @@ function readItems(tableId,filter='',exp={}){
 }
 
 function writeItem(wParams) {
-	console.error(wParams);
 	docClient = new AWS.DynamoDB.DocumentClient();
 	docClient.put(wParams, function(err,data) {
 		if(!err) {

@@ -68,34 +68,57 @@
 	EventEmitter.on('ChildPage:mount', function(message) {
 		//console.log('Running Child Page');
 		Cognito.isAuthenticated().then(function() {
-			//console.log("Starting Auth Page")
 			DBClient.connect();
 			$container.innerHTML = tmpl('ChildPage', {})
-			//console.log($container)
 			setupTNLeft();
 			setupTNRight();
-			DBClient.readItems('children','parentId = :thisParent', {':thisParent': Cognito.getSub() }).then(function(data) {
-				console.log(data);
-				$('#table').tabulator( { 
-					addRowPos:"bottom",
+			DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() }).then(function(data) {
+				//console.log(data);
+				var idCount = data.Count+1;
+				
+				$('#table').tabulator( {
 					columns: [
+						{ title: "ID#", field: "Id", sortable:true, sorter:"number"},
 						{ title: "Child's Name", field: 'childName', sortable:true, editable:true, editor:'input'},
-						{ title: "Child's Age", field: 'childAge', sortable:true, sorter:"number", editable:true, editor:'number'},
-					],
-
-					// dataEdited:function(data){
-						// console.log(data[0]);
-						// DBClient.writeItem(DBClient.getSingleWriteParams('children', data[0]));
-					// }
+						{ title: "Age", field: 'childAge', sortable:true, sorter:"number", editable:true, editor:'number'},
+						{ title: "Gender", field: 'childGender', sortable:true, sorter:"number", editable:true,
+						  editor:'select', editorParams:{ 'Male':"Male", 'Female':"Female",	'Other':"Other",}},
+					],		
 				});
-				$("button#addRow").on('click', function() {
-					console.log("A");
-					$("#table").tabulator("addRow");
-})
-;
 				$('#table').tabulator("setData", data.Items);
+				$("button#addRow").on('click', function() {
+					if(document.getElementsByClassName("addChildPage").length == 0) {
+						var $addButton = document.getElementById('addRow');
+						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
+						$addControls = document.getElementById('addChildPage')
+						
+						$("button#addChildRow").on('click', function() {
+							var parentId = Cognito.getSub();
+							var childId = (parentId +":"+idCount)
+							params = {
+								"childId" : childId,
+								"Id" : idCount,
+								"childName"   : (document.getElementById("cName").value),
+								"childAge" 	  : (document.getElementById("cAge").value),
+								"childGender" : (document.getElementById("cGender").value),
+								"complChallenges" : [],
+								"currChallenges" : [],
+								"parentId" : parentId,
+							}
+							var param = DBClient.getSingleWriteParams('child',params);
+							console.log(param);
+							DBClient. writeItem(param);
+							handleChildLink();
+							$addControls.remove();
+						})
+					}
+					else {
+						$addControls = document.getElementById('addPage');
+						$addControls.remove();
+					}
+				});
 			});
-			//console.log("Append Container")
+			
 			$root.appendChild($container);
 			if (message) {
 				addAlert(message);
@@ -103,7 +126,6 @@
 		}).catch(function(error) {
 			if (error) {
 				console.log(error);
-				//addAlert(message);
 			}
 		})
 	})

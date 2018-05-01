@@ -162,8 +162,8 @@
 		$link && $link.removeEventListener('click', handleSignupLink);
 		//$forgotLink && $forgotLink.removeEventListener('click', handlePwReset);
 		$form && $form.removeEventListener('submit', handleSubmit);
-		$b = document.getElementById('topNav__Login');
-		$b && $b.removeEventListener('click', handleLoginLink);
+		// $b = document.getElementById('topNav__Login');
+		// $b && $b.removeEventListener('click', handleLoginLink);
 		
 		//Remove page container
 		$container.remove();

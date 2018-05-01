@@ -115,7 +115,6 @@
 </script> 
 
 <script type="text/html" id="pwdResetConfirm">
-
 	<div class="pwdResetConfirm">
 	  <div class="title"></div>
 	  <form class="form">

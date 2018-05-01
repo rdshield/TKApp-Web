@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
-		<Title> Team Kids - Home </Title>
+		<Title> Team Kids </Title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
 		<link rel="stylesheet" text="text/css" href="/css/tabulator.min.css">
 		<script type="text/javascript" src="/js/lib/jquery-3.3.1.min.js"></script>
@@ -12,12 +12,12 @@
 		<script type="text/javascript" src="/js/lib/tabulator.min.js"></script>	
 	</head>
 	<body>
-	
-		<?php include("./php/part/templates-home.php"); ?>		
+			
 		<div class="header">
 			<!-- PHP Call for Top Navigation Bar -->
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
+		
 		<div class="info">
 			<section id="content">
 				<!-- Actual Container for data content -->
@@ -26,6 +26,7 @@
 		</div>
 		
 		<!-- Scripts -->
+		<?php include("./php/part/templates-home.php"); ?>	
 		<script type="text/javascript" src="/js/config/config.js"></script>
 		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
 		<script type="text/javascript" src="/js/lib/amazon-cognito-identity.min.js"></script>
@@ -37,6 +38,5 @@
 		<script type="text/javascript" src="/js/pages/HomePage.js"></script>
 		<script type="text/javascript" src="/js/pages/ChildPage.js"></script>
 		<script type="text/javascript" src="/js/index.js"></script>
-		<script type="text/javascript" src="/js/tableJQ.js"></script>
 	</body>
 </html> 
