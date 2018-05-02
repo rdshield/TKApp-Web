@@ -14,18 +14,15 @@
 	<body>
 			
 		<div class="header">
-			<!-- PHP Call for Top Navigation Bar -->
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
-		
-		<div class="info">
-			<section id="content">
-				<!-- Actual Container for data content -->
-				<div id="root"> </div>
-			</section>
+		<section id="content">
+			<!-- Actual Container for data content -->
+			<div id="root"> </div>
+		</section>
 		</div>
 		
-		<!-- Scripts -->
+		<!-- Scripts Begin Here -->
 		<?php include("./php/part/templates-home.php"); ?>	
 		<script type="text/javascript" src="/js/config/config.js"></script>
 		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>

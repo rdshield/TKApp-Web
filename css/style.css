@@ -29,6 +29,9 @@ body {
 	box-sizing: border-box;
 }
 
+/* Formatting for Foundational Page - All views inherit this as their basic look */
+
+/* Top Nav Bar */
 .header {
   height: 50px;
   /*background-color: var(--tkdblue);*/
@@ -38,39 +41,32 @@ body {
   right:0;
 }
 
-.left {
-	width: 33%;
+.header.left {
+	width: 45%;
 	float: left;
 }
 
-.center {
+.header.center {
 	margin: 0 auto;
 	text-align: center;
-	width: 33%;
+	width: 10%;
 }
 
-.right {
+.header.right {
 	float: right;
-	width: 33%;
+	width: 45%;
 	display: inline-block;
 }
 
 .topNav {
+	font-family: "Garamond", Gadget, sans-serif;
+	color: white;
 	width: 100%;
 	height: 50px;
 }
 
-
 .topNav .left .button {
-	float: left;
-	padding: 5px 6px;
-	background-color: var(--tkred);
-}
-
-.topNav .left .button2 {
-	font-family: "Garamond", Gadget, sans-serif;
 	float:left;
-	color: white;
 	background-color: var(--tkgreen);
 	padding: 16px 10px;
 	text-align:center;
@@ -81,13 +77,8 @@ body {
 	margin-left: 5px;
 }
 
-
-.bar {
-	width: 18px;
-    height: 3px;
-    background-color: white;
-    margin: 2px 0;
-	border-radius: 25px;
+.topNav .left .button :hover {
+	color: black;
 }
 
 .topNav .right {
@@ -103,17 +94,6 @@ body {
 }
 
 .topNav .right .button {
-	float: right;
-	height: 35px;
-	padding: 15px 20px 0 20px ;
-	padding-bottom: -5px;
-	background-color: var(--tkred);
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-.topNav .right .button2 {
-	font-family: "Garamond", Gadget, sans-serif;
 	float:right;
 	color: white;
 	background-color: var(--tkred);
@@ -126,43 +106,23 @@ body {
 	margin-left: 5px;
 }
 
-.topNav .right .button2 :hover {
-	color: black;
-}
-
 .topNav .right .button :hover {
 	color: black;
 }
 
-.sidenav{
-	display: 'block';
+/* Data View Formatting */
+#root {
+	color: black;
+	width: 100%;
 	height: 100%;
-	width: 200px;
-	background-color:var(--tkdblue);
-	position:fixed!important;
-	z-index:2;
-	overflow:auto;
+	padding: 25px 0 0 0;
+	background-color: var(--grey);
+	text-align: center;
 }
 
-.sidenav a {
-		float: right;
-		width: 100%;
-		height: 40px;
-		color:white;
-		text-align: center;
-		font-weight: bold;
-		padding: 10px 0px;
-		text-decoration: none;
-		font-size:17px;	
-		margin-top: 20px;
+div#data {
+	padding: 0 0 0 20%;
 }
-
-.sidenav a:hover {
-		color:black;
-		font-size:17px;
-		background-color:var(--tkred);	
-}
-
 .info {
 	height:100%;
 	width: 100%;
@@ -184,7 +144,6 @@ body {
 	left:auto;
 	right:auto;
 	padding-right: 2px;
-	;
 	text-align: right;
 }
 
@@ -193,12 +152,7 @@ body {
 	display: block;
 }
 
-#content {
-  color: black;
-  width: 100%;
-  height: 100%;
-  background-color: var(--grey);
-}
+
 
 #login {
 	display: block;
@@ -388,4 +342,19 @@ body {
 }
 
 
+/* Basic Table View */
+div.addControls {
+	padding: 0 0 10px 0;
+	text-align: left;
+}
+
+div.addControls div#addBox.addChildPage  {
+	display: inline;
+}
+
+div#table.tabulator {
+	
+	width: 60%;
+	
+}
 

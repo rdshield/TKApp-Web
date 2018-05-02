@@ -1,4 +1,3 @@
-<!-- Templates -->
 <script type="text/html" id="HomePage">
 	<div class="HomePage">
 		<div class="title"></div>
@@ -14,8 +13,10 @@
 	<div class="ChildPage">
 		<div class="title"></div>
 		<div id="data">
-			<button id="addRow" type="button"> +Add a Child </button>
-			<table id="table" style="width:66.6%">
+			<div class="addControls">
+				<button id="addRow" type="button"> Add a Child </button>
+			</div>
+			<table id="table">
 
 			</table>
 		</div>		
@@ -30,7 +31,7 @@
 </script>
   
 <script type="text/html" id="topNavButton">
-	<button class="button2" id="topNav__<%= name %>" >	
+	<button class="button" id="topNav__<%= name %>" >	
 		<span><%= msg %></span>
 	</button>
 
@@ -38,19 +39,15 @@
 </script>
 
 <script type="text/html" id="addChildPage">
-	<div id="addPage" class="addChildPage" >
-		<div class="title"></div>
-		<div id="data">
-			<div "addBox">
-				<label for="cName"><input id="cName" name="cName" type="text" placeholder="Your Child's First Name" />
-				<label for="cAge"><input id="cAge" name="cAge" type="text" placeholder="How old is your child?" />
-				<label for="cGender"><select id="cGender" name="cGender" type="s" placeholder="">
-					<option value="Not Specified">Not Specified</option>
-					<option value="Male">Male</option>
-					<option value="Female">Female</option>
-				<select>
-				<button id="addChildRow" type="button">Add Child</button>
-			</div>
-		</div>		
+	<div id="addBox" class="addChildPage">
+		<button id="addChildRow" type="button">Add Child</button>
+		<input id="cName" name="cName" type="text" placeholder="First Name" />
+		<input id="cAge" name="cAge" type="text" placeholder="Age" />
+		<select id="cGender" name="cGender" type="s" placeholder="Gender">
+			<option selected disabled value="Gender">Gender</option>
+			<option value="Male">Male</option>
+			<option value="Female">Female</option>
+			<option value="Not Specified">Not Specified</option>
+		</select>		
 	</div>	
 </script>

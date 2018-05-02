@@ -74,25 +74,66 @@
 			setupTNRight();
 			DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() }).then(function(data) {
 				//console.log(data);
-				var idCount = data.Count+1;
-				
+				var idCount= data.Count+1;
 				$('#table').tabulator( {
+					initialSort:[
+						{column:"childName", dir:"asc"},
+					],
 					columns: [
-						{ title: "ID#", field: "Id", sortable:true, sorter:"number"},
+						//{ title: "ID#", field: "childId", sortable:true, sorter:"number"},
 						{ title: "Child's Name", field: 'childName', sortable:true, editable:true, editor:'input'},
 						{ title: "Age", field: 'childAge', sortable:true, sorter:"number", editable:true, editor:'number'},
 						{ title: "Gender", field: 'childGender', sortable:true, sorter:"number", editable:true,
 						  editor:'select', editorParams:{ 'Male':"Male", 'Female':"Female",	'Other':"Other",}},
-					],		
+						{ title: "Delete", formatter:"tickCross", headerSort:false, align:'center'}
+					],
+
+					dataEdited:function(data){
+						console.log(data[0]);
+					    DBClient.writeItem(DBClient.getSingleWriteParams('child', data[0]));
+						//handleChildLink();
+					},
+					
+					cellClick: function(e, cell) {
+						var rowData = cell.getRow().getData();
+						var msg = ("(Child ID#" + rowData.Id + " - Name: " + rowData.childName + " - Age:" + rowData.childAge + ")");
+						var del = window.confirm("Are you sure you want to delete the entry referenced below? Please note that all progress will be lost.\n"+ msg);
+						if(del){
+							var params = { "childId" : rowData.childId	};
+							params = DBClient.getSingleDelParams('child',params);
+							DBClient.deleteItem(params);
+							var a = 1;
+							DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() })
+							.then(function(data) {
+								console.error(data.Items);
+								/*
+								var temp = data.Items;
+								var e = 0;
+								for(e;e<data.Items.length;e++)
+								{
+									temp.Id = e;
+									var param = DBClient.getSingleWriteParams('child',temp);
+									console.log(param);
+									DBClient. writeItem(param);
+								}
+								*/								
+							});							
+						}
+						handleChildLink();
+					},
 				});
+
 				$('#table').tabulator("setData", data.Items);
 				$("button#addRow").on('click', function() {
 					if(document.getElementsByClassName("addChildPage").length == 0) {
+						
+						idCount = data.Items.length+1
 						var $addButton = document.getElementById('addRow');
+						$addButton.innerHTML = "Close";
 						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
-						$addControls = document.getElementById('addChildPage')
 						
 						$("button#addChildRow").on('click', function() {
+							$addControls = document.getElementsByClassName('addControls')[0];
 							var parentId = Cognito.getSub();
 							var childId = (parentId +":"+idCount)
 							params = {
@@ -106,17 +147,21 @@
 								"parentId" : parentId,
 							}
 							var param = DBClient.getSingleWriteParams('child',params);
-							console.log(param);
+							//console.log(param);
 							DBClient. writeItem(param);
 							handleChildLink();
 							$addControls.remove();
 						})
 					}
 					else {
-						$addControls = document.getElementById('addPage');
+						var $addButton = document.getElementById('addRow');
+						$addButton.innerHTML = "Add a Child";
+						var $addControls = document.getElementById('addBox');
 						$addControls.remove();
 					}
 				});
+				
+				
 			});
 			
 			$root.appendChild($container);

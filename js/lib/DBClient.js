@@ -25,6 +25,12 @@ function getSingleWriteParams(tableId, info) {
 	return params;
 }
 
+function getSingleDelParams(tableId, info) {
+	params = { TableName : tableId };
+	params.Key = info;
+	return params;
+}
+
 function readItem(params) {
 	//console.log(params);
 	docClient = new AWS.DynamoDB.DocumentClient();
@@ -79,7 +85,17 @@ function writeItem(wParams) {
 	});
 }
 
-
+function deleteItem(wParams) {
+	docClient = new AWS.DynamoDB.DocumentClient();
+	docClient.delete(wParams, function(err,data) {
+		if(!err) {
+			console.log("Success - Delete Completed");
+		}
+		else { 
+			console.log("Unable to Delete -" + err);
+		}
+	});
+}
 
   window.DBClient = Object.freeze({
 	connect: connect,
@@ -88,5 +104,7 @@ function writeItem(wParams) {
 	setupSingleItemParams: setupSingleItemParams,
 	getSingleWriteParams: getSingleWriteParams,
 	readItems: readItems,
+	deleteItem: deleteItem,
+	getSingleDelParams: getSingleDelParams,
   })
 })(window)
