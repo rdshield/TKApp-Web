@@ -66,7 +66,6 @@
 	}
   
 	EventEmitter.on('ChildPage:mount', function(message) {
-		//console.log('Running Child Page');
 		Cognito.isAuthenticated().then(function() {
 			DBClient.connect();
 			$container.innerHTML = tmpl('ChildPage', {})
@@ -103,21 +102,7 @@
 							params = DBClient.getSingleDelParams('child',params);
 							DBClient.deleteItem(params);
 							var a = 1;
-							DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() })
-							.then(function(data) {
-								console.error(data.Items);
-								/*
-								var temp = data.Items;
-								var e = 0;
-								for(e;e<data.Items.length;e++)
-								{
-									temp.Id = e;
-									var param = DBClient.getSingleWriteParams('child',temp);
-									console.log(param);
-									DBClient. writeItem(param);
-								}
-								*/								
-							});							
+							DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
 						}
 						handleChildLink();
 					},
@@ -126,31 +111,39 @@
 				$('#table').tabulator("setData", data.Items);
 				$("button#addRow").on('click', function() {
 					if(document.getElementsByClassName("addChildPage").length == 0) {
-						
-						idCount = data.Items.length+1
 						var $addButton = document.getElementById('addRow');
 						$addButton.innerHTML = "Close";
 						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
 						
 						$("button#addChildRow").on('click', function() {
-							$addControls = document.getElementsByClassName('addControls')[0];
-							var parentId = Cognito.getSub();
-							var childId = (parentId +":"+idCount)
-							params = {
-								"childId" : childId,
-								"Id" : idCount,
-								"childName"   : (document.getElementById("cName").value),
-								"childAge" 	  : (document.getElementById("cAge").value),
-								"childGender" : (document.getElementById("cGender").value),
-								"complChallenges" : [],
-								"currChallenges" : [],
-								"parentId" : parentId,
-							}
-							var param = DBClient.getSingleWriteParams('child',params);
-							//console.log(param);
-							DBClient. writeItem(param);
-							handleChildLink();
-							$addControls.remove();
+							DBClient.readItem(DBClient.setupSingleItemParams('user','userId', Cognito.getSub())).then(function(a) {
+								a.userCount++;
+								$addControls = document.getElementsByClassName('addControls')[0];
+								var parentId = Cognito.getSub();
+								var childId = (parentId +":"+a.userCount)
+								params = {
+									"childId" : childId,
+									"Id" : a.userCount,
+									"childName"   : (document.getElementById("cName").value),
+									"childAge" 	  : (document.getElementById("cAge").value),
+									"childGender" : (document.getElementById("cGender").value),
+									"complChallenges" : [],
+									"currChallenges" : [],
+									"parentId" : parentId,
+								}
+								var param = DBClient.getSingleWriteParams('child',params);
+								DBClient.writeItem(param);
+								DBClient.updateItem({	TableName: 'user',
+														Key: { 'userId': Cognito.getSub() },
+														UpdateExpression: 'set #a = :x',
+														ExpressionAttributeNames: {'#a': 'userCount'},
+														ExpressionAttributeValues: { ':x' : a.userCount,},
+													});
+								handleChildLink();
+								$addControls.remove();
+							});
+							
+							
 						})
 					}
 					else {
@@ -171,6 +164,7 @@
 		}).catch(function(error) {
 			if (error) {
 				console.log(error);
+				handleLogOut();
 			}
 		})
 	})

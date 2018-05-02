@@ -1,4 +1,4 @@
-(function(EventEmitter, tmpl, Cognito){
+(function(EventEmitter, tmpl, Cognito, DBClient){
 	/* AdminHome */
 	var $root = document.getElementById('root'), 
 		$container = document.createElement('div'),
@@ -10,6 +10,7 @@
 		$button,
 		$form,
 		$link;
+		
 
 	function addAlert(options) {
 		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
@@ -75,22 +76,19 @@
 	}
   
 	EventEmitter.on('AdminHome:mount', function(message) {
-	    Cognito.isNotAuthenticated()
-		.then(function() {
-			$container.innerHTML = tmpl('AdminHome', {})
+		Cognito.isAuthenticated().then(function() { 
+			
+			$container.innerHTML = tmpl('HomePage', {})
 			setupTNLeft();
 			setupTNRight();
 			$root.appendChild($container);
 
-			if (message) {	addAlert(message);	}
-		})
-		.catch(function(error) {
-			$container.innerHTML = tmpl('AdminHome', {})
-			setupTNLeft();
-			setupTNRight();
-			$root.appendChild($container);
-
-			if (message) {	addAlert(message);	}			
+			if (message) {
+				addAlert(message);
+			}
+		}).catch(function(error) {
+			console.log(error);
+			handleLogOut();
 		})
 	})
 

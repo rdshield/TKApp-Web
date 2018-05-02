@@ -97,6 +97,20 @@ function deleteItem(wParams) {
 	});
 }
 
+function updateItem(wParams) {
+	docClient = new AWS.DynamoDB.DocumentClient();
+	docClient.update(wParams, function(err,data) {
+		if(!err) {
+			console.log("Success - Delete Completed");
+		}
+		else { 
+			console.log("Unable to Delete -" + err);
+		}
+	});
+}
+
+
+
   window.DBClient = Object.freeze({
 	connect: connect,
 	readItem: readItem,
@@ -106,5 +120,6 @@ function deleteItem(wParams) {
 	readItems: readItems,
 	deleteItem: deleteItem,
 	getSingleDelParams: getSingleDelParams,
+	updateItem: updateItem,
   })
 })(window)

@@ -353,8 +353,8 @@ div.addControls div#addBox.addChildPage  {
 }
 
 div#table.tabulator {
-	
-	width: 60%;
+	min-width:400px;
+	width: 600px;
 	
 }
 

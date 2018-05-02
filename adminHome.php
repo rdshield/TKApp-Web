@@ -29,7 +29,7 @@
 		<script type="text/javascript" src="/js/config/adminconfig.js"></script>
 		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
 		<script type="text/javascript" src="/js/lib/amazon-cognito-identity.min.js"></script>
-		<script type="text/javascript" src="/js/lib/jquery-3.3.1.min.js"></script>  <!-- Enables JQuery -->
+		<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
 		<script type="text/javascript" src="/js/lib/utils.js"></script>
 		<script type="text/javascript" src="/js/lib/EventEmmiter.js"></script>
 		<script type="text/javascript" src="/js/lib/Cognito.js"></script>
@@ -38,6 +38,6 @@
 		<script type="text/javascript" src="/js/pages/AdminChallenges.js"></script>
 		<script type="text/javascript" src="/js/pages/AdminGuardians.js"></script>
 		<script type="text/javascript" src="/js/pages/AdminSettings.js"></script>
-		<script type="text/javascript" src="/js/admin.js"></script>
+		<script type="text/javascript" src="/js/adminHome.js"></script>
 	</body>
 </html> 

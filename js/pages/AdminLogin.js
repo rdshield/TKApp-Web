@@ -42,12 +42,12 @@
 	function setupTNLeft(){	}  
 
 	function setupTNRight(){
-		$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Login', msg:'Login' }));
-		$temp = document.getElementById('topNav__Login');
-		$temp.addEventListener('click', handleLoginLink);
-		$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Home', msg:'Home' }));
-		$temp = document.getElementById('topNav__Home');
-		$temp.addEventListener('click', redirectToHome);
+		//$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Login', msg:'Login' }));
+		//$temp = document.getElementById('topNav__Login');
+		//$temp.addEventListener('click', handleLoginLink);
+		//$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Home', msg:'Home' }));
+		//$temp = document.getElementById('topNav__Home');
+		//$temp.addEventListener('click', redirectToHome);
 	}
 	  
 	function redirectToLogin() {
@@ -55,9 +55,9 @@
 		EventEmitter.emit('AdminLogin:mount');
 	}
 	  
-	function redirectToHome() {
+	function redirectToHome() {									
 		EventEmitter.emit('AdminLogin:unmount');
-		EventEmitter.emit('AdminHome:mount');
+		window.location.replace('AdminHome.php');
 	}
 	  
 	function handleLoginLink() {
@@ -70,31 +70,48 @@
 		EventEmitter.emit('HomePage:mount');
 	}
 
+	//Process to follow when "Login/Submit" button is pressed
 	function handleSubmit(event) {
 		event.preventDefault()
 		var $inputs = $container.getElementsByTagName('input');
 		startLoading()
-		Cognito.logIn($inputs.email.value, $inputs.password.value)
-		.then(function(result) {
-		  stopLoading()
-		  addAlert({
-			type: 'success',
-			message: 'Log in successful! Redirecting...'
-		  })
-		  setTimeout(redirectToHome, 50) 
-		  console.log(result)
+		
+		//Uses Cognito JS to attempt authentication
+		Cognito.logIn($inputs.email.value, $inputs.password.value).then(function(result){			  
+			stopLoading()
+			addAlert({
+				type: 'success',
+				message: 'Log in successful! Redirecting...'
+			})
+			//Sets required tokens and authentication methods to save necessary credentials for access to the rest of the app
+			Cognito.isAuthenticated();
+			
+			//Redirects to the authenticated landing page after a short pause
+			setTimeout(redirectToHome, 150);
+					   
 		})
+		//If any errors are encountered...
 		.catch(function(error) {
 			$fills = $container.getElementsByClassName('Control__input');
-			$fills[1].value='';
+			$fills[1].value=''; //Clear Password from page
 			stopLoading();
-			console.log(error.message)
+			console.log(error.message);
+		  
+			// If the user needs to confirm their acconut, switch to the confirmation form page.
+			if (error.message === 'User is not confirmed.') {
+				EventEmitter.emit('ConfirmForm:mount', {
+					email: $inputs.email.value,
+				});
+				EventEmitter.emit('LoginForm:unmount');
+				return;
+			}
+			//Print Error to On-page Alert area
 			addAlert({
 				type: 'error',
 				message: error.message,
 			})
-			$fills[0].value='';
-			console.error(error)
+					  
+			console.error(error);
 		})
 	}
 	  
