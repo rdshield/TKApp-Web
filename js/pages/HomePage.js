@@ -64,6 +64,8 @@
   }
   
 	EventEmitter.on('HomePage:mount', function(message) { 
+		console.log(DBClient);
+		handleChildLink();
 		Cognito.isAuthenticated().then(function() { 
 			
 			$container.innerHTML = tmpl('HomePage', {})

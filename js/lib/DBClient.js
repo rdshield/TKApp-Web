@@ -3,6 +3,7 @@
 var docClient;
 
 function connect(){
+	console.log(AWS.config);
 	AWS.config.region = 'us-west-2';
 	AWS.config.credentials.get(function(err) {
         if (err) {

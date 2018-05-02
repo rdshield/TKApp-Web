@@ -1,4 +1,4 @@
-(function(EventEmitter, tmpl, Cognito){
+(function(EventEmitter, tmpl, Cognito, DBClient,){
 	/* Admin Guardians Page */
 	var $root = document.getElementById('root'), 
 		$container = document.createElement('div'),
@@ -75,15 +75,51 @@
 	}
   
 	EventEmitter.on('AdminGuardians:mount', function(message) {
-	    Cognito.isNotAuthenticated()
-		.then(function() {
+		Cognito.isAuthenticated().then(function() { 
+			DBClient.connect();
 			$container.innerHTML = tmpl('AdminGuardians', {})
 			setupTNLeft();
 			setupTNRight();
-			$root.appendChild($container);
+			DBClient.readItems('users').then(function(data) {
+					$('#table').tabulator( {
+					initialSort:[
+						{column:"challengeId", dir:"asc"},
+					],
+					columns: [
+						{ title: "ID#", field: "challengeId", sortable:true, sorter:"number"},
+						{ title: "Challenge", field: "challengeName", sortable:true, editable:true, editor:'input'},
+						{ title: "Description", field: 'challengeDesc', sortable:true, sorter:"string", editable:true, editor:'input'},
+						{ title: "Category", field: 'category', sortable:true, sorter:"number", editable:true,
+						  editor:'select', editorParams:{ 'Choice 1':"Choice 1", 'Choice 2':"Choice 2",	'Choice 3':" Choice 3",}},
+						{ title: "Delete", formatter:"tickCross", headerSort:false, align:'center'}
+					],
 
-			if (message) {	addAlert(message);	}
+					dataEdited:function(data){
+						console.log(data[0]);
+					    DBClient.writeItem(DBClient.getSingleWriteParams('challenges', data[0]));
+						//handleChildLink();
+					},
+					
+					cellClick: function(e, cell) {
+						var rowData = cell.getRow().getData();
+						var msg = ("(Challenge ID#" + rowData.challengeId + " - Name: " + rowData.challengeName + " - Age:" + ")");
+						var del = window.confirm("Are you sure you want to delete the entry referenced below?\n"+ msg);
+						if(del){
+							var params = { "challengeId" : rowData.childId	};
+							params = DBClient.getSingleDelParams('challenges',params);
+							DBClient.deleteItem(params);
+							var a = 1;					
+						}
+						handleChallengeLink();
+					},
+				});
+				$('#table').tabulator("setData", data.Items);
+			});
+		}).catch(function(error) {
+			console.log(error);
+			//handleLogOut();
 		})
+		$root.appendChild($container);
 	})
 
 	EventEmitter.on('AdminGuardians:unmount', function() {
@@ -109,5 +145,6 @@
 })(
   window.EventEmitter, 
   window.tmpl, 
-  window.Cognito
+  window.Cognito,
+  window.DBClient,
 )

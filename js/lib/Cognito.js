@@ -137,12 +137,13 @@
 				if (session.isValid() === false){
 					reject('Session is invalid');
 				}
+				var a = 'cognito-idp.us-west-2.amazonaws.com/'+ USER_POOL_ID;
 				AWS.config.region = 'us-west-2';
 				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 					region: 'us-west-2',
 					IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
 					Logins: {
-						'cognito-idp.us-west-2.amazonaws.com/us-west-2_3isz7XCIF': session.getIdToken().getJwtToken()
+						[a] : session.getIdToken().getJwtToken()
 					}
 				});
 				resolve();

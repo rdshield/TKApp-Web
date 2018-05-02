@@ -1,0 +1,10 @@
+New Signup Email Verbage
+Password Reset Email Verbage
+Terms and Conditions (Not Needed for this Proof of Concept, but would be needed)
+AWS Non-Profit Account
+Domain certificate/address
+Additional info fields for users,kids,challenges
+Are challenges ever temporarily disabled?
+Colors/Themes for site
+Logo other than the one we have?
+

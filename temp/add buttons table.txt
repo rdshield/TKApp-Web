@@ -1,0 +1,94 @@
+
+
+				$("button#addRow").on('click', function() {
+					if(document.getElementsByClassName("addChildPage").length == 0) {
+						var $addButton = document.getElementById('addRow');
+						$addButton.innerHTML = "Close";
+						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
+						
+						$("button#addChildRow").on('click', function() {
+							DBClient.readItem(DBClient.setupSingleItemParams('user','userId', Cognito.getSub())).then(function(a) {
+								a.userCount++;
+								$addControls = document.getElementsByClassName('addControls')[0];
+								var parentId = Cognito.getSub();
+								var childId = (parentId +":"+a.userCount)
+								params = {
+									"childId" : childId,
+									"Id" : a.userCount,
+									"childName"   : (document.getElementById("cName").value),
+									"childAge" 	  : (document.getElementById("cAge").value),
+									"childGender" : (document.getElementById("cGender").value),
+									"complChallenges" : [],
+									"currChallenges" : [],
+									"parentId" : parentId,
+								}
+								var param = DBClient.getSingleWriteParams('child',params);
+								DBClient.writeItem(param);
+								DBClient.updateItem({	TableName: 'user',
+														Key: { 'userId': Cognito.getSub() },
+														UpdateExpression: 'set #a = :x',
+														ExpressionAttributeNames: {'#a': 'userCount'},
+														ExpressionAttributeValues: { ':x' : a.userCount,},
+													});
+								handleChildLink();
+								$addControls.remove();
+							});
+							
+							
+						})
+					}
+					else {
+						var $addButton = document.getElementById('addRow');
+						$addButton.innerHTML = "Add a Child";
+						var $addControls = document.getElementById('addBox');
+						$addControls.remove();
+					}
+				});
+				
+				
+			});
+			
+			$root.appendChild($container);
+			if (message) {
+				addAlert(message);
+			}
+		}).catch(function(error) {
+			if (error) {
+				console.log(error);
+				handleLogOut();
+			}
+		})	
+	
+	    Cognito.isNotAuthenticated().then(function() {
+		    DBClient.connect();
+			$container.innerHTML = tmpl('AdminChallenges', {})
+			setupTNLeft();
+			setupTNRight();
+			
+			DBClient.readItems('challenges').then(function(data) {
+				$('#table').DataTable( {
+					data: data.Items, 
+				columns: [
+					{ title: 'Challenge ID#', data: 'challengeId'},
+					{ title: 'Challenge Name', data: 'challengeName'},
+					{ title: 'Description', data: 'challengeDesc' },
+					{ title: 'isActive', data: 'isActive' },					
+				]	
+		});
+	  });
+			
+			
+			$root.appendChild($container);
+
+			if (message) {	addAlert(message);	}
+		})
+		
+		.catch(function(error) {
+			$container.innerHTML = tmpl('AdminChallenges', {})
+			setupTNLeft();
+			setupTNRight();
+			$root.appendChild($container);
+
+			if (message) {	addAlert(message);	}
+		})
+	})

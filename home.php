@@ -20,7 +20,6 @@
 			<!-- Actual Container for data content -->
 			<div id="root"> </div>
 		</section>
-		</div>
 		
 		<!-- Scripts Begin Here -->
 		<?php include("./php/part/templates-home.php"); ?>	

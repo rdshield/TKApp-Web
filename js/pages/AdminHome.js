@@ -72,12 +72,11 @@
 	function handleLogOut() {
 		EventEmitter.emit('AdminHome:unmount');
 		Cognito.signOut();
-		window.location.replace("./admin.php","Admin Login") 
+		window.location.replace("./admin-login.php","Admin Login") 
 	}
   
 	EventEmitter.on('AdminHome:mount', function(message) {
 		Cognito.isAuthenticated().then(function() { 
-			
 			$container.innerHTML = tmpl('HomePage', {})
 			setupTNLeft();
 			setupTNRight();
@@ -115,5 +114,6 @@
 })(
   window.EventEmitter, 
   window.tmpl, 
-  window.Cognito
+  window.Cognito,
+  window.DBClient,
 )
