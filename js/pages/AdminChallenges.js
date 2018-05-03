@@ -96,8 +96,8 @@
 
 					dataEdited:function(data){
 						console.log(data[0]);
-					    DBClient.writeItem(DBClient.getSingleWriteParams('challenges', data[0]));
-						//handleChildLink();
+					    DBClient.writeItem(DBClient.getParameters('challenges', data[0]));
+						handleChildLink();
 					},
 					
 					cellClick: function(e, cell) {
@@ -106,14 +106,14 @@
 						var del = window.confirm("Are you sure you want to delete the entry referenced below?\n"+ msg);
 						if(del){
 							var params = { "challengeId" : rowData.childId	};
-							params = DBClient.getSingleDelParams('challenges',params);
+							params = DBClient.getDeleteParams('challenges',params);
 							DBClient.deleteItem(params);
 							var a = 1;					
 						}
 						handleChallengeLink();
 					},
 				});
-				$('#table').tabulator("setData", data.Items);
+				$('#table').tabulator("setData", data);
 			});
 		}).catch(function(error) {
 			console.log(error);

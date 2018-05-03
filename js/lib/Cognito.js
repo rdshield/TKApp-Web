@@ -1,5 +1,5 @@
 (function(CognitoUserPool) {
-  var CognitoUserPool = window.AmazonCognitoIdentity.CognitoUserPool,
+	var CognitoUserPool = window.AmazonCognitoIdentity.CognitoUserPool,
 		AWSCognito = window.AWSCognito,
 		CognitoIdentityServiceProvider = AWSCognito.CognitoIdentityServiceProvider,
 		CognitoUserAttribute = CognitoIdentityServiceProvider.CognitoUserAttribute,
@@ -12,12 +12,18 @@
 		User,
 		sub = '';
 
-  function signUp(params) {
+	/* SignUp
+		Connects to Cognito Server and attempts to create a new account
+			params: Contains email and password by default in an array
+	*/
+	function signUp(params) {
+		//Set email to all lower-case, as default Cognito behavior is case-sensitive
 		email = params.email.toLowerCase();
 		var attributes = [new CognitoUserAttribute({
 			Name: 'email',
 			Value: email,
 		})]
+		//Promise required as this is run asynchronously
 		return new Promise(function(resolve, reject) {
 			UserPool.signUp(
 				email,
@@ -35,14 +41,21 @@
 				}
 			)
 		});
-  }
+	}
 
-  function confirm(username, code) {
+	/* Confirm
+		Connects to Cognito server and  confirms an account that was created via Signup
+			username: Email Address account is being setup with
+			code: Confirmation code sent to the email in question
+	*/
+	function confirm(username, code) {
+		//Promise required as this is run asynchronously
 		username = username.toLowerCase();
 		User = new CognitoUser({
 			Username : username,
 			Pool: UserPool,
 		});
+		//Promise required as this is run asynchronously
 		return new Promise(function(resolve, reject) {
 			User.confirmRegistration(code, true, function(err, result) {
 				if (err) {
@@ -53,9 +66,29 @@
 				return;
 			});
 		})
-  }
+	}
+
+  	/* ResendConfirmation
+		Recreates and sends a Confirmation code for an account that was signed up, but hasn't logged in yet
+	*/
+	function resendConfirmationCode() {
+		return new Promise(function(resolve, reject) {
+			User.resendConfirmationCode(function(err, result) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve(result);
+			});
+		});
+	}
   
-  function forgotPassword(username) {
+	/* Forgot Password
+		Connects to Cognito server and generates a reset code that is sent via email, which must be entered to reset the account
+			username: Email Address account is being setup with
+	*/
+	function forgotPassword(username) {
+		//All emails in back-end are lower-case to avoid case-sensitivity issues
 		username = username.toLowerCase();
 		User = new CognitoUser({
 			Username : username,
@@ -77,21 +110,15 @@
 				}
 			});
 		})
-  }
+	}
 
-  function resendConfirmationCode() {
-		return new Promise(function(resolve, reject) {
-			User.resendConfirmationCode(function(err, result) {
-				if (err) {
-					reject(err);
-					return;
-				}
-				resolve(result);
-			});
-		});
-  }
-  
-  function logIn(username, password) {
+  	/* Login
+		Provides Login functionality for created accounts. If proper credentials are entered, it will
+		also determine if the account needs a password reset or not. Handling outside this is reserved to the app's mechanics.
+			username: Email Address account is being setup with
+			password: Password provided by user
+	*/
+	function logIn(username, password) {
 		username = username.toLowerCase();
 		var authenticationDetails = new AuthenticationDetails({
 			Username: username,
@@ -113,12 +140,11 @@
 			})
 		})
   }
-  
-  function getSub() {
-		return sub;
-  }
-
-  function getSession() {
+ 
+	/* GetSession, isAuthenticated, isNotAuthenticated
+		Used to pull existing session if user has already logged in, or if the session has expired/doesn't exist.
+	*/
+	function getSession() {
 		User || (User = UserPool.getCurrentUser());
 		return new Promise(function(resolve, reject) {
 			if (User === null) {
@@ -151,18 +177,19 @@
 			})
 		})
   }
-
-  function isAuthenticated() {
+	function isAuthenticated() {
     return getSession();
-  }
-
-  function isNotAuthenticated() {
+}
+	function isNotAuthenticated() {
     return new Promise(function(resolve, reject) {
       getSession().then(reject).catch(resolve);
     })
   }
 
-  function getUser() {
+	/* GetUser
+		Provides user attribute information for the logged-in user
+	*/
+	function getUser() {
     return (
       getSession()
       .then(function() {
@@ -187,7 +214,10 @@
     )
   }
 
-  function signOut() {
+	/* SignOut
+		Connects to Cognito Server and times-out all sessions for the user in question
+	*/
+	function signOut() {
 		User || (User = UserPool.getCurrentUser())
 		if (!User) {
 			return Promise.reject('Current user session not found');
@@ -195,17 +225,25 @@
 		return Promise.resolve(User.signOut());
   }
 
-  window.Cognito = Object.freeze({
-    signUp: signUp,
-    confirm: confirm,
-    logIn: logIn,
-    resendConfirmationCode: resendConfirmationCode,
-    getSession: getSession,
-    getUser: getUser,
-	getSub: getSub,
-    signOut: signOut,
-    isAuthenticated: isAuthenticated,
-    isNotAuthenticated: isNotAuthenticated,
-	forgotPassword: forgotPassword,
-  })
+  	/* GetSub
+		Provides Unique Cognito ID, which serves as an account's fingerprint
+	*/
+	function getSub() {
+		return sub;
+	}
+
+	//Sets Cognito object in the window on page load - All functions must be referenced here to be called
+	window.Cognito = Object.freeze({
+		signUp: signUp,
+		confirm: confirm,
+		logIn: logIn,
+		resendConfirmationCode: resendConfirmationCode,
+		getSession: getSession,
+		getUser: getUser,
+		getSub: getSub,
+		signOut: signOut,
+		isAuthenticated: isAuthenticated,
+		isNotAuthenticated: isNotAuthenticated,
+		forgotPassword: forgotPassword,
+	})
 })(window)

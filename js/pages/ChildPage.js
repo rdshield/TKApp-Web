@@ -89,7 +89,7 @@
 
 					dataEdited:function(data){
 						console.log(data[0]);
-					    DBClient.writeItem(DBClient.getSingleWriteParams('child', data[0]));
+					    DBClient.writeItem(DBClient.getParameters('child', data[0]));
 						//handleChildLink();
 					},
 					
@@ -99,7 +99,7 @@
 						var del = window.confirm("Are you sure you want to delete the entry referenced below? Please note that all progress will be lost.\n"+ msg);
 						if(del){
 							var params = { "childId" : rowData.childId	};
-							params = DBClient.getSingleDelParams('child',params);
+							params = DBClient.getDeleteParams('child',params);
 							DBClient.deleteItem(params);
 							var a = 1;
 							DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
@@ -116,7 +116,7 @@
 						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
 						
 						$("button#addChildRow").on('click', function() {
-							DBClient.readItem(DBClient.setupSingleItemParams('user','userId', Cognito.getSub())).then(function(a) {
+							DBClient.readItem(DBClient.getParameters('user','userId', Cognito.getSub())).then(function(a) {
 								a.userCount++;
 								$addControls = document.getElementsByClassName('addControls')[0];
 								var parentId = Cognito.getSub();
@@ -131,7 +131,7 @@
 									"currChallenges" : [],
 									"parentId" : parentId,
 								}
-								var param = DBClient.getSingleWriteParams('child',params);
+								var param = DBClient.getParameters('child',params);
 								DBClient.writeItem(param);
 								DBClient.updateItem({	TableName: 'user',
 														Key: { 'userId': Cognito.getSub() },

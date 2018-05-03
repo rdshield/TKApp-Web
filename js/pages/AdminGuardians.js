@@ -95,7 +95,7 @@ Cognito.isAuthenticated().then(function() {
 
 					dataEdited:function(data){
 						console.log(data[0]);
-					    DBClient.writeItem(DBClient.getSingleWriteParams('user', data[0]));
+					    DBClient.writeItem(DBClient.getParameters('user', data[0]));
 						//handleChildLink();
 					},
 					
@@ -105,7 +105,7 @@ Cognito.isAuthenticated().then(function() {
 						var del = window.confirm("Are you sure you want to delete the entry referenced below? Please note that all progress will be lost.\n"+ msg);
 						if(del){
 							var params = { "userdId" : rowData.userId	};
-							params = DBClient.getSingleDelParams('user',params);
+							params = DBClient.getDeleteParams('user',params);
 							DBClient.deleteItem(params);
 							//var a = 1;
 							//DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
@@ -122,7 +122,7 @@ Cognito.isAuthenticated().then(function() {
 						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
 						
 						$("button#addChildRow").on('click', function() {
-							DBClient.readItem(DBClient.setupSingleItemParams('user','userId', Cognito.getSub())).then(function(a) {
+							DBClient.readItem(DBClient.getParameters('user','userId', Cognito.getSub())).then(function(a) {
 								a.userCount++;
 								$addControls = document.getElementsByClassName('addControls')[0];
 								var parentId = Cognito.getSub();
@@ -137,7 +137,7 @@ Cognito.isAuthenticated().then(function() {
 									"currChallenges" : [],
 									"parentId" : parentId,
 								}
-								var param = DBClient.getSingleWriteParams('child',params);
+								var param = DBClient.getParameters('child',params);
 								DBClient.writeItem(param);
 								DBClient.updateItem({	TableName: 'user',
 														Key: { 'userId': Cognito.getSub() },
