@@ -71,55 +71,108 @@
 	function handleLogOut() {
 		EventEmitter.emit('AdminGuardians:unmount');
 		Cognito.signOut();
-		window.location.replace("./admin.php","Admin Login") 
-	}
+		window.location.replace("./admin-login.php","Admin Login") 
+	
   
 	EventEmitter.on('AdminGuardians:mount', function(message) {
-		Cognito.isAuthenticated().then(function() { 
+Cognito.isAuthenticated().then(function() {
 			DBClient.connect();
-			$container.innerHTML = tmpl('AdminGuardians', {})
+			$container.innerHTML = tmpl('ChildPage', {})
 			setupTNLeft();
 			setupTNRight();
-			DBClient.readItems('users').then(function(data) {
-					$('#table').tabulator( {
+			DBClient.readItems('user').then(function(data) {
+				$('#table').tabulator( {
 					initialSort:[
-						{column:"challengeId", dir:"asc"},
+						{column:"email_address", dir:"asc"},
 					],
 					columns: [
-						{ title: "ID#", field: "challengeId", sortable:true, sorter:"number"},
-						{ title: "Challenge", field: "challengeName", sortable:true, editable:true, editor:'input'},
-						{ title: "Description", field: 'challengeDesc', sortable:true, sorter:"string", editable:true, editor:'input'},
-						{ title: "Category", field: 'category', sortable:true, sorter:"number", editable:true,
-						  editor:'select', editorParams:{ 'Choice 1':"Choice 1", 'Choice 2':"Choice 2",	'Choice 3':" Choice 3",}},
-						{ title: "Delete", formatter:"tickCross", headerSort:false, align:'center'}
+						{ title: "Email Address", field: 'email_address', sortable:true, editable:true, editor:'input'},
+						{ title: "Child Count", field: 'userCount', sortable:true, sorter:"number"},
+					//	{ title: "Gender", field: 'childGender', sortable:true, sorter:"number", editable:true,
+					//	  editor:'select', editorParams:{ 'Male':"Male", 'Female':"Female",	'Other':"Other",}},
+					//	{ title: "Delete", formatter:"tickCross", headerSort:false, align:'center'}
 					],
 
 					dataEdited:function(data){
 						console.log(data[0]);
-					    DBClient.writeItem(DBClient.getSingleWriteParams('challenges', data[0]));
+					    DBClient.writeItem(DBClient.getSingleWriteParams('user', data[0]));
 						//handleChildLink();
 					},
 					
 					cellClick: function(e, cell) {
 						var rowData = cell.getRow().getData();
-						var msg = ("(Challenge ID#" + rowData.challengeId + " - Name: " + rowData.challengeName + " - Age:" + ")");
-						var del = window.confirm("Are you sure you want to delete the entry referenced below?\n"+ msg);
+						var msg = ("(Account: " + rowData.email_address + " - Name: ");
+						var del = window.confirm("Are you sure you want to delete the entry referenced below? Please note that all progress will be lost.\n"+ msg);
 						if(del){
-							var params = { "challengeId" : rowData.childId	};
-							params = DBClient.getSingleDelParams('challenges',params);
+							var params = { "userdId" : rowData.userId	};
+							params = DBClient.getSingleDelParams('user',params);
 							DBClient.deleteItem(params);
-							var a = 1;					
+							//var a = 1;
+							//DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
 						}
-						handleChallengeLink();
+						handleChildLink();
 					},
 				});
+
 				$('#table').tabulator("setData", data.Items);
+				$("button#addRow").on('click', function() {
+					if(document.getElementsByClassName("addChildPage").length == 0) {
+						var $addButton = document.getElementById('addRow');
+						$addButton.innerHTML = "Close";
+						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
+						
+						$("button#addChildRow").on('click', function() {
+							DBClient.readItem(DBClient.setupSingleItemParams('user','userId', Cognito.getSub())).then(function(a) {
+								a.userCount++;
+								$addControls = document.getElementsByClassName('addControls')[0];
+								var parentId = Cognito.getSub();
+								var childId = (parentId +":"+a.userCount)
+								params = {
+									"childId" : childId,
+									"Id" : a.userCount,
+									"childName"   : (document.getElementById("cName").value),
+									"childAge" 	  : (document.getElementById("cAge").value),
+									"childGender" : (document.getElementById("cGender").value),
+									"complChallenges" : [],
+									"currChallenges" : [],
+									"parentId" : parentId,
+								}
+								var param = DBClient.getSingleWriteParams('child',params);
+								DBClient.writeItem(param);
+								DBClient.updateItem({	TableName: 'user',
+														Key: { 'userId': Cognito.getSub() },
+														UpdateExpression: 'set #a = :x',
+														ExpressionAttributeNames: {'#a': 'userCount'},
+														ExpressionAttributeValues: { ':x' : a.userCount,},
+													});
+								handleChildLink();
+								$addControls.remove();
+							});
+							
+							
+						})
+					}
+					else {
+						var $addButton = document.getElementById('addRow');
+						$addButton.innerHTML = "Add a Child";
+						var $addControls = document.getElementById('addBox');
+						$addControls.remove();
+					}
+				});
+				
+				
 			});
+			
+			$root.appendChild($container);
+			if (message) {
+				addAlert(message);
+			}
 		}).catch(function(error) {
-			console.log(error);
-			//handleLogOut();
+			if (error) {
+				console.log(error);
+				handleLogOut();
+			}
 		})
-		$root.appendChild($container);
 	})
 
 	EventEmitter.on('AdminGuardians:unmount', function() {
