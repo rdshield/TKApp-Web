@@ -40,7 +40,7 @@
 	<div id="addBox" class="addChildPage">
 		<button id="addChildRow" type="button">Add Child</button>
 		<input id="cName" name="cName" type="text" placeholder="First Name" />
-		<input id="cAge" name="cAge" type="text" placeholder="Age" />
+		<input id="cGrade" name="cGrade" type="text" placeholder="School Grade" />
 		<select id="cGender" name="cGender" type="s" placeholder="Gender">
 			<option selected disabled value="Gender">Gender</option>
 			<option value="Male">Male</option>

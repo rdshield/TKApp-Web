@@ -34,7 +34,6 @@ body {
 /* Top Nav Bar */
 .header {
   height: 50px;
-  /*background-color: var(--tkdblue);*/
   position: fixed;
   top:0;
   left:0;
@@ -42,7 +41,7 @@ body {
 }
 
 .header.left {
-	width: 45%;
+	width: 55%;
 	float: left;
 }
 
@@ -54,7 +53,7 @@ body {
 
 .header.right {
 	float: right;
-	width: 45%;
+	width: 35%;
 	display: inline-block;
 }
 
@@ -121,7 +120,12 @@ body {
 }
 
 div#data {
-	padding: 0 0 0 20%;
+	padding: 0 0 0 0;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	
+	max-width: 800px;
 }
 .info {
 	height:100%;
@@ -352,9 +356,6 @@ div.addControls div#addBox.addChildPage  {
 	display: inline;
 }
 
-div#table.tabulator {
-	min-width:400px;
-	width: 600px;
-	
-}
+
+
 

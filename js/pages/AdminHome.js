@@ -9,9 +9,9 @@
 		$alert,
 		$button,
 		$form,
-		$link;
-		
-
+		$link;	
+	
+	//Functions for On-screen Alerts
 	function addAlert(options) {
 		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
 		$close = $container.getElementsByClassName('Alert__close')[0];
@@ -28,6 +28,7 @@
 		event.target.parentNode.remove()
 	}
 
+	//Setup for Left/Right Top Navigation bar
 	function setupTNLeft(){
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
 		$temp = document.getElementById('topNav__LHome');
@@ -49,26 +50,31 @@
 		$temp.addEventListener('click', handleLogOut);
 	}
 
+	//Redirect to Mission Management Page
 	function handleChallengeLink() {
 		EventEmitter.emit('AdminHome:unmount');
 		EventEmitter.emit('AdminChallenges:mount');
 	}
-  
+	
+	//Reset Home page back to default view/settings
 	function handleHomeLink() {
 		EventEmitter.emit('AdminHome:unmount');
 		EventEmitter.emit('AdminHome:mount');
 	}
   
+	//Redirect to Guardian Management Page
 	function handleGuardiansLink() {
 		EventEmitter.emit('AdminHome:unmount');
 		EventEmitter.emit('AdminGuardians:mount');
 	}
   
+	//Redirect to Setting Page
 	function handleSettingsLink() {
 		EventEmitter.emit('AdminHome:unmount');
 		EventEmitter.emit('AdminSettings:mount');
 	}
-  
+
+	//Close all open sessions and redirect to the admin login page
 	function handleLogOut() {
 		EventEmitter.emit('AdminHome:unmount');
 		Cognito.signOut();

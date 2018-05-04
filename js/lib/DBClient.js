@@ -7,7 +7,6 @@
 		Sets AWS (Cognito/DynamoDB) credentials for database connectivity.
 	*/
 	function connect(){
-		console.log(AWS.config);
 		AWS.config.region = 'us-west-2';
 		AWS.config.credentials.get(function(err) {
 			if (err) {
@@ -77,8 +76,8 @@
 		return new Promise(function(resolve, reject) {
 			 docClient.scan(params, function(err,data) {
 				if(!err) {
-					//console.log("Success",data.Item);
-					resolve(data.Item);
+					//console.log("Success",data);
+					resolve(data);
 				}
 				else { 
 					//console.log("Unable to find item -" + err);
@@ -93,6 +92,7 @@
 			Params: Parameters used to denote the entry needed (processed by getParameters function)
 	*/
 	function writeItem(wParams) {
+		//console.log(wParams);
 		docClient = new AWS.DynamoDB.DocumentClient();
 		docClient.put(wParams, function(err,data) {
 			if(!err) {
@@ -120,16 +120,28 @@
 		});
 	}
 
+	//Used to update single attributes on an item
+	function updateItem(wParams) {
+	docClient = new AWS.DynamoDB.DocumentClient();
+	docClient.update(wParams, function(err,data) {
+		if(!err) {
+			console.log("Success - Update Completed");
+		}
+		else { 
+			console.log("Unable to Update -" + err);
+		}
+	});
+}
+
 	//Sets Database Client object in the window on page load - All functions must be referenced here to be called
     window.DBClient = Object.freeze({
 		connect: connect,
 		readItem: readItem,
 		writeItem: writeItem,
-		getSingleReadParameters: getSingleReadParameters,
 		getParameters: getParameters,
 		readItems: readItems,
 		deleteItem: deleteItem,
-		getSingleDeleteParameters: getSingleDeleteParameters,
+		getDeleteParameters: getDeleteParameters,
 		updateItem: updateItem,
 	  })
 	})(window)

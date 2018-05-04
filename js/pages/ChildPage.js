@@ -11,13 +11,21 @@
 		$form,
 		$link;
 
+	//Locking down the Submit button while work is being done in the background
 	function startLoading() {
 		removeAlert()
 		$button = $container.querySelectorAll('input[type=submit]')[0];
 		$button.disabled = true;
 		$button.value = 'Loading...';
 	}
+	
+	//Unlocking the Submit button when work is done
+	function stopLoading() {
+		$button.disabled = false;
+		$button.value = 'Login';
+	}
 
+	//Functions for On-screen Alerts	
 	function addAlert(options) {
 		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
 		$close = $container.getElementsByClassName('Alert__close')[0];
@@ -34,6 +42,7 @@
 		event.target.parentNode.remove()
 	}
 
+	//Setup for Left/Right Top Navigation bar
 	function setupTNLeft(){
 		// $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
 		// $c = document.getElementById('topNav__LHome');
@@ -49,18 +58,21 @@
 		$b.addEventListener('click', handleLogOut);
 	}  	
   
+	//Redirect to Home Page
 	function handleHomeLink() {
 		EventEmitter.emit('ChildPage:unmount');
 		EventEmitter.emit('HomePage:mount');
 	}
   
+	//Reloads Child Page to bring it back to default
 	function handleChildLink() {
 		EventEmitter.emit('ChildPage:unmount');
 		EventEmitter.emit('ChildPage:mount');
 	}
   
+	//Close all open sessions and redirect to the main login page
 	function handleLogOut() {
-		EventEmitter.emit('HomePage:unmount');
+		EventEmitter.emit('ChildPage:unmount');
 		Cognito.signOut();
 		window.location.replace("./index.html","Login") 
 	}
@@ -71,20 +83,23 @@
 			$container.innerHTML = tmpl('ChildPage', {})
 			setupTNLeft();
 			setupTNRight();
+			
 			DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() }).then(function(data) {
 				//console.log(data);
 				var idCount= data.Count+1;
 				$('#table').tabulator( {
+					layout:"fitDataFill",
+					resizableColumns:false,
 					initialSort:[
 						{column:"childName", dir:"asc"},
 					],
 					columns: [
 						//{ title: "ID#", field: "childId", sortable:true, sorter:"number"},
-						{ title: "Child's Name", field: 'childName', sortable:true, editable:true, editor:'input'},
-						{ title: "Age", field: 'childAge', sortable:true, sorter:"number", editable:true, editor:'number'},
-						{ title: "Gender", field: 'childGender', sortable:true, sorter:"number", editable:true,
+						{ title: "Child's Name", field: 'childName', width:"150", sortable:true, editable:true, editor:'input'},
+						{ title: "Grade", field: 'childGrade', width:"100", widthShrink:1, sortable:true, sorter:"number", align: 'right', editable:true, editor:'number'},
+						{ title: "Gender", field: 'childGender', width: "100", sortable:true, sorter:"number", editable:true,
 						  editor:'select', editorParams:{ 'Male':"Male", 'Female':"Female",	'Other':"Other",}},
-						{ title: "Delete", formatter:"tickCross", headerSort:false, align:'center'}
+						{ title: "Delete", formatter:"tickCross", width: "10px", headerSort:false, align:'center',frozen:true},
 					],
 
 					dataEdited:function(data){
@@ -95,7 +110,7 @@
 					
 					cellClick: function(e, cell) {
 						var rowData = cell.getRow().getData();
-						var msg = ("(Child ID#" + rowData.Id + " - Name: " + rowData.childName + " - Age:" + rowData.childAge + ")");
+						var msg = ("(Child ID#" + rowData.Id + " - Name: " + rowData.childName + " - Grade:" + rowData.childGrade + ")");
 						var del = window.confirm("Are you sure you want to delete the entry referenced below? Please note that all progress will be lost.\n"+ msg);
 						if(del){
 							var params = { "childId" : rowData.childId	};
@@ -116,7 +131,7 @@
 						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
 						
 						$("button#addChildRow").on('click', function() {
-							DBClient.readItem(DBClient.getParameters('user','userId', Cognito.getSub())).then(function(a) {
+							DBClient.readItem(DBClient.getDeleteParameters('user',{'userId': Cognito.getSub()})).then(function(a) {
 								a.userCount++;
 								$addControls = document.getElementsByClassName('addControls')[0];
 								var parentId = Cognito.getSub();
@@ -125,7 +140,7 @@
 									"childId" : childId,
 									"Id" : a.userCount,
 									"childName"   : (document.getElementById("cName").value),
-									"childAge" 	  : (document.getElementById("cAge").value),
+									"childGrade" 	  : (document.getElementById("cGrade").value),
 									"childGender" : (document.getElementById("cGender").value),
 									"complChallenges" : [],
 									"currChallenges" : [],
