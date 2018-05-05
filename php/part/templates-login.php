@@ -142,7 +142,6 @@
 
 <script type="text/html" id="Alert">
 	<div class="Alert Alert__<%= type %>">
-	  <span class="Alert__close"></span>
 	  <%= message %>
 	</div>
 </script>

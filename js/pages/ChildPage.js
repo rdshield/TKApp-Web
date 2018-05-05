@@ -5,7 +5,6 @@
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
 		$title,
-		$close,
 		$alert,
 		$button,
 		$form,
@@ -28,18 +27,11 @@
 	//Functions for On-screen Alerts	
 	function addAlert(options) {
 		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
-		$close = $container.getElementsByClassName('Alert__close')[0];
-		$close.addEventListener('click', handleClose);
 	}
 
 	function removeAlert() {
 		$alert = $container.getElementsByClassName('Alert')[0];
 		$alert && $alert.remove();
-		$close && $close.removeEventListener('click', handleClose);
-	}
-
-	function handleClose(event) {
-		event.target.parentNode.remove()
 	}
 
 	//Setup for Left/Right Top Navigation bar

@@ -5,7 +5,6 @@
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
 		$title,
-		$close,
 		$alert,
 		$button,
 		$form,
@@ -13,18 +12,11 @@
 
 	function addAlert(options) {
 		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
-		$close = $container.getElementsByClassName('Alert__close')[0];
-		$close.addEventListener('click', handleClose);
 	}
 
 	function removeAlert() {
 		$alert = $container.getElementsByClassName('Alert')[0];
 		$alert && $alert.remove();
-		$close && $close.removeEventListener('click', handleClose);
-	}
-
-	function handleClose(event) {
-		event.target.parentNode.remove()
 	}
 
 	function setupTNLeft(){
@@ -113,7 +105,7 @@
 						handleChallengeLink();
 					},
 				});
-				$('#table').tabulator("setData", data);
+				$('#table').tabulator("setData", data.Items);
 			});
 		}).catch(function(error) {
 			console.log(error);

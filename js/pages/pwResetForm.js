@@ -6,10 +6,9 @@
       $alert,
       $button,
       $link,
-    $form,
-    $title,
-    $close;
-
+      $form,
+	  $title;
+	  
   function startLoading() {
     removeAlert();
     $button = $container.querySelectorAll('input[type=submit]')[0];
@@ -25,20 +24,13 @@
   function addAlert(options) {
     removeAlert();
     $title.insertAdjacentHTML('afterend', tmpl('Alert', options));
-    $close = $container.getElementsByClassName('Alert__close')[0];
-    $close.addEventListener('click', handleClose);
   }
 
   function removeAlert() {
     $alert = $container.getElementsByClassName('Alert')[0];
     $alert && $alert.remove();
-    $close && $close.removeEventListener('click', handleClose);
   }
   
-  function handleClose(event) {
-    event.target.parentNode.remove()
-  }
-
   function handleLoginLink(event) {
     event.preventDefault();
     redirectToLogin()

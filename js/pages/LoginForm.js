@@ -5,7 +5,6 @@
 		$tnLeft = document.getElementById('topNavLeft'),	//Reference Point for Top-Left Nav Bar
 		$tnRight = document.getElementById('topNavRight'),	//Reference Point for Top-Right Nav Bar
 		$title,
-		$close,
 		$alert,
 		$button,
 		$form,
@@ -14,20 +13,13 @@
 	//Functions for On-screen Alerts	
 	function addAlert(options) {
 		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
-		$close = $container.getElementsByClassName('Alert__close')[0];
-		$close.addEventListener('click', handleClose);
 	}
 	
 	function removeAlert() {
 		$alert = $container.getElementsByClassName('Alert')[0];
 		$alert && $alert.remove();
-		$close && $close.removeEventListener('click', handleClose);
 	}
-	
-	function handleClose(event) {
-		event.target.parentNode.remove()
-	}
-	
+
 	//Setup for Left/Right Top Navigation bar
 	function setupTNLeft(){
 		//$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
@@ -110,7 +102,7 @@
 			$fills = $container.getElementsByClassName('Control__input');
 			$fills[1].value=''; //Clear Password from page
 			stopLoading();
-			console.log(error.message);
+			console.error(error.message);
 		  
 			// If the user needs to confirm their acconut, switch to the confirmation form page.
 			if (error.message === 'User is not confirmed.') {
@@ -120,12 +112,20 @@
 				EventEmitter.emit('LoginForm:unmount');
 				return;
 			}
+			if(error.message=="Missing required parameter USERNAME")
+			{
+				addAlert({
+					type: 'error',
+					message: "Please enter your Username/Email"
+				})
+			}
+			else{
 			//Print Error to On-page Alert area
-			addAlert({
-				type: 'error',
-				message: error.message,
-			})
-			console.error(error);
+				addAlert({
+					type: 'error',
+					message: error.message,
+				})
+			}
 		})
 	}
   
