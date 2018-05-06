@@ -10,13 +10,9 @@
 	</head>
 	<body>
 		<div class="header">
-			<!-- PHP Call for Top Navigation Bar -->
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
-			
-		<div class="header">
-		</div>
-		
+
 		<div class="info">
 			<section id="content">
 				<!-- Actual Container for data content -->

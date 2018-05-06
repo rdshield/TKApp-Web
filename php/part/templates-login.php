@@ -30,41 +30,10 @@
 <script type="text/html" id="SignupForm">
 	<div id="signupWindow">
 		<div class="title"><h2>Sign Up</h2></div>
-		<form class="form">
+		<form class="form" onSubmit=>
 		<div class="Control">
 			<label class="Control__label" for="email">Email</label>
-			<input class="Control__input" name="email" type="text" placeholder="Email" required />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="fName">First Name</label>
-			<input class="Control__input" name="fName" type="text" placeholder="First Name" required />
-			<label class="Control__label" for="lName">Last Name</label>
-			<input class="Control__input" name="lName" type="text" placeholder="Last Name" required />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="address">Street Address</label>
-			<input class="Control__input" name="address" type="text" placeholder="Address (Optional)" />
-			<label class="Control__label" for="city">City</label>
-			<input class="Control__input" name="city" type="text" placeholder="City"  />
-			<label class="Control__label" for="state">State</label>
-			<input class="Control__input" name="state" type="text" placeholder="State" />
-			<label class="Control__label" for="zipCode">Zip Code</label>
-			<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code"  />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="phoneNum">Contact Number</label>
-			<input class="Control__input" name="phoneNum" type="text" placeholder="(xxx)xxx-xxxx" />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="joinEmail">Join our newsletter</label>
-			<input type="checkbox" name="joinEmail">
-			<label class="Control__label" for="method">How did you hear about TeamKids?</label>
-			<select id="methodOfNotice" class="Control__input" name="method">
-				<option value="web">Online</option>
-				<option value="print">Magazine</option>
-				<option value="wordOfMouth">Word of Mouth</option>	
-				<option value="other">Other</option>
-			</select>
+			<input class="Control__input" name="email" type="email" placeholder="Email" required />
 		</div>
 		<div class="Control">
 			<label class="Control__label" for="password">Password</label>
@@ -76,6 +45,40 @@
 			</label>
 			<input class="Control__input" name="repeatPassword" type="password" placeholder="Repeat Password" required />
 		</div>
+		<br><hr><br>
+		<div class="Control">
+			<label class="Control__label" for="fName">First Name</label>
+			<input class="Control__input" name="fName" type="text" placeholder="First Name" required />
+			<label class="Control__label" for="lName">Last Name</label>
+			<input class="Control__input" name="lName" type="text" placeholder="Last Name" required />
+		</div>
+		<div class="Control">
+			<label class="Control__label" for="address">Street Address</label>
+			<input class="Control__input" name="address" type="text" placeholder="Address (Optional)" />
+			<label class="Control__label" for="city">City</label>
+			<input class="Control__input" name="city" type="text" placeholder="City" required />
+			<label class="Control__label" for="state">State</label>
+			<input class="Control__input" name="state" type="text" placeholder="State" required />
+			<label class="Control__label" for="zipCode">Zip Code</label>
+			<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code" required />
+		</div>
+		<div class="Control">
+			<label class="Control__label" for="phoneNum">Contact Number</label>
+			<input class="Control__input" name="phoneNum" type="text" placeholder="(xxx)xxx-xxxx" />
+		</div>
+		<div class="Control">
+			<label class="Control__label" for="method">How did you hear about TeamKids?</label>
+			<select id="methodOfNotice" class="Control__input" name="method" required>
+				<option value="web">Online</option>
+				<option value="print">Magazine</option>
+				<option value="wordOfMouth">Word of Mouth</option>	
+				<option value="other">Other</option>
+			</select>
+			<input type="checkbox" name="joinEmail"><label class="Control__label" for="joinEmail">Join the TeamKids newsletter</label>
+		</div>
+		<br>
+		<input type="checkbox" name="joinEmail" required>I have read and accepted the <a href="toc.txt" target="_blank"> Terms of Service </a></label>
+		<br>
 		<input class="Control__input" type="submit" value="Sign me up!" />
 
 	  </form>
@@ -113,32 +116,6 @@
 	  </form>
 	</div>
 </script> 
-
-<script type="text/html" id="pwdResetConfirm">
-	<div class="pwdResetConfirm">
-	  <div class="title"></div>
-	  <form class="form">
-		<div class="Control">
-		  <label class="Control__label" for="code">Authorization code</label>
-		  <input class="Control__input" name="code" type="text" placeholder="Authorization code" required />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="password">New Password</label>
-			<input class="Control__input" name="password" type="password" placeholder="Password" required />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="repeatPassword">
-				Repeat your New Password
-			</label>
-			<input class="Control__input" name="repeatPassword" type="password" placeholder="Repeat Password" required />
-		</div>
-		
-		<input class="Control__input" type="submit" value="Submit" />
-	  </form>
-	</div>
-</script> 
-  
-
 
 <script type="text/html" id="Alert">
 	<div class="Alert Alert__<%= type %>">

@@ -106,12 +106,12 @@
 					},
 				});
 				$('#table').tabulator("setData", data.Items);
+				$root.appendChild($container);
 			});
 		}).catch(function(error) {
 			console.log(error);
-			//handleLogOut();
+			handleLogOut();
 		})
-		$root.appendChild($container);
 	})
 
 	EventEmitter.on('AdminChallenges:unmount', function() {

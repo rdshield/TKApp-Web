@@ -64,9 +64,10 @@
     event.preventDefault();
 	username = document.getElementById('email').value.toLowerCase();
     startLoading();
-    Cognito.forgotPassword(username);
-	stopLoading();
-	redirectToLogin();
+    Cognito.forgotPassword(username).then(function() {
+		stopLoading();
+		redirectToLogin();
+	})
   }
   
   function handleConfirm(event) {
@@ -95,10 +96,8 @@
   EventEmitter.on('pwResetForm:mount', function(options) {
      // email = options.email;
       $container.innerHTML = tmpl('pwdResetForm', {})
-      $resend = $container.getElementsByClassName('Control__link')[0]
       $form = $container.getElementsByClassName('form')[0];
       $title = $container.getElementsByClassName('title')[0];
-      $resend.addEventListener('click', handleResendCode);
       $form.addEventListener('submit', handleSubmit);
 	  $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'b2Login', msg:'Back to Login' }) );
 	  $b = document.getElementById('topNav__b2Login');

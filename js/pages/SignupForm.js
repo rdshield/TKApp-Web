@@ -33,6 +33,16 @@
 	function handleClose(event) {
 		event.target.parentNode.remove()
 	}
+	
+	function setupTNLeft(){
+	}  
+
+	function setupTNRight(){
+		$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'b2Login', msg:'Back to Login' }) );
+		$b = document.getElementById('topNav__b2Login');
+		$b.addEventListener('click', handleLoginLink);
+	}
+
 
 	function handleLoginLink(event) {
 		event.preventDefault();
@@ -97,14 +107,12 @@
 			$form = $container.getElementsByTagName('form')[0];
 			$title = $container.getElementsByClassName('title')[0];
 			$form.addEventListener('submit', handleSubmit)
-			$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'b2Login', msg:'Back to Login' }) );
-			$b = document.getElementById('topNav__b2Login');
+			setupTNLeft();
+			setupTNRight();
 			$root.appendChild($container);
-			$b.addEventListener('click', handleLoginLink);
 		})
 		.catch(function(err) {
 			console.log(err)
-			console.log("ERROR ENCOUNTERED")
 			EventEmitter.emit('SignupForm:unmount');
 			EventEmitter.emit('Login:mount');
 		})
