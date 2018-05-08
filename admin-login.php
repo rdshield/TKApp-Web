@@ -26,7 +26,7 @@
 		
 		
 		<!-- Scripts -->
-		<?php include("./php/part/templates-full.php"); ?>
+		<?php include("./php/part/templates-admin.php"); ?>
 		<script type="text/javascript" src="/js/config/adminconfig.js"></script>
 		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
 		<script type="text/javascript" src="/js/lib/amazon-cognito-identity.min.js"></script>
