@@ -160,8 +160,6 @@
 						$addControls.remove();
 					}
 				});
-				
-				
 			});
 			
 			$root.appendChild($container);
