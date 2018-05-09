@@ -382,5 +382,14 @@ body {
   background-color: var(--blue);
 }
 
+div#addBox {
+	position: fixed,
+	padding:  50%,
+	color: white,
+	background-color: black,
+	height: 500px,
+	width: 300px,
+	
+}
 
 

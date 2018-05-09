@@ -65,11 +65,15 @@
 	<div class="AdminChallengesPage">
 		<div class="title"></div>
 		<div id="data">
-			<select id="tableView" name="tableView" placeholder="All">
-				<option selected value="All">All</option>
-				<option value="Active">Active</option>
-				<option value="Disabled">Disabled</option>
-			</select>
+			<div tableDisplayControl>
+				Show
+				<select id="tableView" name="tableView" placeholder="All">
+					<option selected value="All">All</option>
+					<option value="Active">Active</option>
+					<option value="Disabled">Disabled</option>
+				</select>
+				Challenges <br>
+			</div>
 			<button id="addRow" type="button">Add Challenge</button>
 			<table id="table" ></table>
 		</div>		
@@ -89,7 +93,8 @@
 			<option value="Category 3">Category 3</option>
 			<option value="Category 4">Category 4</option>
 			<option value="Category 5">Category 5</option>
-		</select>		
+		</select>	
+		<input id="cActivate" type="checkbox">Set as Active</input>
 	</div>	
 </script>
  
