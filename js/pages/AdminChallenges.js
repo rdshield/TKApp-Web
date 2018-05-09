@@ -124,7 +124,7 @@
 			],
 
 			dataEdited:function(data){
-				console.log(data[0]);
+				//console.log(data[0]);
 				DBClient.writeItem(DBClient.getParameters('challenges', data[0]));
 				handleChildLink();
 			},
@@ -159,39 +159,8 @@
 
 	function setupAddControls() {
 		$("button#addRow").on('click', function() {
-			console.log(document.getElementsByClassName("addChallengePage").length);
-			if(document.getElementsByClassName("addChallengePage").length == 0) {
-				var $addButton = document.getElementById('addRow');
-				$addButton.innerHTML = "Close";
-				$addButton.insertAdjacentHTML('afterend', tmpl('addChallengePage',{}));
-				$("button#addRowSubmit").on('click', function() {
-					DBClient.readItems('challenges').then(function(a) {
-					console.log(document.getElementById("cName"))
-					console.log(document.getElementById("cDesc"))
-					console.log(document.getElementById("cCategory"))
-					console.log(document.getElementById("cActivate"))
-					
-					var b = a.Count;
-					params = {
-						"challengeId" 	: b,
-						"challengeName" : (document.getElementById("cName").value),
-						"challengeDesc" : (document.getElementById("cDesc").value),
-						"category" 		: (document.getElementById("cCategory").value),
-						"isActive"		: (document.getElementById("cActivate").value),
-					}	
-				
-					var param = DBClient.getParameters('challenge',params);
-					DBClient.writeItem(param);
-					$(document.getElementsByClassName("addChallengePage"))[0].remove();
-					});
-					handleChallengeLink();
-				})
-			} else {
-				var $addButton = document.getElementById('addRow');
-				$addButton.innerHTML = "Add Challenge";
-				var $addControls = document.getElementById('addBox');
-				$addControls.remove();
-			}
+			document.getElementById('content').insertAdjacentHTML('beforeBegin', tmpl('dialog',{}));
+			
 		});
 	}
 })(

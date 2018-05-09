@@ -9,10 +9,14 @@
 		<link rel="stylesheet" text="text/css" href="/css/tabulator.css">
 		<script type="text/javascript" src="/js/lib/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="/js/lib/jquery-ui.js"></script>
-		<script type="text/javascript" src="/js/lib/tabulator.min.js"></script>	
+		<script type="text/javascript" src="/js/lib/tabulator.min.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="/resources/demos/style.css">
+  
 	</head>
 	
 	<body>
+		
 		<div class="header">
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>

@@ -80,6 +80,12 @@
 	</div>
 </script>
 
+<script type="text/html" id="dialog">
+	<div id="dialog" class="modal">
+		This is a test.
+	</div>
+</script>
+
 
 <script type="text/html" id="addChallengePage">
 	<div id="addBox" class="addChallengePage">
