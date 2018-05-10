@@ -5,20 +5,11 @@
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
 		$title,
-		$alert,
 		$button,
 		$form,
 		$link;
 
-	function addAlert(options) {
-		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
-	}
-
-	function removeAlert() {
-		$alert = $container.getElementsByClassName('Alert')[0];
-		$alert && $alert.remove();
-	}
-
+		
 	function setupTNLeft(){
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
 		$temp = document.getElementById('topNav__LHome');
@@ -67,14 +58,9 @@
 	}
   
 	EventEmitter.on('AdminSettings:mount', function(message) {
-	    Cognito.isNotAuthenticated()
-		.then(function() {
-			$container.innerHTML = tmpl('AdminSettings', {})
+		Cognito.isAuthenticated().then(function() {
 			setupTNLeft();
 			setupTNRight();
-			$root.appendChild($container);
-
-			if (message) {	addAlert(message);	}
 		})
 	})
 

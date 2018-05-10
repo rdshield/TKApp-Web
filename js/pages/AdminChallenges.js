@@ -8,7 +8,8 @@
 		$alert,
 		$button,
 		$form,
-		$link;
+		$link,
+		$challengeCount = 0;
 
 	function addAlert(options) {
 		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
@@ -77,6 +78,7 @@
 				$('#table').tabulator("setData", data.Items);
 				setupAddControls();
 				$root.appendChild($container);
+				$challengeCount = data.Count;
 			});
 			$('#tableView').on('change',changeTableView);
 		}).catch(function(error) {
@@ -115,32 +117,16 @@
 			],
 			columns: [
 				{ title: "ID#", field: "challengeId", sortable:true, sorter:"number"},
-				{ title: "Challenge", field: "challengeName", sortable:true, editable:true, editor:'input'},
-				{ title: "Description", field: 'challengeDesc', sortable:true, sorter:"string", editable:true, editor:'input'},
-				{ title: "Category", field: 'category', sortable:true, sorter:"number", editable:true,
-				  editor:'select', editorParams:{ 'Choice 1':"Choice 1", 'Choice 2':"Choice 2",	'Choice 3':" Choice 3",}},
-				//{ title: "Delete", formatter:"tickCross", headerSort:false, align:'center'},
+				{ title: "Challenge", field: "challengeName", sortable:true, sorter:"string"},
+				{ title: "Description", field: 'challengeDesc', formatter:"textarea", width:300, sortable:true, sorter:"string",},
+				{ title: "Category", field: 'category', sortable:true, sorter:"number",},
 				{ title: "Active", field: "isActive", formatter:"tickCross", },
 			],
-
-			dataEdited:function(data){
-				//console.log(data[0]);
-				DBClient.writeItem(DBClient.getParameters('challenges', data[0]));
-				handleChildLink();
-			},
-					
 			cellClick: function(e, cell) {
 				var rowData = cell.getRow().getData();
-				var msg = ("(Challenge ID#" + rowData.challengeId + " - Name: " + rowData.challengeName + " - Age:" + ")");
-				var del = window.confirm("Are you sure you want to delete the entry referenced below?\n"+ msg);
-				if(del){
-					var params = { "challengeId" : rowData.childId	};
-					params = DBClient.getDeleteParams('challenges',params);
-					DBClient.deleteItem(params);
-					var a = 1;					
-				}
-				handleChallengeLink();
+				setPopUp("Edit Challenge",rowData);
 			},
+			
 		});
 	}
 	
@@ -159,21 +145,94 @@
 
 	function setupAddControls() {
 		$("button#addRow").on('click', function() {
-			var modal = document.getElementById('myModal');
-			modal.style.display = "block";
-			var span = document.getElementsByClassName("close")[0];
-			var $header = document.getElementsByClassName("modal-header")[0];
-			var $body = document.getElementsByClassName("modal-body")[0];
-			var $footer = document.getElementsByClassName("modal-footer")[0];
-
-			$body.innerHTML = tmpl('addChallengePage', {})
-			// When the user clicks on <span> (x), close the modal	
-			span.onclick = function() { modal.style.display = "none"; }
-
-			window.onclick = function(event) {
-				if (event.target == modal) { modal.style.display = "none";}
-			}
+			setPopUp("Create a Challenge");
 		});
+	}
+	
+	function sortSelect(selElem) {
+		var tmpAry = new Array();
+		for (var i=0;i<selElem.options.length;i++) {
+			tmpAry[i] = new Array();
+			tmpAry[i][0] = selElem.options[i].text;
+			tmpAry[i][1] = selElem.options[i].value;
+		}
+		tmpAry.sort();
+		while (selElem.options.length > 0) {
+			selElem.options[0] = null;
+		}
+		for (var i=0;i<tmpAry.length;i++) {
+			var op = new Option(tmpAry[i][0], tmpAry[i][1]);
+			selElem.options[i] = op;
+		}
+		return;
+}
+	
+	function setPopUp(title, params=null) {
+		var modal = document.getElementById('myModal');
+		modal.style.display = "block";
+		var span = document.getElementsByClassName("close")[0];
+		var $header = document.getElementsByClassName("modal-header")[0];
+		var $body = document.getElementsByClassName("modal-body")[0];
+		var $footer = document.getElementsByClassName("modal-footer")[0];
+		
+		$header.insertAdjacentHTML('beforeend',"<h3 id='modalTitle'> "+title+" </h3>")
+		$body.innerHTML = tmpl('addChallengePage', {})
+		$sel = document.getElementById('cCategory');
+		
+		DBClient.readItems('challengeCat').then(function(data) {
+			var item = data.Items;
+			for(var i=0;i<data.Count;i++) {
+				$sel.insertAdjacentHTML('beforeend',"<option value='"+ item[i].chalCategory + "'>" + item[i].chalCategory + "</option>");
+			}
+			sortSelect($sel);
+		})
+		$footer.innerHTML = '<button id="addRowSubmit" type="button">Add Challenge</button>';
+		
+		
+		var $challengeName = document.getElementById('cName');
+		var $challengeDesc = document.getElementById('cDesc');
+		var $challengeCat  = document.getElementById('cCategory');
+		var $challengeAct  = document.getElementById('cActivate');
+		var $challengeId  = $challengeCount+1;
+		if(params != null) {
+			console.log("NOT");
+			$challengeName.value = params.challengeName;
+			$challengeDesc.value = params.challengeDesc;
+			$challengeCat.value = params.category;
+			$challengeAct.checked = params.isActive;
+			$challengeId = params.challengeId;
+		}
+		
+		var $submit = document.getElementById('addRowSubmit');
+		
+		$submit.onclick = function() {	
+
+			var params = {
+				challengeId: 	$challengeId,
+				challengeName:  $challengeName.value,
+				challengeDesc:  $challengeDesc.value,
+				category: 	    $challengeCat.value,
+				isActive:		$challengeAct.checked,
+			}
+			var param = DBClient.getParameters('challenges',params);
+			DBClient.writeItem(param);
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+			handleChallengeLink();
+		}
+				
+		// When the user clicks on <span> (x), close the modal	
+		span.onclick = function() { 
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+		}
+
+		/*window.onclick = function(event) {
+			if (event.target == modal) { 
+				modal.style.display = "none";
+				$(document.getElementById('modalTitle')).remove();
+			}
+		}*/
 	}
 })(
   window.EventEmitter, 

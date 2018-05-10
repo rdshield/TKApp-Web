@@ -5,19 +5,10 @@
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
 		$title,
-		$alert,
 		$button,
 		$form,
 		$link;
 
-	function addAlert(options) {
-		$title.insertAdjacentHTML('afterend', tmpl('Alert', options));
-	}
-
-	function removeAlert() {
-		$alert = $container.getElementsByClassName('Alert')[0];
-		$alert && $alert.remove();
-	}
 
 	function setupTNLeft(){
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
@@ -66,88 +57,116 @@
 		window.location.replace("./admin-login.php","Admin Login") 
 	}
 	
+	// function setupAddControls() {
+		// $("button#addRow").on('click', function() {
+			// setPopUp("Create a Challenge");
+		// });
+	// }
+	
+	function setPopUp(title, params=null) {
+		var modal = document.getElementById('myModal');
+		modal.style.display = "block";
+		var span = document.getElementsByClassName("close")[0];
+		var $header = document.getElementsByClassName("modal-header")[0];
+		var $body = document.getElementsByClassName("modal-body")[0];
+		var $footer = document.getElementsByClassName("modal-footer")[0];
+		
+		$header.insertAdjacentHTML('beforeend',"<h3 id='modalTitle'> "+title+" </h3>")
+		$body.innerHTML = tmpl('GuardianEdit', {})
+		$footer.innerHTML = '<button id="addRowSubmit" type="button">Save</button>';
+		
+		var $userId, $count,
+			$gAccount = document.getElementById('gName'),
+			$gFName	  = document.getElementById('gFName'),
+			$gLName   = document.getElementById('gLName'),
+			$gLAddress= document.getElementById('gAddress'),
+			$gCity    = document.getElementById('gCity'),
+			$gState   = document.getElementById('gState'),
+			$gZip     = document.getElementById('gZip'),
+			$gPhone   = document.getElementById('gPhone');
+
+		if(params != null) {
+			$userId = params.userId,
+			$count = params.userCount,
+			$gAccount.innerHTML = params.email_address;
+			$gFName.value   = params.firstName;
+			$gLName.value   = params.lastName;
+			$gLAddress.value= params.streetAddress;
+			$gCity.value    = params.city;
+			$gState.value   = params.state;
+			$gZip.value     = params.zipCode;
+			$gPhone.value   = params.phoneNum;
+		}
+		var $submit = document.getElementById('addRowSubmit');
+		
+		$submit.onclick = function(params) {	
+			var param = {
+				userId: $userId,
+				email_address: $gAccount.innerHTML,
+				firstName: $gFName.value,
+				lastName: $gLName.value,
+				streetAddress: $gLAddress.value,
+				city: $gCity.value,
+				state: $gState.value,
+				zipCode: $gZip.value,
+				phoneNum: $gPhone.value,
+				userCount: $count,
+			}	
+			var submitParams = DBClient.getParameters('user',param);
+			DBClient.writeItem(submitParams);
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+			handleUserLink();
+		}
+				
+		// When the user clicks on <span> (x), close the modal	
+		span.onclick = function() { 
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+		}
+
+		/*window.onclick = function(event) {
+			if (event.target == modal) { 
+				modal.style.display = "none";
+				$(document.getElementById('modalTitle')).remove();
+			}
+		}*/
+	}
+	
+	function setupTable(data) {
+		$('#table').tabulator( {
+			initialSort:[
+				{column:"email_address", dir:"asc"},
+			],
+			columns: [
+				{ title: "Email Address", field: 'email_address',},
+				{ title: "First Name", field: 'firstName', sortable:true, sorter:"string"},
+				{ title: "Last Name" , field: 'lastName', sortable:true, sorter:"string"},
+				{ title: "Street Address", field: 'streetAddress', sortable:true, sorter:"string"},
+				{ title: "City", field: 'city', sortable:true, sorter:"string"},
+				{ title: "State", field: 'state', sortable:true, sorter:"string"},
+				{ title: "ZIP", field: 'zipCode', sortable:true, sorter:"number"},
+				{ title: "Contact Number", field: 'phoneNum', sortable:true, sorter:"string"},
+			],	
+			cellClick: function(e, cell) {
+				var rowData = cell.getRow().getData();
+				setPopUp('Edit User',rowData);
+			},
+		});
+	}
+	
 	EventEmitter.on('AdminGuardians:mount', function(message) {
 		Cognito.isAuthenticated().then(function() {
-		DBClient.connect();
-		$container.innerHTML = tmpl('ChildPage', {})
-		setupTNLeft();
-		setupTNRight();
-		DBClient.readItems('user').then(function(data) {
-			$('#table').tabulator( {
-				initialSort:[
-					{column:"email_address", dir:"asc"},
-				],
-				columns: [
-					{ title: "Email Address", field: 'email_address', sortable:true, editable:true, editor:'input'},
-					{ title: "Child Count", field: 'userCount', sortable:true, sorter:"number"},
-				],
-
-				dataEdited:function(data){
-					console.log(data[0]);
-					DBClient.writeItem(DBClient.getParameters('user', data[0]));
-					//handleChildLink();
-				},
-				
-				cellClick: function(e, cell) {
-					var rowData = cell.getRow().getData();
-					var msg = ("(Account: " + rowData.email_address + " - Name: ");
-					var del = window.confirm("Are you sure you want to delete the entry referenced below? Please note that all progress will be lost.\n"+ msg);
-					if(del){
-						var params = { "userdId" : rowData.userId	};
-						params = DBClient.getDeleteParams('user',params);
-						DBClient.deleteItem(params);
-						//var a = 1;
-						//DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
-					}
-					handleChildLink();
-				},
-			});
-			$('#table').tabulator("setData", data.Items);
+			DBClient.connect();
+			$container.innerHTML = tmpl('AdminGuardians', {})
+			setupTNLeft();
+			setupTNRight();
+			DBClient.readItems('user').then(function(data) {
+				setupTable(data);
+				$('#table').tabulator("setData", data.Items);
+				//setupAddControls();
+				$root.appendChild($container);
 			
-			$("button#addRow").on('click', function() {
-				if(document.getElementsByClassName("addChildPage").length == 0) {
-					var $addButton = document.getElementById('addRow');
-					$addButton.innerHTML = "Close";
-					$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
-					
-					$("button#addChildRow").on('click', function() {
-						DBClient.readItem(DBClient.getParameters('user','userId', Cognito.getSub())).then(function(a) {
-							a.userCount++;
-							$addControls = document.getElementsByClassName('addControls')[0];
-							var parentId = Cognito.getSub();
-							var childId = (parentId +":"+a.userCount)
-							params = {
-								"childId" : childId,
-								"Id" : a.userCount,
-								"childName"   : (document.getElementById("cName").value),
-								"childAge" 	  : (document.getElementById("cAge").value),
-								"childGender" : (document.getElementById("cGender").value),
-								"complChallenges" : [],
-								"currChallenges" : [],
-								"parentId" : parentId,
-							}
-							var param = DBClient.getParameters('child',params);
-							DBClient.writeItem(param);
-							DBClient.updateItem({	TableName: 'user',
-													Key: { 'userId': Cognito.getSub() },
-													UpdateExpression: 'set #a = :x',
-													ExpressionAttributeNames: {'#a': 'userCount'},
-													ExpressionAttributeValues: { ':x' : a.userCount,},
-												});
-							handleChildLink();
-							$addControls.remove();
-						});
-						
-						
-					})
-				}
-				else {
-					var $addButton = document.getElementById('addRow');
-					$addButton.innerHTML = "Add a Child";
-					var $addControls = document.getElementById('addBox');
-					$addControls.remove();
-				}
-			});
 			});
 			$root.appendChild($container);
 			if (message) {
@@ -160,7 +179,7 @@
 			}
 		})
 	})
-
+	
 	EventEmitter.on('AdminGuardians:unmount', function() {
 		$temp = document.getElementById('topNav__LHome');
 		$temp.removeEventListener('click', handleHomeLink);
@@ -181,6 +200,7 @@
 		}
 		$container.remove();
 	})
+	
 })(
   window.EventEmitter, 
   window.tmpl, 

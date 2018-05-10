@@ -18,6 +18,13 @@
 	</div>
 </script>
 
+<script type="text/html" id="AdminSettingsPage">
+	<div class="SettingsPage">
+		<div class="title"></div>
+		<div id="data"> </div>		
+	</div>
+</script>
+
 <script type="text/html" id="AdminLogin">
 	<div class="AdminLoginForm">			
 		<div id="signupWindow">
@@ -43,21 +50,31 @@
 <script type="text/html" id="AdminHome">
 	<div class="AdminPage">
 		<div class="title"></div>
-		ADMIN PAGE	
+		<div id="data">
+			<table id="table" >
+
+			</table>
+		</div>		
 	</div>
 </script>
 
 <script type="text/html" id="AdminGuardians">
 	<div class="GuardiansPage">
 		<div class="title"></div>
-		ADMIN GUARDIANS PAGE	
+		<div id="data">
+			<table id="table"></table>
+		</div>		
 	</div>
 </script>
 
 <script type="text/html" id="AdminSettings">
 	<div class="SettingsPage">
 		<div class="title"></div>
-		ADMIN SETTING PAGE	
+		<div id="data">
+			<table id="table" >
+
+			</table>
+		</div>		
 	</div>
 </script>
 
@@ -81,21 +98,35 @@
 </script>
 
 <script type="text/html" id="addChallengePage">
-	<div id="addBox" class="addChallengePage">
-		<button id="addRowSubmit" type="button">Add Challenge</button>
-		<input id="cName" name="cName" type="text" placeholder="Challenge Name" />
-		<textarea id="cDesc" name="cDesc"></textarea>
-		<select id="cCategory" name="cCategory" type="select" placeholder="Category">
-			<option selected disabled value="">Choose a Category</option>
-			<option value="Category 1">Category 1</option>
-			<option value="Category 2">Category 2</option>
-			<option value="Category 3">Category 3</option>
-			<option value="Category 4">Category 4</option>
-			<option value="Category 5">Category 5</option>
-		</select>	
-		<input id="cActivate" type="checkbox">Set as Active</input>
-	</div>	
+	<label for="cName">Challenge Name: </label>
+	<input id="cName" name="cName" type="text" placeholder="Challenge Name" />
+	<label for="cDesc">Description: </label>
+	<textarea id="cDesc" name="cDesc"></textarea>
+	<label for="Challenge Type">Challenge Type: </label>
+	<select id="cCategory" name="cCategory" type="select" placeholder="Category"></select>	
+	<label for="cActivate"></label>
+	<input id="cActivate" type="checkbox">Set Challenge as Active</input>
 </script>
+
+<script type="text/html" id="GuardianEdit">
+	<label for="gName">User Name: </label>
+	<text id="gName" name="gName" type="text"> </text>
+	<label for="gFName">First Name: </label>
+	<input id="gFName" name="gFName" type="text" placeholder=" " />
+	<label for="gLName">Last Name: </label>
+	<input id="gLName" name="gLName" type="text" placeholder=" " />
+	<label for="gAddress">Address: </label>
+	<input id="gAddress" name="gAddress" type="text" placeholder=" " />
+	<label for="gCity">City: </label>
+	<input id="gCity" name="gCity" type="text" placeholder=" " />
+	<label for="gCity">State: </label>
+	<input id="gState" name="gState" type="text" placeholder=" " />
+	<label for="gZip">ZIP: </label>
+	<input id="gZip" name="gZip" type="text" placeholder=" " />
+	<label for="gPhone">Contact: </label>
+	<input id="gPhone" name="gPhone" type="text" placeholder=" " />
+</script>
+
  
 <script type="text/html" id="Alert">
 	<div class="Alert Alert__<%= type %>">
