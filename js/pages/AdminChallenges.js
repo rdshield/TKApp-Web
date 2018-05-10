@@ -159,8 +159,20 @@
 
 	function setupAddControls() {
 		$("button#addRow").on('click', function() {
-			document.getElementById('content').insertAdjacentHTML('beforeBegin', tmpl('dialog',{}));
-			
+			var modal = document.getElementById('myModal');
+			modal.style.display = "block";
+			var span = document.getElementsByClassName("close")[0];
+			var $header = document.getElementsByClassName("modal-header")[0];
+			var $body = document.getElementsByClassName("modal-body")[0];
+			var $footer = document.getElementsByClassName("modal-footer")[0];
+
+			$body.innerHTML = tmpl('addChallengePage', {})
+			// When the user clicks on <span> (x), close the modal	
+			span.onclick = function() { modal.style.display = "none"; }
+
+			window.onclick = function(event) {
+				if (event.target == modal) { modal.style.display = "none";}
+			}
 		});
 	}
 })(

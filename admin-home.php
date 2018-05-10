@@ -11,7 +11,6 @@
 		<script type="text/javascript" src="/js/lib/jquery-ui.js"></script>
 		<script type="text/javascript" src="/js/lib/tabulator.min.js"></script>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<link rel="stylesheet" href="/resources/demos/style.css">
   
 	</head>
 	
@@ -20,6 +19,17 @@
 		<div class="header">
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body"> </div>
+				<div class="modal-footer"> </div>
+			</div>
+		</div>
+		
 		<section id="content">
 			<!-- Actual Container for data content -->
 			<div id="root"> </div>
