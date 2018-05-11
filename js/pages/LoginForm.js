@@ -4,11 +4,7 @@
 		$container = document.createElement('div'),			//Temporary space for Form on build
 		$tnLeft = document.getElementById('topNavLeft'),	//Reference Point for Top-Left Nav Bar
 		$tnRight = document.getElementById('topNavRight'),	//Reference Point for Top-Right Nav Bar
-		$title,
-		$alert,
-		$button,
-		$form,
-		$link;
+		$title,	$alert,	$button, $form,	$link;
 		
 	//Functions for On-screen Alerts	
 	function addAlert(options) {
@@ -21,20 +17,8 @@
 	}
 
 	//Setup for Left/Right Top Navigation bar
-	function setupTNLeft(){
-		//$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
-		//$c = document.getElementById('topNav__LHome');
-		//$c.addEventListener('click', handleHomeLink);
-		//$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChild', msg:'My Children' }));
-		//$b = document.getElementById('topNav__LChild');
-		//$b.addEventListener('click', handleChildLink);
-	}  
-	
-	function setupTNRight(){
-		// $tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Logout', msg:'Logout' }));
-		// $b = document.getElementById('topNav__Logout');
-		// $b.addEventListener('click', handleLogOut);
-	} 
+	function setupTNLeft(){}  
+	function setupTNRight(){} 
 	
 	//Locking down the Submit button while work is being done in the background
 	function startLoading() {
@@ -50,7 +34,7 @@
 		$button.value = 'Login';
 	}
 
-	//Functions for specific actions on this page
+	/**********Functions for specific actions on this page**********/
   
 	//Redirect to the home page (Usually after successful authentication or when visiting Login after being authenticated)
 	function redirectToHome() {
@@ -80,25 +64,21 @@
   
 	//Process to follow when "Login/Submit" button is pressed
 	function handleSubmit(event) {
-		event.preventDefault()
+		event.preventDefault();
 		var $inputs = $container.getElementsByTagName('input');
 		startLoading()
 		
 		//Uses Cognito JS to attempt authentication
 		Cognito.logIn($inputs.email.value, $inputs.password.value).then(function(result) {
-			stopLoading()
+			stopLoading();
 			addAlert({
 				type: 'success',
 				message: 'Log in successful! Redirecting to Home Page...'
 			})
-			//Sets required tokens and authentication methods to save necessary credentials for access to the rest of the app
 			Cognito.isAuthenticated();
-			
-			//Redirects to the authenticated landing page after a short pause
 			setTimeout(redirectToHome, 150);
-		})
-		//If any errors are encountered...
-		.catch(function(error) {
+		}).catch(function(error) {
+			//If any errors are encountered...
 			$fills = $container.getElementsByClassName('Control__input');
 			$fills[1].value=''; //Clear Password from page
 			stopLoading();
@@ -120,7 +100,7 @@
 				})
 			}
 			else{
-			//Print Error to On-page Alert area
+				//Print Error to On-page Alert area
 				addAlert({
 					type: 'error',
 					message: error.message,
@@ -133,26 +113,19 @@
 	EventEmitter.on('LoginForm:mount', function(message) {
 		//Check if account is (not) authenticated
 		Cognito.isNotAuthenticated().then(function() {
-			//Load the Login Template
 			$container.innerHTML = tmpl('LoginForm', {})
-			//Connect to the Form's controller
 			$link = $container.getElementsByClassName('Control__link')[0];
 			
 			//Setup Listeners for on-screen elements
 			$forgotLink = $container.getElementsByClassName('pwReset')[0];
 			$form = $container.getElementsByClassName('form')[0];
 			$title = $container.getElementsByClassName('title')[0];
-			$link.addEventListener('click', handleSignupLink);
+			$link.onaddEventListener('click', handleSignupLink);
 			$forgotLink.addEventListener('click', handlePwReset);
 			$form.addEventListener('submit', handleSubmit);	 
-
-			//Append Login Form to the displayed picture
-			$root.appendChild($container);
+			$root.appendChild($container); //Append Login Form to the displayed picture
 			
-			//Print message to Alert section, if one was passed
-			if (message) {
-				addAlert(message);
-			}
+			if (message) {	addAlert(message);	} //Print message to Alert section, if one was passed
 		}) .catch(redirectToHome)   //If user is already authenticated, redirect to Home Page
 	})
  
@@ -160,16 +133,10 @@
 	EventEmitter.on('LoginForm:unmount', function() {
 		//Remove Event Listeners
 		$link && $link.removeEventListener('click', handleSignupLink);
-		//$forgotLink && $forgotLink.removeEventListener('click', handlePwReset);
+		$forgotLink && $forgotLink.removeEventListener('click', handlePwReset);
 		$form && $form.removeEventListener('submit', handleSubmit);
-		// $b = document.getElementById('topNav__Login');
-		// $b && $b.removeEventListener('click', handleLoginLink);
 		
 		//Remove page container
 		$container.remove();
 	})
-})(
-  window.EventEmitter, 
-  window.tmpl, 
-  window.Cognito,
-)
+})(window.EventEmitter,window.tmpl,window.Cognito,)

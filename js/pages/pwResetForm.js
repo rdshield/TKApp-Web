@@ -3,11 +3,7 @@
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
-		$alert,
-		$button,
-		$link,
-		$form,
-		$title;
+		$alert,$button,$link,$form,$title;
 	  
 	function startLoading() {
 		removeAlert();

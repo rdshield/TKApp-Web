@@ -42,7 +42,7 @@
 			)
 		});
 	}
-
+	
 	/* Confirm
 		Connects to Cognito server and  confirms an account that was created via Signup
 			username: Email Address account is being setup with

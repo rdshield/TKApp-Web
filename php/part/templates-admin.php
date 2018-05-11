@@ -21,7 +21,16 @@
 <script type="text/html" id="AdminSettingsPage">
 	<div class="SettingsPage">
 		<div class="title"></div>
-		<div id="data"> </div>		
+		<div id="data">
+			<div id="categoryPage">
+				<button id="addCat" type="button">Add Category</button>
+				<table id="catTable"></table>
+			</div>
+			<div id="accountPage">
+				<button id="addAdmin" type="button">Add Account</button>
+				<table id="table"></table>
+			</div>
+		</div>	
 	</div>
 </script>
 

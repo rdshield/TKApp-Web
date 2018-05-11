@@ -118,7 +118,7 @@
 				{ title: "ID#", field: "challengeId", sortable:true, sorter:"number"},
 				{ title: "Challenge", field: "challengeName", sortable:true, sorter:"string"},
 				{ title: "Description", field: 'challengeDesc', formatter:"textarea", width:300, sortable:true, sorter:"string",},
-				{ title: "Category", field: 'category', sortable:true, sorter:"number",},
+				{ title: "Category", field: 'category', sortable:true, sorter:"string",},
 				{ title: "Active", field: "isActive", formatter:"tickCross", },
 			],
 			cellClick: function(e, cell) {

@@ -4,12 +4,8 @@
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
-		$title,
-		$button,
-		$form,
-		$link;
-
-		
+		$title, $button, $form,	$link;
+	
 	function setupTNLeft(){
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
 		$temp = document.getElementById('topNav__LHome');
@@ -57,11 +53,120 @@
 		window.location.replace("./admin.php","Admin Login") 
 	}
   
+	function setupCatTable(data) {
+		$('#catTable').tabulator( {
+			initialSort:[
+				{column:"chalCategory", dir:"asc"},
+			],
+			columns: [
+				{ title: "Category Name", field: "chalCategory", sortable:true, sorter:"string"},
+			],
+			// cellClick: function(e, cell) {
+			// var rowData = cell.getRow().getData();
+			// },
+		});
+	}
+	
+		function setupAdminTable(data) {
+		$('#catTable').tabulator( {
+			initialSort:[
+				{column:"chalCategory", dir:"asc"},
+			],
+			columns: [
+				{ title: "Category Name", field: "chalCategory", sortable:true, sorter:"string"},
+			],
+			// cellClick: function(e, cell) {
+			// var rowData = cell.getRow().getData();
+			// },
+		});
+	}
+	
+	function setPopUp(title, params=null) {
+		var modal = document.getElementById('myModal');
+		modal.style.display = "block";
+		var span = document.getElementsByClassName("close")[0];
+		var $header = document.getElementsByClassName("modal-header")[0];
+		var $body = document.getElementsByClassName("modal-body")[0];
+		var $footer = document.getElementsByClassName("modal-footer")[0];
+		
+		$header.insertAdjacentHTML('beforeend',"<h3 id='modalTitle'> "+title+" </h3>")
+		$body.innerHTML = tmpl('addChallengePage', {})
+		$sel = document.getElementById('cCategory');
+		
+		DBClient.readItems('challengeCat').then(function(data) {
+			var item = data.Items;
+			for(var i=0;i<data.Count;i++) {
+				$sel.insertAdjacentHTML('beforeend',"<option value='"+ item[i].chalCategory + "'>" + item[i].chalCategory + "</option>");
+			}
+			sortSelect($sel);
+		})
+		$footer.innerHTML = '<button id="addRowSubmit" type="button">Add Challenge</button>';
+		
+		
+		var $challengeName = document.getElementById('cName');
+		var $challengeDesc = document.getElementById('cDesc');
+		var $challengeCat  = document.getElementById('cCategory');
+		var $challengeAct  = document.getElementById('cActivate');
+		var $challengeId  = $challengeCount+1;
+		if(params != null) {
+			console.log("NOT");
+			$challengeName.value = params.challengeName;
+			$challengeDesc.value = params.challengeDesc;
+			$challengeCat.value = params.category;
+			$challengeAct.checked = params.isActive;
+			$challengeId = params.challengeId;
+		}
+		
+		var $submit = document.getElementById('addRowSubmit');
+		
+		$submit.onclick = function(event) {	
+			if(event != null) {event.preventDefault();}
+			
+			var params = {
+				challengeId: 	$challengeId,
+				challengeName:  $challengeName.value,
+				challengeDesc:  $challengeDesc.value,
+				category: 	    $challengeCat.value,
+				isActive:		$challengeAct.checked,
+			}
+			var param = DBClient.getParameters('challenges',params);
+			DBClient.writeItem(param);
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+			handleChallengeLink();
+		}
+				
+		// When the user clicks on <span> (x), close the modal	
+		span.onclick = function() { 
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+		}
+
+		/*window.onclick = function(event) {
+			if (event.target == modal) { 
+				modal.style.display = "none";
+				$(document.getElementById('modalTitle')).remove();
+			}
+		}*/
+	}
+  
 	EventEmitter.on('AdminSettings:mount', function(message) {
 		Cognito.isAuthenticated().then(function() {
+			
+			DBClient.connect();
+			$container.innerHTML = tmpl('AdminSettingsPage', {})
 			setupTNLeft();
 			setupTNRight();
+			DBClient.readItems('challengeCat').then(function(data) {
+				setupCatTable(data);
+				$('#catTable').tabulator("setData", data.Items);
+				$root.appendChild($container);
+			})
+		}).catch(function(error) {
+			console.log(error);
+			handleLogOut();
 		})
+		$root.appendChild($container);
 	})
 
 	EventEmitter.on('AdminSettings:unmount', function() {
@@ -84,8 +189,4 @@
 		}
 		$container.remove();
 	})
-})(
-  window.EventEmitter, 
-  window.tmpl, 
-  window.Cognito
-)
+})(window.EventEmitter, window.tmpl, window.Cognito)
