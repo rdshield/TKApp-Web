@@ -12,6 +12,16 @@
 		<div class="header">
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body"> </div>
+				<div class="modal-footer"> </div>
+			</div>
+		</div>
 
 		<div class="info">
 			<section id="content">

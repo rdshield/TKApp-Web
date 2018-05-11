@@ -40,7 +40,7 @@
         type: 'info',
         message: 'A new confirmation code was sent.'
       });
-      console.log(result);
+      //console.log(result);
     })
     .catch(function(error) {
       addAlert({
@@ -91,8 +91,7 @@
   }
  
   EventEmitter.on('ConfirmForm:mount', function(options) {
-    Cognito.isNotAuthenticated()
-    .then(function() {
+    Cognito.isNotAuthenticated().then(function() {
       email = options.email;
       $container.innerHTML = tmpl('ConfirmForm', {})
       $resend = $container.getElementsByClassName('Control__link')[0]

@@ -36,8 +36,7 @@
 </script>
 
 <script type="text/html" id="addChildPage">
-	<div id="addBox" class="addChildPage">
-		<button id="addChildRow" type="button">Add Child</button>
+	<form>
 		<input id="cName" name="cName" type="text" placeholder="First Name" />
 		<input id="cGrade" name="cGrade" type="text" placeholder="School Grade" />
 		<select id="cGender" name="cGender" type="s" placeholder="Gender">
@@ -46,5 +45,6 @@
 			<option value="Female">Female</option>
 			<option value="Not Specified">Not Specified</option>
 		</select>		
-	</div>	
+		<input id="addChildRow" type="submit" value="Add Child"></button>
+	</form>
 </script>

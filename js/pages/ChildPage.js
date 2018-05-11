@@ -35,14 +35,7 @@
 	}
 
 	//Setup for Left/Right Top Navigation bar
-	function setupTNLeft(){
-		// $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
-		// $c = document.getElementById('topNav__LHome');
-		// $c.addEventListener('click', handleHomeLink);
-		// $tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChild', msg:'My Children' }));
-		// $b = document.getElementById('topNav__LChild');
-		// $b.addEventListener('click', handleChildLink);  
-	}  
+	function setupTNLeft(){}  
 
 	function setupTNRight(){
 		$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Logout', msg:'Logout' }));
@@ -68,6 +61,110 @@
 		Cognito.signOut();
 		window.location.replace("./index.html","Login") 
 	}
+	
+	function setPopUp(title, params=null) {
+		var modal = document.getElementById('myModal');
+		modal.style.display = "block";
+		var span = document.getElementsByClassName("close")[0];
+		var $header = document.getElementsByClassName("modal-header")[0];
+		var $body = document.getElementsByClassName("modal-body")[0];
+		var $footer = document.getElementsByClassName("modal-footer")[0];
+		
+		$header.insertAdjacentHTML('beforeend',"<h3 id='modalTitle'> "+title+" </h3>")
+		$body.innerHTML = tmpl('addChildPage', {})
+		
+		var $childName  = document.getElementById('cName');
+		var $childGrade = document.getElementById('cGrade');
+		var $childGender= document.getElementById('cGender');
+		var childCount = 0, $complChallenges = [], $currChallenges = [], $new = false;
+
+		if(params != null) {
+			$childName.value 	= params.childName;
+			$childGrade.value 	= params.childGrade;
+			$childGender.value 	= params.childGender;
+			childCount 			= params.Id;
+			$complChallenges 	= params.complChallenges;
+			$currChallenges 	= params.currChallenges;
+			
+			$footer.innerHTML = '<button id="deleteChild" type="button">Delete Child</button>';
+			
+			// $("#deleteChild").on('click', function() {
+				// var del = window.confirm("Are you sure you want to delete this account?");
+				// if(del){
+					// var params = { "childId" : params.childId	};
+					// params = DBClient.getDeleteParams('child',params);
+					// DBClient.deleteItem(params);
+					// var a = 1;
+					// DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
+				// }
+				
+				handleChildLink();
+			});
+		}
+		
+		var $submit = document.getElementById('addChildRow');
+		$submit.onclick = function(exec) {	
+			event.preventDefault();
+			console.log("CLICK");
+			var sub = Cognito.getSub();
+			DBClient.readItem(DBClient.getDeleteParameters('user',{'userId': Cognito.getSub()})).then(function(a) {
+				if(childCount==0) {
+					childCount = a.userCount+1; 
+					$new = true;
+				}
+				
+				var params = {
+					childId:		(sub +":"+ childCount),
+					Id:				childCount,
+					childName:		$childName.value,
+					childGrade: 	$childGrade.value,
+					childGender:    $childGender.value,
+					complChallenges:$complChallenges,
+					currChallenges: $currChallenges,
+					parentId:		sub,
+				}
+				console.log(params)
+				var param = DBClient.getParameters('child',params);
+				DBClient.writeItem(param);
+				DBClient.updateItem({	
+					TableName: 'user',
+					Key: { 'userId': Cognito.getSub() },
+							UpdateExpression: 'set #a = :x',
+							ExpressionAttributeNames: {'#a': 'userCount'},
+							ExpressionAttributeValues: { ':x' : a.userCount,},
+				});
+				if($new) {
+					console.log("NEW");
+					DBClient.updateItem({	
+						TableName: 'user',
+						Key: { 'userId': Cognito.getSub() },
+						UpdateExpression: 'set #a = :x',
+						ExpressionAttributeNames: {'#a': 'userCount'},
+						ExpressionAttributeValues: { ':x' : childCount,},
+					});
+					DBClient.readItem(DBClient.getDeleteParameters('user',{'userId': Cognito.getSub()})).then(function(a) {
+						console.error(a.userCount);
+					})				
+				}
+				handleChildLink();
+				modal.style.display = "none"; 
+				$(document.getElementById('modalTitle')).remove();
+			});
+		}
+			
+		// When the user clicks on <span> (x), close the modal	
+		span.onclick = function() { 
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+		}
+
+		/*window.onclick = function(event) {
+			if (event.target == modal) { 
+				modal.style.display = "none";
+				$(document.getElementById('modalTitle')).remove();
+			}
+		}*/
+	}
   
 	EventEmitter.on('ChildPage:mount', function(message) {
 		Cognito.isAuthenticated().then(function() {
@@ -87,81 +184,22 @@
 					],
 					columns: [
 						//{ title: "ID#", field: "childId", sortable:true, sorter:"number"},
-						{ title: "Child's Name", field: 'childName', width:"150", sortable:true, editable:true, editor:'input'},
-						{ title: "Grade", field: 'childGrade', width:"100", widthShrink:1, sortable:true, sorter:"number", align: 'right', editable:true, editor:'number'},
-						{ title: "Gender", field: 'childGender', width: "100", sortable:true, sorter:"number", editable:true,
-						  editor:'select', editorParams:{ 'Male':"Male", 'Female':"Female",	'Other':"Other",}},
-						{ title: "Delete", formatter:"tickCross", width: "10px", headerSort:false, align:'center',frozen:true},
+						{ title: "Child's Name", field: 'childName', width:"150", sortable:true,},
+						{ title: "Grade", field: 'childGrade', width:"100", widthShrink:1, sortable:true, sorter:"number", align: 'right',},
+						{ title: "Gender", field: 'childGender', width: "100", sortable:true, sorter:"number"},
 					],
 
-					dataEdited:function(data){
-						console.log(data[0]);
-					    DBClient.writeItem(DBClient.getParameters('child', data[0]));
-						//handleChildLink();
-					},
-					
 					cellClick: function(e, cell) {
 						var rowData = cell.getRow().getData();
-						var msg = ("(Child ID#" + rowData.Id + " - Name: " + rowData.childName + " - Grade:" + rowData.childGrade + ")");
-						var del = window.confirm("Are you sure you want to delete the entry referenced below? Please note that all progress will be lost.\n"+ msg);
-						if(del){
-							var params = { "childId" : rowData.childId	};
-							params = DBClient.getDeleteParams('child',params);
-							DBClient.deleteItem(params);
-							var a = 1;
-							DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
-						}
-						handleChildLink();
+						setPopUp(("Edit Child - "+rowData.childName + ""),rowData);	
 					},
 				});
 
 				$('#table').tabulator("setData", data.Items);
 				$("button#addRow").on('click', function() {
-					if(document.getElementsByClassName("addChildPage").length == 0) {
-						var $addButton = document.getElementById('addRow');
-						$addButton.innerHTML = "Close";
-						$addButton.insertAdjacentHTML('afterend', tmpl('addChildPage',{}));
-						
-						$("button#addChildRow").on('click', function() {
-							DBClient.readItem(DBClient.getDeleteParameters('user',{'userId': Cognito.getSub()})).then(function(a) {
-								a.userCount++;
-								$addControls = document.getElementsByClassName('addControls')[0];
-								var parentId = Cognito.getSub();
-								var childId = (parentId +":"+a.userCount)
-								params = {
-									"childId" : childId,
-									"Id" : a.userCount,
-									"childName"   : (document.getElementById("cName").value),
-									"childGrade" 	  : (document.getElementById("cGrade").value),
-									"childGender" : (document.getElementById("cGender").value),
-									"complChallenges" : [],
-									"currChallenges" : [],
-									"parentId" : parentId,
-								}
-								var param = DBClient.getParameters('child',params);
-								DBClient.writeItem(param);
-								DBClient.updateItem({	TableName: 'user',
-														Key: { 'userId': Cognito.getSub() },
-														UpdateExpression: 'set #a = :x',
-														ExpressionAttributeNames: {'#a': 'userCount'},
-														ExpressionAttributeValues: { ':x' : a.userCount,},
-													});
-								handleChildLink();
-								$addControls.remove();
-							});
-							
-							
-						})
-					}
-					else {
-						var $addButton = document.getElementById('addRow');
-						$addButton.innerHTML = "Add a Child";
-						var $addControls = document.getElementById('addBox');
-						$addControls.remove();
-					}
+					setPopUp("Add a Child");	
 				});
 			});
-			
 			$root.appendChild($container);
 			if (message) {
 				addAlert(message);

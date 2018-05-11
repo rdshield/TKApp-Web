@@ -12,8 +12,6 @@
 				<div class="Control">
 					<label class="Control__label" for="email">Email</label>
 					<input class="Control__input" id="uEM" name="email" type="text" placeholder="Email" />
-				</div>
-				<div class="Control">
 					<label class="Control__label" for="password">Password</label>
 					<input class="Control__input" id="uPW" name="password" type="password" placeholder="Password" />
 				</div>
@@ -30,70 +28,47 @@
 <script type="text/html" id="SignupForm">
 	<div id="signupWindow">
 		<div class="title"><h2>Sign Up</h2></div>
-		<form class="form" onSubmit=>
-		<div class="Control">
-			<label class="Control__label" for="email">Email</label>
-			<input class="Control__input" name="email" type="email" placeholder="Email" required />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="password">Password</label>
-			<input class="Control__input" name="password" type="password" placeholder="Password" required />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="repeatPassword">
-				Repeat Password
-			</label>
-			<input class="Control__input" name="repeatPassword" type="password" placeholder="Repeat Password" required />
-		</div>
-		<br><hr><br>
-		<div class="Control">
-			<label class="Control__label" for="fName">First Name</label>
-			<input class="Control__input" name="fName" type="text" placeholder="First Name" required />
-			<label class="Control__label" for="lName">Last Name</label>
-			<input class="Control__input" name="lName" type="text" placeholder="Last Name" required />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="address">Street Address</label>
-			<input class="Control__input" name="address" type="text" placeholder="Address (Optional)" />
-			<label class="Control__label" for="city">City</label>
-			<input class="Control__input" name="city" type="text" placeholder="City" required />
-			<label class="Control__label" for="state">State</label>
-			<input class="Control__input" name="state" type="text" placeholder="State" required />
-			<label class="Control__label" for="zipCode">Zip Code</label>
-			<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code" required />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="phoneNum">Contact Number</label>
-			<input class="Control__input" name="phoneNum" type="text" placeholder="(xxx)xxx-xxxx" />
-		</div>
-		<div class="Control">
-			<label class="Control__label" for="method">How did you hear about TeamKids?</label>
-			<select id="methodOfNotice" class="Control__input" name="method" required>
-				<option value="web">Online</option>
-				<option value="print">Magazine</option>
-				<option value="wordOfMouth">Word of Mouth</option>	
-				<option value="other">Other</option>
-			</select>
-			<input type="checkbox" name="joinEmail"><label class="Control__label" for="joinEmail">Join the TeamKids newsletter</label>
-		</div>
-		<br>
-		<input type="checkbox" name="joinEmail" required>I have read and accepted the <a href="toc.txt" target="_blank"> Terms of Service </a></label>
-		<br>
-		<input class="Control__input" type="submit" value="Sign me up!" />
-
-	  </form>
+		<form class="form">
+			<div class="Control">
+				<label class="Control__label" for="email">Email</label>
+				<input class="Control__input" name="email" type="email" placeholder="Email" required />
+				<label class="Control__label" for="password">Password</label>
+				<input class="Control__input" name="password" type="password" placeholder="Password" required />
+				<label class="Control__label" for="repeatPassword">	Repeat Password	</label>
+				<input class="Control__input" name="repeatPassword" type="password" placeholder="Repeat Password" required />
+				<br><hr><br>
+				<label class="Control__label" for="fName">First Name</label>
+				<input class="Control__input" name="fName" type="text" placeholder="First Name" required />
+				<label class="Control__label" for="lName">Last Name</label>
+				<input class="Control__input" name="lName" type="text" placeholder="Last Name" required />
+				<label class="Control__label" for="address">Street Address</label>
+				<input class="Control__input" name="address" type="text" placeholder="Address (Optional)" />
+				<label class="Control__label" for="city">City</label>
+				<input class="Control__input" name="city" type="text" placeholder="City" required />
+				<label class="Control__label" for="state">State</label>
+				<input class="Control__input" name="state" type="text" placeholder="State" required />
+				<label class="Control__label" for="zipCode">Zip Code</label>
+				<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code" required />
+				<label class="Control__label" for="phoneNum">Contact Number</label>
+				<input class="Control__input" name="phoneNum" type="text" placeholder="(xxx)xxx-xxxx" />
+				<br>
+				<input type="checkbox" name="joinEmail" required>I have read and accepted the <a href="toc.txt" target="_blank"> Terms of Service </a></label>
+				<br>
+				<input class="Control__input" type="submit" value="Sign me up!" />
+			</div>
+		</form>
 	</div>
 </script>
 
 <script type="text/html" id="ConfirmForm">
 	<div class="ConfirmForm">
-	  <div class="title">Confirm email</div>
+	  <div class="title"></div>
 	  <form class="form">
 		<div class="Control">
 		  <label class="Control__label" for="code">Authorization code</label>
 		  <input class="Control__input" name="code" type="text" placeholder="Authorization code" />
 		</div>
-		<input class="Control__input" type="submit" value="Here you go" />
+		<input class="Control__input" type="submit" value="Confirm Account" />
 		<a class="Control__link" href="#">
 		  Please, resend the authorization code.
 		</a>
@@ -110,12 +85,25 @@
 			<label class="Control__label" for="email">Please provide your Email Address:</label>
 			<input class="Control__input" id="email" name="email" type="text" placeholder="Email" required />
 		</div>
-		
-		<input class="Control__input" type="submit" value="Submit" />
-		<a class="Control__link" href="#">
+
+		<input class="Control__input" type="submit" value="Reset Password" />
 	  </form>
 	</div>
-</script> 
+</script>
+
+<script type="text/html" id="pwdResetConfirm">
+	<form class="form">
+		<label for="confirmCode">Confirmation Code: </label>
+		<input id="confirmCode" name="confirmCode" type="text" placeholder=" " required />
+		<label for="newPass1">New Password:</label>
+		<input id="newPass1" name="newPass1" type="password" placeholder=" " required />
+		<label for="newPass2">Re-enter Password:</label>
+		<input id="newPass2" name="newPass2" type="password" placeholder=" " required />
+		
+		<button class="Control__input" id="pwConfirmSubmit" type="button">Confirm Reset</button>
+	</form>
+</script>	
+
 
 <script type="text/html" id="Alert">
 	<div class="Alert Alert__<%= type %>">

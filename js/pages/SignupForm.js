@@ -45,7 +45,8 @@
 
 
 	function handleLoginLink(event) {
-		event.preventDefault();
+		console.log(event);
+		if(event!=null){ event.preventDefault(); }
 		EventEmitter.emit('SignupForm:unmount');
 		EventEmitter.emit('LoginForm:mount');
 	}
@@ -75,8 +76,6 @@
 			city: $inputs.city.value,
 			zipCode: $inputs.zipCode.value,
 			phoneNum: $inputs.phoneNum.value,
-			joinEmail: $inputs.joinEmail.value,
-			methodOfNotice: document.getElementById('methodOfNotice').value,
 		}	
 
 		startLoading()

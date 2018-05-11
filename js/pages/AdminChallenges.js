@@ -5,7 +5,6 @@
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
 		$title,
-		$alert,
 		$button,
 		$form,
 		$link,
@@ -205,8 +204,9 @@
 		
 		var $submit = document.getElementById('addRowSubmit');
 		
-		$submit.onclick = function() {	
-
+		$submit.onclick = function(event) {	
+			if(event != null) {event.preventDefault();}
+			
 			var params = {
 				challengeId: 	$challengeId,
 				challengeName:  $challengeName.value,

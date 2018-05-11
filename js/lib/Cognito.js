@@ -98,18 +98,32 @@
 			User.forgotPassword({
 				onSuccess: function (result) {
 					console.log('call result: ' + result);
-					window.alert("A validation code has been sent to your phone or email. Please enter the code in the next prompt.");
+					resolve(result)
 				},
 				onFailure: function(err) {
-					alert(err);
+					reject(err)
 				},
-				inputVerificationCode() {
-					var verificationCode = prompt('Please input verification code ' ,'');
-					var newPassword = prompt('Enter new password ' ,'');
-					User.confirmPassword(verificationCode, newPassword, this);
-				}
 			});
 		})
+	}
+	
+	function confirmPassword(username, confirm, pass) {
+		username = username.toLowerCase();
+		User = new CognitoUser({
+			Username : username,
+			Pool: UserPool,
+		});
+		return new Promise(function(resolve, reject) {
+			User.confirmPassword(confirm, pass,{
+				onSuccess: function (result) {
+					console.log('call result: ' + result);
+					resolve(result);
+				},
+				onFailure: function(err) {
+					reject(err);
+				},
+			});
+		});
 	}
 
   	/* Login
@@ -245,5 +259,6 @@
 		isAuthenticated: isAuthenticated,
 		isNotAuthenticated: isNotAuthenticated,
 		forgotPassword: forgotPassword,
+		confirmPassword: confirmPassword,
 	})
 })(window)

@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<Title> TK Admin </Title>
 		<link rel="stylesheet" type="text/css" href="/css/admin.css">
 		<link rel="stylesheet" text="text/css" href="/css/tabulator.css">
@@ -11,11 +11,9 @@
 		<script type="text/javascript" src="/js/lib/jquery-ui.js"></script>
 		<script type="text/javascript" src="/js/lib/tabulator.min.js"></script>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  
 	</head>
 	
 	<body>
-		
 		<div class="header">
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
