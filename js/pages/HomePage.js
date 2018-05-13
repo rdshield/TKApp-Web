@@ -41,7 +41,7 @@
   
     function redirectToLogin(message) {
 		EventEmitter.emit('HomePage:unmount');
-		window.location.replace('login.php');
+		window.location.replace('login.html');
 	}
   
 	EventEmitter.on('HomePage:mount', function(message) { 

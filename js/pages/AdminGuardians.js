@@ -54,7 +54,7 @@
 	function handleLogOut() {
 		EventEmitter.emit('AdminGuardians:unmount');
 		Cognito.signOut();
-		window.location.replace("./admin-login.php","Admin Login") 
+		window.location.replace("./admin-login.html","Admin Login") 
 	}
 	
 	// function setupAddControls() {

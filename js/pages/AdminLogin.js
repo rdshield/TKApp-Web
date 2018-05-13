@@ -37,7 +37,7 @@
 	  
 	function redirectToHome() {									
 		EventEmitter.emit('AdminLogin:unmount');
-		window.location.replace('Admin-Home.php');
+		window.location.replace('Admin-Home.html');
 	}
 	  
 	function handleLoginLink() {

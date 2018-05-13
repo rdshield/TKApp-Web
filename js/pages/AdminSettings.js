@@ -50,7 +50,7 @@
 	function handleLogOut() {
 		EventEmitter.emit('AdminSettings:unmount');
 		Cognito.signOut();
-		window.location.replace("./admin-login.php","Admin Login") 
+		window.location.replace("./admin-login.html","Admin Login") 
 	}
   
 	function setupCatTable(data) {
