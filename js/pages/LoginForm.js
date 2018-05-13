@@ -4,7 +4,7 @@
 		$container = document.createElement('div'),			//Temporary space for Form on build
 		$tnLeft = document.getElementById('topNavLeft'),	//Reference Point for Top-Left Nav Bar
 		$tnRight = document.getElementById('topNavRight'),	//Reference Point for Top-Right Nav Bar
-		$title,	$alert,	$button, $form,	$link;
+		$title,	$alert,	$button, $form,	$link, $forgotLink;
 		
 	//Functions for On-screen Alerts	
 	function addAlert(options) {
@@ -51,9 +51,10 @@
 	}
 
 	//Used to Reset Login Screen back to original view on load
-	function handleLoginLink() {
+	function handleLoginLink(msg) {
 		EventEmitter.emit('LoginForm:unmount');
-		EventEmitter.emit('LoginForm:mount');
+		if(msg==null) {	EventEmitter.emit('LoginForm:mount'); }
+		else 		  { EventEmitter.emit('LoginForm:mount',msg); }
 	}
   
 	//Navigation to the "Password Reset" screen
@@ -85,19 +86,24 @@
 			console.error(error.message);
 		  
 			// If the user needs to confirm their acconut, switch to the confirmation form page.
-			if (error.message === 'User is not confirmed.') {
+			if (error.message ==="User is not confirmed.") {
 				EventEmitter.emit('ConfirmForm:mount', {
 					email: $inputs.email.value,
 				});
 				EventEmitter.emit('LoginForm:unmount');
 				return;
 			}
-			if(error.message=="Missing required parameter USERNAME")
+			else if(error.message=="Missing required parameter USERNAME")
 			{
 				addAlert({
 					type: 'error',
 					message: "Please enter your Username/Email"
 				})
+			}
+			else if(error.message=="Password reset required for the user")
+			{
+				setPopUp("Confirm New Password",{email: $inputs.email.value});	
+				stopLoading();
 			}
 			else{
 				//Print Error to On-page Alert area
@@ -107,6 +113,45 @@
 				})
 			}
 		})
+	}
+  
+	function setPopUp(title, params=null) {
+		var modal = document.getElementById('myModal');
+		modal.style.display = "block";
+		var span = document.getElementsByClassName("close")[0];
+		var $header = document.getElementsByClassName("modal-header")[0];
+		var $body = document.getElementsByClassName("modal-body")[0];
+		var $footer = document.getElementsByClassName("modal-footer")[0];
+		
+		$header.insertAdjacentHTML('beforeend',"<h3 id='modalTitle'> "+title+" </h3>")
+		$body.innerHTML = tmpl('pwdResetConfirm', {})
+				
+		var username = params.email;
+		var conf = document.getElementById('confirmCode');
+		var pass1 = document.getElementById('newPass1');
+		var pass2 = document.getElementById('newPass2');
+		
+		var $submit = document.getElementById('pwConfirmSubmit');	
+		$submit.onclick = function() {
+			if (pass1.value !== pass2.value) {
+				addAlert({
+					type: 'error',
+					message: 'Passwords do not match!',
+				})
+				console.log('Passwords do not match!')
+				return;
+			} else {
+				Cognito.confirmPassword(username, conf.value, pass1.value).then( function() {
+					handleLoginLink("Your password has been successfully reset");
+			}).catch(function (error) { console.log(error)})
+			}
+		}
+				
+		// When the user clicks on <span> (x), close the modal	
+		span.onclick = function() { 
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+		}
 	}
   
 	//Process to run when Login form is called for display (EventEmitter.emit('LoginForm:Mount'))
@@ -120,13 +165,16 @@
 			$forgotLink = $container.getElementsByClassName('pwReset')[0];
 			$form = $container.getElementsByClassName('form')[0];
 			$title = $container.getElementsByClassName('title')[0];
-			$link.onaddEventListener('click', handleSignupLink);
+			$link.addEventListener('click', handleSignupLink);
 			$forgotLink.addEventListener('click', handlePwReset);
 			$form.addEventListener('submit', handleSubmit);	 
 			$root.appendChild($container); //Append Login Form to the displayed picture
 			
 			if (message) {	addAlert(message);	} //Print message to Alert section, if one was passed
-		}) .catch(redirectToHome)   //If user is already authenticated, redirect to Home Page
+		}) .catch(function(error) {
+				console.log(error);
+				redirectToHome();
+		})   //If user is already authenticated, redirect to Home Page
 	})
  
 	//Process to run when Login form is called for removal (EventEmitter.emit('LoginForm:UnMount'))

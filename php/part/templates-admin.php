@@ -26,10 +26,6 @@
 				<button id="addCat" type="button">Add Category</button>
 				<table id="catTable"></table>
 			</div>
-			<div id="accountPage">
-				<button id="addAdmin" type="button">Add Account</button>
-				<table id="table"></table>
-			</div>
 		</div>	
 	</div>
 </script>
@@ -72,17 +68,6 @@
 		<div class="title"></div>
 		<div id="data">
 			<table id="table"></table>
-		</div>		
-	</div>
-</script>
-
-<script type="text/html" id="AdminSettings">
-	<div class="SettingsPage">
-		<div class="title"></div>
-		<div id="data">
-			<table id="table" >
-
-			</table>
 		</div>		
 	</div>
 </script>
@@ -136,7 +121,24 @@
 	<input id="gPhone" name="gPhone" type="text" placeholder=" " />
 </script>
 
+<script type="text/html" id="categoryAdd">
+	<label for="catName">Category Name</label>
+	<input id="catName" name="catName" type="text"> </text>
+</script>
 
+
+<script type="text/html" id="pwdResetConfirm">
+	<form class="form">
+		<label for="confirmCode">Confirmation Code: </label>
+		<input id="confirmCode" name="confirmCode" type="text" placeholder=" " required />
+		<label for="newPass1">New Password:</label>
+		<input id="newPass1" name="newPass1" type="password" placeholder=" " required />
+		<label for="newPass2">Re-enter Password:</label>
+		<input id="newPass2" name="newPass2" type="password" placeholder=" " required />
+		
+		<button class="Control__input" id="pwConfirmSubmit" type="button">Confirm Reset</button>
+	</form>
+</script>	
  
 <script type="text/html" id="Alert">
 	<div class="Alert Alert__<%= type %>">

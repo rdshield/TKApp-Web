@@ -15,6 +15,20 @@
 			<?php include("./php/part/topnav.php"); ?> 
 		</div>
 		
+		<div class="header">
+			<?php include("./php/part/topnav.php"); ?> 
+		</div>
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body"> </div>
+				<div class="modal-footer"> </div>
+			</div>
+		</div>
+		
 		<!-- Space for the space below the Top Bar - Contains Side-bar and content container -->
 		<div class="info">
 			<!-- Section for Content - No Side bar for Login Screen-->			

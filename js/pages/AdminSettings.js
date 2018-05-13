@@ -50,7 +50,7 @@
 	function handleLogOut() {
 		EventEmitter.emit('AdminSettings:unmount');
 		Cognito.signOut();
-		window.location.replace("./admin.php","Admin Login") 
+		window.location.replace("./admin-login.php","Admin Login") 
 	}
   
 	function setupCatTable(data) {
@@ -61,23 +61,10 @@
 			columns: [
 				{ title: "Category Name", field: "chalCategory", sortable:true, sorter:"string"},
 			],
-			// cellClick: function(e, cell) {
-			// var rowData = cell.getRow().getData();
-			// },
-		});
-	}
-	
-		function setupAdminTable(data) {
-		$('#catTable').tabulator( {
-			initialSort:[
-				{column:"chalCategory", dir:"asc"},
-			],
-			columns: [
-				{ title: "Category Name", field: "chalCategory", sortable:true, sorter:"string"},
-			],
-			// cellClick: function(e, cell) {
-			// var rowData = cell.getRow().getData();
-			// },
+				cellClick: function(e, cell) {
+					var rowData = cell.getRow().getData();
+					setPopUp("Edit Category", rowData);
+				},
 		});
 	}
 	
@@ -90,69 +77,37 @@
 		var $footer = document.getElementsByClassName("modal-footer")[0];
 		
 		$header.insertAdjacentHTML('beforeend',"<h3 id='modalTitle'> "+title+" </h3>")
-		$body.innerHTML = tmpl('addChallengePage', {})
-		$sel = document.getElementById('cCategory');
+		$body.innerHTML = tmpl('categoryAdd', {})
 		
-		DBClient.readItems('challengeCat').then(function(data) {
-			var item = data.Items;
-			for(var i=0;i<data.Count;i++) {
-				$sel.insertAdjacentHTML('beforeend',"<option value='"+ item[i].chalCategory + "'>" + item[i].chalCategory + "</option>");
-			}
-			sortSelect($sel);
-		})
-		$footer.innerHTML = '<button id="addRowSubmit" type="button">Add Challenge</button>';
+		var $catName = document.getElementById('catName');
 		
-		
-		var $challengeName = document.getElementById('cName');
-		var $challengeDesc = document.getElementById('cDesc');
-		var $challengeCat  = document.getElementById('cCategory');
-		var $challengeAct  = document.getElementById('cActivate');
-		var $challengeId  = $challengeCount+1;
+		$footer.innerHTML = '<button id="addRowSubmit" type="button">Add Category</button>';
 		if(params != null) {
-			console.log("NOT");
-			$challengeName.value = params.challengeName;
-			$challengeDesc.value = params.challengeDesc;
-			$challengeCat.value = params.category;
-			$challengeAct.checked = params.isActive;
-			$challengeId = params.challengeId;
-		}
+			console.log(params);
+			$catName.value = params.chalCategory;
+		}		
 		
-		var $submit = document.getElementById('addRowSubmit');
-		
+		var $submit = document.getElementById('addRowSubmit');		
 		$submit.onclick = function(event) {	
-			if(event != null) {event.preventDefault();}
-			
-			var params = {
-				challengeId: 	$challengeId,
-				challengeName:  $challengeName.value,
-				challengeDesc:  $challengeDesc.value,
-				category: 	    $challengeCat.value,
-				isActive:		$challengeAct.checked,
-			}
-			var param = DBClient.getParameters('challenges',params);
-			DBClient.writeItem(param);
+			var param = {
+				chalCategory : $catName.value,
+			}	
+			var submitParams = DBClient.getParameters('challengeCat',param);
+			DBClient.writeItem(submitParams);
 			modal.style.display = "none"; 
 			$(document.getElementById('modalTitle')).remove();
-			handleChallengeLink();
+			handleSettingsLink();
 		}
 				
 		// When the user clicks on <span> (x), close the modal	
 		span.onclick = function() { 
 			modal.style.display = "none"; 
 			$(document.getElementById('modalTitle')).remove();
-		}
-
-		/*window.onclick = function(event) {
-			if (event.target == modal) { 
-				modal.style.display = "none";
-				$(document.getElementById('modalTitle')).remove();
-			}
-		}*/
+		};
 	}
   
 	EventEmitter.on('AdminSettings:mount', function(message) {
-		Cognito.isAuthenticated().then(function() {
-			
+		Cognito.isAuthenticated().then(function() {	
 			DBClient.connect();
 			$container.innerHTML = tmpl('AdminSettingsPage', {})
 			setupTNLeft();
@@ -162,11 +117,19 @@
 				$('#catTable').tabulator("setData", data.Items);
 				$root.appendChild($container);
 			})
+			
+			$('#addCat').on('click', function(){
+				setPopUp("Add a Category");
+			})
 		}).catch(function(error) {
 			console.log(error);
 			handleLogOut();
 		})
 		$root.appendChild($container);
+				
+		
+		
+		
 	})
 
 	EventEmitter.on('AdminSettings:unmount', function() {

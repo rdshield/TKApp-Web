@@ -79,10 +79,6 @@
 		
 		var $submit = document.getElementById('pwConfirmSubmit');	
 		$submit.onclick = function() {
-			console.log(conf.value)
-			console.log(pass1.value)
-			console.log(pass2.value)
-			console.log(username)
 			if (pass1.value !== pass2.value) {
 				addAlert({
 					type: 'error',
@@ -102,13 +98,6 @@
 			modal.style.display = "none"; 
 			$(document.getElementById('modalTitle')).remove();
 		}
-
-		/*window.onclick = function(event) {
-			if (event.target == modal) { 
-				modal.style.display = "none";
-				$(document.getElementById('modalTitle')).remove();
-			}
-		}*/
 	}
  
 	EventEmitter.on('pwResetForm:mount', function(options) {

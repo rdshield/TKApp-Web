@@ -4,11 +4,7 @@
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
-		$title,
-		$alert,
-		$button,
-		$form,
-		$link;
+		$title,$alert,$button,$form,$link;
 
 	//Locking down the Submit button while work is being done in the background
 	function startLoading() {
@@ -79,7 +75,6 @@
 		var childCount = 0, $complChallenges = [], $currChallenges = [], $new = false, $cId = '';
 
 		if(params != null) {
-			//console.log(params);
 			$childName.value 	= params.childName;
 			$childGrade.value 	= params.childGrade;
 			$childGender.value 	= params.childGender;
@@ -154,13 +149,6 @@
 			modal.style.display = "none"; 
 			$(document.getElementById('modalTitle')).remove();
 		}
-
-		/*window.onclick = function(event) {
-			if (event.target == modal) { 
-				modal.style.display = "none";
-				$(document.getElementById('modalTitle')).remove();
-			}
-		}*/
 	}
   
 	EventEmitter.on('ChildPage:mount', function(message) {
@@ -171,7 +159,6 @@
 			setupTNRight();
 			
 			DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() }).then(function(data) {
-				//console.log(data);
 				var idCount= data.Count+1;
 				$('#table').tabulator( {
 					layout:"fitDataFill",
@@ -188,7 +175,7 @@
 
 					cellClick: function(e, cell) {
 						var rowData = cell.getRow().getData();
-						setPopUp(("Edit Child - "+rowData.childName + ""),rowData);	
+						setPopUp(("Edit Child - "+ rowData.childName + ""),rowData);	
 					},
 				});
 
