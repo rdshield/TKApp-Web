@@ -40,7 +40,7 @@
 	function redirectToHome() {
 		//console.log("Redirecting to Home Page");
 		EventEmitter.emit('LoginForm:unmount');
-		window.location.replace('home.php');
+		window.location.replace('home.html');
 	}
   
 	//Navigation to the "User Sign-up" screen
@@ -156,6 +156,7 @@
   
 	//Process to run when Login form is called for display (EventEmitter.emit('LoginForm:Mount'))
 	EventEmitter.on('LoginForm:mount', function(message) {
+		console.log($container);
 		//Check if account is (not) authenticated
 		Cognito.isNotAuthenticated().then(function() {
 			$container.innerHTML = tmpl('LoginForm', {})
@@ -173,7 +174,7 @@
 			if (message) {	addAlert(message);	} //Print message to Alert section, if one was passed
 		}) .catch(function(error) {
 				console.log(error);
-				redirectToHome();
+				//redirectToHome();
 		})   //If user is already authenticated, redirect to Home Page
 	})
  

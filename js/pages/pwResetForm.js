@@ -77,8 +77,7 @@
 		var pass1 = document.getElementById('newPass1');
 		var pass2 = document.getElementById('newPass2');
 		
-		var $submit = document.getElementById('pwConfirmSubmit');	
-		$submit.onclick = function() {
+		$('#pwConfirmSubmit').on('submit',function() {
 			if (pass1.value !== pass2.value) {
 				addAlert({
 					type: 'error',
@@ -91,7 +90,7 @@
 					redirectToLogin("Your password has been successfully reset");
 			}).catch(function (error) { console.log(error)})
 			}
-		}
+		})
 				
 		// When the user clicks on <span> (x), close the modal	
 		span.onclick = function() { 

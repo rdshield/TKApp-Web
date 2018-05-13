@@ -11,6 +11,7 @@
     // Figure out if we're getting a template, or if we need to
     // load the template - and be sure to cache the result.
     if (!/\W/.test(str)) {
+		console.log("Template Called: " + str);
       fn = cache[str] = cache[str] || tmpl(
         document.getElementById(str).innerHTML
       )

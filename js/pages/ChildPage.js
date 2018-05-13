@@ -191,6 +191,7 @@
 		}).catch(function(error) {
 			if (error) {
 				console.log(error);
+				var a = prompt(" b ");
 				handleLogOut();
 			}
 		})
