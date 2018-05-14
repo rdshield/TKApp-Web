@@ -94,6 +94,18 @@
 			setupTNLeft();
 			setupTNRight();
 			$root.appendChild($container);
+			$myInput = document.getElementById('password');
+			$message = document.getElementById('message');
+/* $myInput = document.getElementById('password') || document.getElementById('repeatPassword')*/	
+
+			$myInput.onfocus = function(){
+				$message.style.display = "block";
+			}
+			
+			$myInput.onblur = function(){
+				$message.style.display = "none";
+			}
+	
 		})
 		.catch(function(err) {
 			console.log(err)
