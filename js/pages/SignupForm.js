@@ -97,6 +97,9 @@
 			$myInput = document.getElementById('password');
 			$myInput2 = document.getElementById('repeatPassword');
 			$message = document.getElementById('message');
+			$number = document.getElementById('number');
+			$length = document.getElementById('length');
+			
 /* $myInput = document.getElementById('password') || document.getElementById('repeatPassword')*/	
 			
 			
@@ -105,7 +108,43 @@
 			$myInput.onblur = function() { $message.style.display = "none"; }
 			$myInput2.onblur = function() { $message.style.display = "none"; }
 
-	
+			$myInput.onkeyup = function() { 
+				var numbers = /[0-9]/g;
+				if($myInput.value.match(numbers)) {  
+				$number.classList.remove("invalid");
+				$number.classList.add("valid");
+			  } else {
+				$number.classList.remove("valid");
+				$number.classList.add("invalid");
+				}
+			// Validate length
+				if($myInput.value.length >= 8) {
+				$length.classList.remove("invalid");
+				$length.classList.add("valid");
+				} else {
+				$length.classList.remove("valid");
+				$length.classList.add("invalid");
+				}
+			}
+			$myInput2.onkeyup = function() { 
+				var numbers = /[0-9]/g;
+				if($myInput2.value.match(numbers)) {  
+				console.log('Got it')
+				$number.classList.remove("invalid");
+				$number.classList.add("valid");
+				} else {
+				$number.classList.remove("valid");
+				$number.classList.add("invalid");
+			} 
+			  // Validate length
+			  if($myInput2.value.length >= 8) {
+				$length.classList.remove("invalid");
+				$length.classList.add("valid");
+				} else {
+				$length.classList.remove("valid");
+				$length.classList.add("invalid");
+				}			  
+			}
 		}).catch(function(err) {
 			console.log(err)
 			EventEmitter.emit('SignupForm:unmount');

@@ -384,10 +384,39 @@ body {
   background-color: var(--blue);
 }
 
-div.message {
+.message {
 	display: none;
+
+}
+.message #number{
+	text-align: left;
+	padding-left: 30%
 }
 
+.message #length{
+	text-align: left;
+	padding-left: 30%
+}
+
+.valid {
+	color: green;
+}
+
+.valid:before{
+	position: relative;
+	left: -35px;
+	content: "✔";
+}
+
+.invalid {
+	color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+}
 /* Test Modal*/
 
 /* The Modal (background) */
