@@ -3,11 +3,7 @@
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
-		$alert,
-		$button,
-		$link,
-		$form,
-		$title;
+		$alert,$button,$link,$form,$title;
 	  
 	function startLoading() {
 		removeAlert();
@@ -81,12 +77,7 @@
 		var pass1 = document.getElementById('newPass1');
 		var pass2 = document.getElementById('newPass2');
 		
-		var $submit = document.getElementById('pwConfirmSubmit');	
-		$submit.onclick = function() {
-			console.log(conf.value)
-			console.log(pass1.value)
-			console.log(pass2.value)
-			console.log(username)
+		$('#pwConfirmSubmit').on('submit',function() {
 			if (pass1.value !== pass2.value) {
 				addAlert({
 					type: 'error',
@@ -99,20 +90,13 @@
 					redirectToLogin("Your password has been successfully reset");
 			}).catch(function (error) { console.log(error)})
 			}
-		}
+		})
 				
 		// When the user clicks on <span> (x), close the modal	
 		span.onclick = function() { 
 			modal.style.display = "none"; 
 			$(document.getElementById('modalTitle')).remove();
 		}
-
-		/*window.onclick = function(event) {
-			if (event.target == modal) { 
-				modal.style.display = "none";
-				$(document.getElementById('modalTitle')).remove();
-			}
-		}*/
 	}
  
 	EventEmitter.on('pwResetForm:mount', function(options) {

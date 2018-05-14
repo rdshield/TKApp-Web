@@ -4,10 +4,7 @@
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
-		$button,
-		$link,
-		$title,
-		$form;
+		$button,$link,$title,$form;
 
 	function startLoading() {
 		removeAlert()
@@ -30,29 +27,22 @@
 		$alert && $alert.remove();
 	}
 
-	function handleClose(event) {
-		event.target.parentNode.remove()
-	}
-	
-	function setupTNLeft(){
-	}  
+	function setupTNLeft(){	}  
 
 	function setupTNRight(){
 		$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'b2Login', msg:'Back to Login' }) );
-		$b = document.getElementById('topNav__b2Login');
-		$b.addEventListener('click', handleLoginLink);
+		$b2Login = document.getElementById('topNav__b2Login');
+		$b2Login.addEventListener('click', handleLoginLink);
 	}
 
-
 	function handleLoginLink(event) {
-		console.log(event);
 		if(event!=null){ event.preventDefault(); }
 		EventEmitter.emit('SignupForm:unmount');
 		EventEmitter.emit('LoginForm:mount');
 	}
 
 	function handleSubmit(event) {
-		event.preventDefault()
+		if(event!=null){ event.preventDefault(); }
 		var $inputs = $container.getElementsByTagName('input'), attributes;
 		if ($inputs.password.value !== $inputs.repeatPassword.value) {
 			addAlert({
@@ -63,10 +53,7 @@
 			return;
 		}
 		if($inputs.address == null)  { $inputs.address.value = '';  }
-		if($inputs.phoneNum == null) { $inputs.phoneNum.value = '';	}
-		if($inputs.joinEmail.checked) { $inputs.joinEmail.value = true; }
-		else {  $inputs.joinEmail.value = false; } 
-		
+		if($inputs.phoneNum == null) { $inputs.phoneNum.value = '';	}		
 		var params = {
 			email: $inputs.email.value,
 			password: $inputs.password.value,
@@ -77,7 +64,6 @@
 			zipCode: $inputs.zipCode.value,
 			phoneNum: $inputs.phoneNum.value,
 		}	
-
 		startLoading()
 		Cognito.signUp(params).then(function(result) {
 			stopLoading();
@@ -86,8 +72,7 @@
 				message: 'Your request has been received. Check your email for a validation key. Redirecting back to login...',
 			})
 			setTimeout(handleLoginLink, 3500);	  
-		})
-		.catch(function(error) {
+		}).catch(function(error) {
 			stopLoading();
 			$fills = $container.getElementsByClassName('Control__input');
 			$fills[1].value='';
@@ -126,8 +111,4 @@
 		}
 		$container.remove();
 	})
-})(
-  window.EventEmitter,
-  window.tmpl,
-  window.Cognito
-)
+})(window.EventEmitter,window.tmpl,window.Cognito)

@@ -4,11 +4,7 @@
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
-		$title,
-		$alert,
-		$button,
-		$form,
-		$link;
+		$title,$alert,$button,$form,$link;
 
 	//Locking down the Submit button while work is being done in the background
 	function startLoading() {
@@ -76,7 +72,7 @@
 		var $childName  = document.getElementById('cName');
 		var $childGrade = document.getElementById('cGrade');
 		var $childGender= document.getElementById('cGender');
-		var childCount = 0, $complChallenges = [], $currChallenges = [], $new = false;
+		var childCount = 0, $complChallenges = [], $currChallenges = [], $new = false, $cId = '';
 
 		if(params != null) {
 			$childName.value 	= params.childName;
@@ -85,27 +81,27 @@
 			childCount 			= params.Id;
 			$complChallenges 	= params.complChallenges;
 			$currChallenges 	= params.currChallenges;
+			$cId				= params.childId;
 			
 			$footer.innerHTML = '<button id="deleteChild" type="button">Delete Child</button>';
 			
-			// $("#deleteChild").on('click', function() {
-				// var del = window.confirm("Are you sure you want to delete this account?");
-				// if(del){
-					// var params = { "childId" : params.childId	};
-					// params = DBClient.getDeleteParams('child',params);
-					// DBClient.deleteItem(params);
-					// var a = 1;
-					// DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
-				// }
-				
-				handleChildLink();
+			$("#deleteChild").on('click', function() {
+				var del = window.confirm("Are you sure you want to delete this account?");
+				if(del){
+					var params = { "childId" : $cId	};
+					params = DBClient.getDeleteParameters('child',params);
+					DBClient.deleteItem(params);
+					DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() });					
+				}
+				handleChildLink();				
+				modal.style.display = "none"; 
+				$(document.getElementById('modalTitle')).remove();
 			});
 		}
 		
 		var $submit = document.getElementById('addChildRow');
 		$submit.onclick = function(exec) {	
 			event.preventDefault();
-			console.log("CLICK");
 			var sub = Cognito.getSub();
 			DBClient.readItem(DBClient.getDeleteParameters('user',{'userId': Cognito.getSub()})).then(function(a) {
 				if(childCount==0) {
@@ -123,7 +119,7 @@
 					currChallenges: $currChallenges,
 					parentId:		sub,
 				}
-				console.log(params)
+				
 				var param = DBClient.getParameters('child',params);
 				DBClient.writeItem(param);
 				DBClient.updateItem({	
@@ -134,17 +130,13 @@
 							ExpressionAttributeValues: { ':x' : a.userCount,},
 				});
 				if($new) {
-					console.log("NEW");
 					DBClient.updateItem({	
 						TableName: 'user',
 						Key: { 'userId': Cognito.getSub() },
 						UpdateExpression: 'set #a = :x',
 						ExpressionAttributeNames: {'#a': 'userCount'},
 						ExpressionAttributeValues: { ':x' : childCount,},
-					});
-					DBClient.readItem(DBClient.getDeleteParameters('user',{'userId': Cognito.getSub()})).then(function(a) {
-						console.error(a.userCount);
-					})				
+					});		
 				}
 				handleChildLink();
 				modal.style.display = "none"; 
@@ -157,13 +149,6 @@
 			modal.style.display = "none"; 
 			$(document.getElementById('modalTitle')).remove();
 		}
-
-		/*window.onclick = function(event) {
-			if (event.target == modal) { 
-				modal.style.display = "none";
-				$(document.getElementById('modalTitle')).remove();
-			}
-		}*/
 	}
   
 	EventEmitter.on('ChildPage:mount', function(message) {
@@ -174,7 +159,6 @@
 			setupTNRight();
 			
 			DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() }).then(function(data) {
-				//console.log(data);
 				var idCount= data.Count+1;
 				$('#table').tabulator( {
 					layout:"fitDataFill",
@@ -191,7 +175,7 @@
 
 					cellClick: function(e, cell) {
 						var rowData = cell.getRow().getData();
-						setPopUp(("Edit Child - "+rowData.childName + ""),rowData);	
+						setPopUp(("Edit Child - "+ rowData.childName + ""),rowData);	
 					},
 				});
 
@@ -207,6 +191,7 @@
 		}).catch(function(error) {
 			if (error) {
 				console.log(error);
+				var a = prompt(" b ");
 				handleLogOut();
 			}
 		})

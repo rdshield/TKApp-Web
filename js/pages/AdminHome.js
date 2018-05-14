@@ -70,7 +70,7 @@
 	function handleLogOut() {
 		EventEmitter.emit('AdminHome:unmount');
 		Cognito.signOut();
-		window.location.replace("./admin-login.php","Admin Login") 
+		window.location.replace("./admin-login.html","Admin Login") 
 	}
   
 	EventEmitter.on('AdminHome:mount', function(message) {

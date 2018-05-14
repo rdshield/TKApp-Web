@@ -42,7 +42,7 @@
 			)
 		});
 	}
-
+	
 	/* Confirm
 		Connects to Cognito server and  confirms an account that was created via Signup
 			username: Email Address account is being setup with
@@ -166,28 +166,30 @@
 				return;
 			}
 			User.getSession(function(err, session) {
-				var a = session.getIdToken().getJwtToken();
-				var b = atob(a.split(".")[1]);
-				sub = JSON.parse(b).sub;
-		
 				if (err) {
 					reject(err);
 					return;
 				}
-				if (session.isValid() === false){
+				else if (session.isValid() === false){
 					reject('Session is invalid');
 				}
-				var a = 'cognito-idp.us-west-2.amazonaws.com/'+ USER_POOL_ID;
-				AWS.config.region = 'us-west-2';
-				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-					region: 'us-west-2',
-					IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
-					Logins: {
-						[a] : session.getIdToken().getJwtToken()
-					}
-				});
-				resolve();
-				return;
+				else {
+					var a = session.getIdToken().getJwtToken();
+					var b = atob(a.split(".")[1]);
+					sub = JSON.parse(b).sub;
+					//console.log(JSON.parse(b))
+					var a = 'cognito-idp.us-west-2.amazonaws.com/'+ USER_POOL_ID;
+					AWS.config.region = 'us-west-2';
+					AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+						region: 'us-west-2',
+						IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
+						Logins: {
+							[a] : session.getIdToken().getJwtToken()
+						}
+					});
+					resolve();
+					return;
+				}
 			})
 		})
   }
@@ -206,7 +208,8 @@
 	function getUser() {
     return (
       getSession()
-      .then(function() {
+      .then(function(err,session) {
+		console.log(session)
         // NOTE: getSession must be called to authenticate user before 
         // calling getUserAttributes
         return new Promise(function(resolve, reject) {

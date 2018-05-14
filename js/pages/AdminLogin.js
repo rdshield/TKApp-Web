@@ -4,14 +4,10 @@
 		$container = document.createElement('div'),
 		$tnLeft = document.getElementById('topNavLeft'),
 		$tnRight = document.getElementById('topNavRight'),
-		$title,
-		$alert,
-		$button,
-		$form,
-		$link;
+		$title,$alert,$button,$form,$link;
 
 	function startLoading() {
-		removeAlert()
+		removeAlert();
 		$button = $container.querySelectorAll('input[type=submit]')[0];
 		$button.disabled = true;
 		$button.value = 'Loading...';
@@ -31,16 +27,8 @@
 		$alert && $alert.remove();
 	}
 
-	function setupTNLeft(){	}  
-
-	function setupTNRight(){
-		//$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Login', msg:'Login' }));
-		//$temp = document.getElementById('topNav__Login');
-		//$temp.addEventListener('click', handleLoginLink);
-		//$tnRight.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'Home', msg:'Home' }));
-		//$temp = document.getElementById('topNav__Home');
-		//$temp.addEventListener('click', redirectToHome);
-	}
+	function setupTNLeft(){}  
+	function setupTNRight(){}
 	  
 	function redirectToLogin() {
 		EventEmitter.emit('AdminLogin:unmount');
@@ -49,17 +37,12 @@
 	  
 	function redirectToHome() {									
 		EventEmitter.emit('AdminLogin:unmount');
-		window.location.replace('Admin-Home.php');
+		window.location.replace('Admin-Home.html');
 	}
 	  
 	function handleLoginLink() {
 		EventEmitter.emit('AdminLogin:unmount');
 		EventEmitter.emit('AdminLogin:mount');
-	}
-	  
-	function handleHomeLink() {
-		EventEmitter.emit('AdminLogin:unmount');
-		EventEmitter.emit('HomePage:mount');
 	}
 
 	//Process to follow when "Login/Submit" button is pressed
@@ -104,6 +87,13 @@
 					message: "Invalid Username/Email"
 				})
 			}
+			else if(error.message=="Password reset required for the user")
+			{
+				Cognito.forgotPassword($inputs.email.value).then(function() {
+					setPopUp("Confirm New Password",{email: $inputs.email.value});	
+					stopLoading();
+				})
+			}
 			else{
 			//Print Error to On-page Alert area
 				addAlert({
@@ -113,6 +103,46 @@
 			}
 		})
 	}
+	
+	function setPopUp(title, params=null) {
+		var modal = document.getElementById('myModal');
+		modal.style.display = "block";
+		var span = document.getElementsByClassName("close")[0];
+		var $header = document.getElementsByClassName("modal-header")[0];
+		var $body = document.getElementsByClassName("modal-body")[0];
+		var $footer = document.getElementsByClassName("modal-footer")[0];
+		
+		$header.insertAdjacentHTML('beforeend',"<h3 id='modalTitle'> "+title+" </h3>")
+		$body.innerHTML = tmpl('pwdResetConfirm', {})
+				
+		var username = params.email;
+		var conf = document.getElementById('confirmCode');
+		var pass1 = document.getElementById('newPass1');
+		var pass2 = document.getElementById('newPass2');
+		
+		var $submit = document.getElementById('pwConfirmSubmit');	
+		$submit.onclick = function() {
+			if (pass1.value !== pass2.value) {
+				addAlert({
+					type: 'error',
+					message: 'Passwords do not match!',
+				})
+				console.log('Passwords do not match!')
+				return;
+			} else {
+				Cognito.confirmPassword(username, conf.value, pass1.value).then( function() {
+					redirectToLogin("Your password has been successfully reset");
+			}).catch(function (error) { console.log(error)})
+			}
+		}
+				
+		// When the user clicks on <span> (x), close the modal	
+		span.onclick = function() { 
+			modal.style.display = "none"; 
+			$(document.getElementById('modalTitle')).remove();
+		}
+	}
+ 
 	  
 	EventEmitter.on('AdminLogin:mount', function(message) {
 		Cognito.isNotAuthenticated()
@@ -138,7 +168,6 @@
 		$temp = document.getElementById('topNav__Login');
 		$temp && $temp.removeEventListener('click', handleLoginLink);
 		$temp = document.getElementById('topNav__Home');
-		$temp && $temp.removeEventListener('click', handleHomeLink);
 		while ($tnRight.firstChild) {
 			$tnRight.removeChild($tnRight.firstChild);
 		}

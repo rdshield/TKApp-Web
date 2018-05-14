@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<Title> Team Kids </Title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+		<link rel="stylesheet" text="text/css" href="/css/tabulator.css">
+		<script type="text/javascript" src="/js/lib/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="/js/lib/jquery-ui.js"></script>
+	</head>
+	<body>
+		<script>
+			window.onbeforeunload = function() {Cognito.signOut();}
+		</script>	
+			
+		<div class="header">
+			<div class="topNav">
+				<nav>
+					<div class="nav-element left" id="topNavLeft"> </div>
+					<div class="nav-element center" id="topNavCenter"> </div>
+					<div class="nav-element right" id="topNavRight"> </div>
+				</nav>
+			</div>
+		</div>
+		
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body"> </div>
+				<div class="modal-footer"> </div>
+			</div>
+		</div>
+		
+		<section id="content">
+			<!-- Actual Container for data content -->
+			<div id="root"> </div>
+		</section>
+		
+		<!-- Templates -->
+		<script type="text/html" id="HomePage">
+			<div class="HomePage">
+				<div class="title"></div>
+				<div id="data">
+					
+				</div>		
+			</div>
+		</script>
+
+		<script type="text/html" id="ChildPage">
+			<div class="ChildPage">
+				<div class="title"></div>
+				<div id="data">
+					<div class="addControls">
+						<button id="addRow" type="button"> Add a Child </button>
+					</div>
+					<table id="table"></table>
+				</div>		
+			</div>	
+		</script>
+
+		<script type="text/html" id="Alert">
+			<div class="Alert Alert__<%= type %>">
+			  <%= message %>
+			</div>
+		</script>
+		  
+		<script type="text/html" id="topNavButton">
+			<button class="button" id="topNav__<%= name %>" >	
+				<span><%= msg %></span>
+			</button>
+
+			</div>
+		</script>
+
+		<script type="text/html" id="addChildPage">
+			<form>
+				<input id="cName" name="cName" type="text" placeholder="First Name" required />
+				<input id="cGrade" name="cGrade" type="text" placeholder="School Grade" required />
+				<select id="cGender" name="cGender" type="select" placeholder="Gender" required >
+					<option selected disabled value="Gender">Gender</option>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+					<option value="Not Specified">Not Specified</option>
+				</select>		
+				<input id="addChildRow" type="submit" value="Add Child"></button>
+			</form>
+		</script>
+				
+		<!-- Scripts Begin Here -->
+		<script type="text/javascript" src="/js/config/config.js"></script>
+		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
+		<script type="text/javascript" src="/js/lib/amazon-cognito-identity.min.js"></script>
+		<script type="text/javascript" src="https://sdk.amazonaws.com/js/aws-sdk-2.224.1.min.js"></script>
+		<script type="text/javascript" src="/js/lib/tabulator.min.js"></script>	
+		<script type="text/javascript" src="/js/lib/Cognito.js"></script>
+		<script type="text/javascript" src="/js/lib/utils.js"></script>
+		<script type="text/javascript" src="/js/lib/EventEmmiter.js"></script>
+		<script type="text/javascript" src="/js/lib/DBClient.js"></script>
+		<script type="text/javascript" src="/js/pages/HomePage.js"></script>
+		<script type="text/javascript" src="/js/pages/ChildPage.js"></script>
+		<script type="text/javascript" src="/js/index.js"></script>
+	</body>
+</html> 

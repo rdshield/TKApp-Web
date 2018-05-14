@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<Title> TK Admin </Title>
+		<link rel="stylesheet" type="text/css" href="/css/admin.css">
+		<link rel="stylesheet" text="text/css" href="/css/tabulator.css">
+		<script type="text/javascript" src="/js/lib/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="/js/lib/jquery-ui.js"></script>
+		<script type="text/javascript" src="/js/lib/tabulator.min.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	</head>
+	
+	<body>
+		<div class="header">
+			<div class="topNav">
+				<nav>
+					<div class="nav-element left" id="topNavLeft"> </div>
+					<div class="nav-element center" id="topNavCenter"> </div>
+					<div class="nav-element right" id="topNavRight"> </div>
+				</nav>
+			</div>
+		</div>
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body"> </div>
+				<div class="modal-footer"> </div>
+			</div>
+		</div>
+		
+		<section id="content">
+			<!-- Actual Container for data content -->
+			<div id="root"> </div>
+		</section>
+		
+		<!-- Templates -->
+		<script type="text/html" id="HomePage">
+			<div class="HomePage">
+				<div class="title"></div>
+				<div id="data"> </div>		
+			</div>
+		</script>
+
+		<script type="text/html" id="ChildPage">
+			<div class="ChildPage">
+				<div class="title"></div>
+				<div id="data">
+					<table id="table" >
+
+					</table>
+				</div>		
+			</div>
+		</script>
+
+		<script type="text/html" id="AdminSettingsPage">
+			<div class="SettingsPage">
+				<div class="title"></div>
+				<div id="data">
+					<div id="categoryPage">
+						<button id="addCat" type="button">Add Category</button>
+						<table id="catTable"></table>
+					</div>
+				</div>	
+			</div>
+		</script>
+
+		<script type="text/html" id="AdminHome">
+			<div class="AdminPage">
+				<div class="title"></div>
+				<div id="data">
+					<table id="table" >
+
+					</table>
+				</div>		
+			</div>
+		</script>
+
+		<script type="text/html" id="AdminGuardians">
+			<div class="GuardiansPage">
+				<div class="title"></div>
+				<div id="data">
+					<table id="table"></table>
+				</div>		
+			</div>
+		</script>
+
+		<script type="text/html" id="AdminChallenges">
+			<div class="AdminChallengesPage">
+				<div class="title"></div>
+				<div id="data">
+					<div tableDisplayControl>
+						Show
+						<select id="tableView" name="tableView" placeholder="All">
+							<option selected value="All">All</option>
+							<option value="Active">Active</option>
+							<option value="Disabled">Disabled</option>
+						</select>
+						Challenges <br>
+					</div>
+					<button id="addRow" type="button">Add Challenge</button>
+					<table id="table" ></table>
+				</div>		
+			</div>
+		</script>
+
+		<script type="text/html" id="addChallengePage">
+			<form class="form">
+				<label for="cName">Challenge Name: </label>
+				<input id="cName" name="cName" type="text" placeholder="Challenge Name" />
+				<label for="cDesc">Description: </label>
+				<textarea id="cDesc" name="cDesc"></textarea>
+				<label for="Challenge Type">Challenge Type: </label>
+				<select id="cCategory" name="cCategory" type="select" placeholder="Category"></select>	
+				<label for="cActivate"></label>
+				<input id="cActivate" type="checkbox">Set Challenge as Active</input>
+			</form>
+		</script>
+
+		<script type="text/html" id="GuardianEdit">
+			<label for="gName">User Name: </label>
+			<text id="gName" name="gName" type="text"> </text>
+			<label for="gFName">First Name: </label>
+			<input id="gFName" name="gFName" type="text" placeholder=" " />
+			<label for="gLName">Last Name: </label>
+			<input id="gLName" name="gLName" type="text" placeholder=" " />
+			<label for="gAddress">Address: </label>
+			<input id="gAddress" name="gAddress" type="text" placeholder=" " />
+			<label for="gCity">City: </label>
+			<input id="gCity" name="gCity" type="text" placeholder=" " />
+			<label for="gCity">State: </label>
+			<input id="gState" name="gState" type="text" placeholder=" " />
+			<label for="gZip">ZIP: </label>
+			<input id="gZip" name="gZip" type="text" placeholder=" " />
+			<label for="gPhone">Contact: </label>
+			<input id="gPhone" name="gPhone" type="text" placeholder=" " />
+		</script>
+
+		<script type="text/html" id="categoryAdd">
+			<label for="catName">Category Name</label>
+			<input id="catName" name="catName" type="text"> </text>
+		</script>
+		 
+		<script type="text/html" id="Alert">
+			<div class="Alert Alert__<%= type %>">
+			  <%= message %>
+			</div>
+		</script>
+		  
+		<script type="text/html" id="topNavButton">
+			<button class="button2" id="topNav__<%= name %>" >	
+				<span><%= msg %></span>
+			</button>
+
+			</div>
+		</script>
+		
+		<!-- Scripts -->
+		<script type="text/javascript" src="/js/config/adminconfig.js"></script>
+		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
+		<script type="text/javascript" src="/js/lib/amazon-cognito-identity.min.js"></script>
+		<script type="text/javascript" src="https://sdk.amazonaws.com/js/aws-sdk-2.224.1.min.js"></script>
+		<script type="text/javascript" src="/js/lib/utils.js"></script>
+		<script type="text/javascript" src="/js/lib/EventEmmiter.js"></script>
+		<script type="text/javascript" src="/js/lib/Cognito.js"></script>
+		<script type="text/javascript" src="/js/lib/DBClient.js"></script>
+		<script type="text/javascript" src="/js/pages/AdminHome.js"></script>
+		<script type="text/javascript" src="/js/pages/AdminChallenges.js"></script>
+		<script type="text/javascript" src="/js/pages/AdminGuardians.js"></script>
+		<script type="text/javascript" src="/js/pages/AdminSettings.js"></script>
+		<script type="text/javascript" src="/js/adminHome.js"></script>
+	</body>
+</html> 

@@ -63,7 +63,7 @@
 	function handleLogOut() {
 		EventEmitter.emit('AdminChallenges:unmount');
 		Cognito.signOut();
-		window.location.replace("./admin-login.php","Admin Login") 
+		window.location.replace("./admin-login.html","Admin Login") 
 	}
   
 	EventEmitter.on('AdminChallenges:mount', function(message) {
@@ -118,7 +118,7 @@
 				{ title: "ID#", field: "challengeId", sortable:true, sorter:"number"},
 				{ title: "Challenge", field: "challengeName", sortable:true, sorter:"string"},
 				{ title: "Description", field: 'challengeDesc', formatter:"textarea", width:300, sortable:true, sorter:"string",},
-				{ title: "Category", field: 'category', sortable:true, sorter:"number",},
+				{ title: "Category", field: 'category', sortable:true, sorter:"string",},
 				{ title: "Active", field: "isActive", formatter:"tickCross", },
 			],
 			cellClick: function(e, cell) {
@@ -202,9 +202,7 @@
 			$challengeId = params.challengeId;
 		}
 		
-		var $submit = document.getElementById('addRowSubmit');
-		
-		$submit.onclick = function(event) {	
+		$('#addRowSubmit').on('submit', function(event) {	
 			if(event != null) {event.preventDefault();}
 			
 			var params = {
@@ -219,7 +217,7 @@
 			modal.style.display = "none"; 
 			$(document.getElementById('modalTitle')).remove();
 			handleChallengeLink();
-		}
+		})
 				
 		// When the user clicks on <span> (x), close the modal	
 		span.onclick = function() { 
