@@ -384,6 +384,10 @@ body {
   background-color: var(--blue);
 }
 
+div.message {
+	display: none;
+}
+
 /* Test Modal*/
 
 /* The Modal (background) */

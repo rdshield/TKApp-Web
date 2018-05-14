@@ -86,7 +86,7 @@
 	}
 
 	EventEmitter.on('SignupForm:mount', function() {
-		Cognito.isNotAuthenticated().then(function() {
+		Cognito.isNotAuthenticated().then( function() {
 			$container.innerHTML = tmpl('SignupForm', {});
 			$form = $container.getElementsByTagName('form')[0];
 			$title = $container.getElementsByClassName('title')[0];
@@ -95,19 +95,18 @@
 			setupTNRight();
 			$root.appendChild($container);
 			$myInput = document.getElementById('password');
+			$myInput2 = document.getElementById('repeatPassword');
 			$message = document.getElementById('message');
 /* $myInput = document.getElementById('password') || document.getElementById('repeatPassword')*/	
-
-			$myInput.onfocus = function(){
-				$message.style.display = "block";
-			}
 			
-			$myInput.onblur = function(){
-				$message.style.display = "none";
-			}
+			
+			$myInput.onfocus = function() { $message.style.display = "block"; }
+			$myInput2.onfocus = function() { $message.style.display = "block"; }
+			$myInput.onblur = function() { $message.style.display = "none"; }
+			$myInput2.onblur = function() { $message.style.display = "none"; }
+
 	
-		})
-		.catch(function(err) {
+		}).catch(function(err) {
 			console.log(err)
 			EventEmitter.emit('SignupForm:unmount');
 			EventEmitter.emit('Login:mount');

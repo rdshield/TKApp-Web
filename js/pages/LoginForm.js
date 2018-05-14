@@ -156,7 +156,6 @@
   
 	//Process to run when Login form is called for display (EventEmitter.emit('LoginForm:Mount'))
 	EventEmitter.on('LoginForm:mount', function(message) {
-		console.log($container);
 		//Check if account is (not) authenticated
 		Cognito.isNotAuthenticated().then(function() {
 			$container.innerHTML = tmpl('LoginForm', {})
