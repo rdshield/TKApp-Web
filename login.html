@@ -81,6 +81,8 @@
 								<h4> Password must contain the following:</h4>
 								<p id = "number" class = "invalid">A <b>number</b></p>
 								<p id = "length" class = "invalid">Minimum <b>8 characters</b></p>
+								<p id = "match" class = "invalid">Passwords <b>match</b></p>
+
 							</div>
 							
 							<br><hr><br>
@@ -144,6 +146,12 @@
 					<input id="newPass1" name="newPass1" type="password" placeholder=" " required />
 					<label for="newPass2">Re-enter Password:</label>
 					<input id="newPass2" name="newPass2" type="password" placeholder=" " required />
+					<div id="message2" class="message">
+							<h4> Password must contain the following:</h4>
+							<p id = "number" class = "invalid">A <b>number</b></p>
+							<p id = "length" class = "invalid">Minimum <b>8 characters</b></p>
+							<p id = "match" class = "invalid">Passwords <b>match</b></p>
+					</div>
 				</div>
 					<button class="Control__input" id="pwConfirmSubmit"type="submit">Confirm Reset</button>
 			</form>

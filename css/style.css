@@ -197,6 +197,16 @@ body {
   background-color: var(--grey);
 }
 
+#content2 {
+  color: black;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+  height: 100%;
+  background-color: var(--grey);
+}
+
 #login {
 	display: block;
 	align-items: center;
@@ -390,12 +400,16 @@ body {
 }
 .message #number{
 	text-align: left;
-	padding-left: 30%
+	padding-left: 30%;
 }
 
 .message #length{
 	text-align: left;
-	padding-left: 30%
+	padding-left: 30%;
+}
+.message #match{
+	text-align: left;
+	padding-left: 30%;
 }
 
 .valid {
