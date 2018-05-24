@@ -15,6 +15,7 @@
   --orange: #FFCA3A;
   --blue: #1982C4;
   --purple: #6A4C93;
+  
 }
 
 html, body {
@@ -25,7 +26,8 @@ html, body {
 
 body {
 	position: relative;
-	padding: 50px 0 0 0;
+	/* padding: 50px 0 0 0; */
+	padding: 0;
 	box-sizing: border-box;
 }
 
@@ -33,6 +35,8 @@ body {
   height: 50px;
   /*background-color: var(--tkdblue);*/
   position: fixed;
+  /* background-color: blue; */
+  /* opacity:0; */
   top:0;
   left:0;
   right:0;
@@ -57,6 +61,7 @@ body {
 
 .topNav {
 	height: 50px;
+	/* opacity: 0; */
 }
 .topNav .left .button {
 	float: left;
@@ -116,11 +121,17 @@ body {
 	background-color: var(--tkred);
 	padding: 16px 10px;
 	text-align:center;
-	border: none;
+	/* border: none; */
+	border: 2px solid;
 	text-decoration: none;
 	font-weight: bold;
 	font-size: 16px;
 	margin-left: 5px;
+	border-radius: .25em;
+	border-color: var(--tkred);
+	
+	/* Added border to back to Login when in Sign Up screen. Still testing the colors. */
+
 }
 
 .topNav .right .button2 :hover {
@@ -192,10 +203,19 @@ body {
 
 #content {
   color: black;
-  width: 100%;
+  width: 75%;
   height: 100%;
-  background-color: var(--grey);
+  /* background-color: var(--grey); */
+  /* background-color: var(--tkred); */
+  padding-left: 25%;
+  background-image: url('../../images/TKLoginPicture.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment:fixed;
+  /* background-size: */
+  /* object-fit: contain; */
 }
+
 
 #content2 {
   color: black;
@@ -214,21 +234,26 @@ body {
 	height: 300px;
 	color: white;
 	background-color: var(--tkdblue);
-}
+	right: 100px;
+	top: 30%;
+	}
 
 #signupWindow {
-	transform: translatey(200px);
+	transform: translatey(125px);
 	text-align: center;
-	width:40%;
+	/* width:40%; */
+	height:100%;
 	background-color: white;
 	color: var(--tkdblue);
 	display:block;
-	min-height:450px;
+	/* min-height:450px; */
 	min-width:450px;
 	max-width:500px;
 	margin: auto;
-	border: 4px solid var(--tkred);
-	border-radius: 4em;
+	/* border: 4px solid var(--dark-grey); */
+	border: 4px solid;
+	border-color: #717177;
+	border-radius: 2em;
 }
 
 #logo {
@@ -251,13 +276,16 @@ body {
 	border-radius: 0.8em;
 }
 
-
+.pwdResetForm{
+	padding-top: 100px;
+}
 /* Control.css Copy */
 
 .Control__label{
+  /* padding: 50 0 0 0 px; */
   position: relative;
   font-weight:bold;
-  color: var(--dark-grey);
+  color: white;
   text-align: center;
   margin: 0 auto;
   display: block;
