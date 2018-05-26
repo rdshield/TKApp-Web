@@ -30,9 +30,9 @@
 	function setupTNLeft(){}  
 	function setupTNRight(){}
 	  
-	function redirectToLogin() {
+	function redirectToLogin(msg="") {
 		EventEmitter.emit('AdminLogin:unmount');
-		EventEmitter.emit('AdminLogin:mount');
+		EventEmitter.emit('AdminLogin:mount',msg);
 	}
 	  
 	function redirectToHome() {									
@@ -131,7 +131,14 @@
 				return;
 			} else {
 				Cognito.confirmPassword(username, conf.value, pass1.value).then( function() {
-					redirectToLogin("Your password has been successfully reset");
+					console.log("A")
+					modal.style.display = "none"; 
+					$(document.getElementById('modalTitle')).remove();
+					addAlert({
+						type: 'error',
+						message: 'Your password has been reset. Please log in with your new credentials.',
+					})
+					
 			}).catch(function (error) { console.log(error)})
 			}
 		}

@@ -36,141 +36,6 @@
 			</section>
 		</div>
 		
-		<!-- Templates -->
-		<script type="text/html" id="LoginForm">
-			<div class="LoginForm">			
-				<div id="signupWindow">
-					<div id="logo">
-						<img src="./images/tklogo.png" style=" vertical-align: middle;" height=100px>
-						<div class="title">
-							<h2> Application Login </h2>
-						</div>
-					</div>
-					<form class="form">
-						<div class="Control">
-							<label class="Control__label" for="email">Email</label>
-							<input class="Control__input" id="uEM" name="email" type="text" placeholder="Email" />
-							<label class="Control__label" for="password">Password</label>
-							<input class="Control__input" id="uPW" name="password" type="password" placeholder="Password" />
-						</div>
-						<input class="Control__input" type="submit" value="Login" />
-						<a class="Control__link" href="#signup"> Create a New Account </a>
-						<p></p>
-						<a class="Control__link pwReset" href="#reset"> Forgot Your Password? </a>
-						<p></p>
-					</form>
-				</div>
-			</div>
-		</script>
-
-		<script type="text/html" id="SignupForm">
-			<div id="signupWindow">
-				<div class="title"><h2>Sign Up</h2></div>
-				<form class="form">
-						<div class="Control">
-							<label class="Control__label" for="email">Email</label>
-							<input class="Control__input" name="email" type="email" placeholder="Email" required />
-							<label class="Control__label" for="password">Password</label>
-							<input class="Control__input" id="password" name="password" type="password" placeholder="Password" pattern ="(?=.*\d).{8,}"
-							title = "Must contain at least one number and have at least 8 or more characters" required />
-							<label class="Control__label" for="repeatPassword">	Repeat Password	</label>
-							<input class="Control__input" id ="repeatPassword" name="repeatPassword" type="password" placeholder="Repeat Password"  pattern ="(?=.*\d).{8,}"
-							title = "Must contain at least one number and have at least 8 or more characters" required />
-							
-							<div id="message" class="message">
-								<h4> Password must contain the following:</h4>
-								<p id = "number" class = "invalid">A <b>number</b></p>
-								<p id = "length" class = "invalid">Minimum <b>8 characters</b></p>
-								<p id = "match" class = "invalid">Passwords <b>match</b></p>
-
-							</div>
-							
-							<br><hr><br>
-							<label class="Control__label" for="fName">First Name</label>
-							<input class="Control__input" name="fName" type="text" placeholder="First Name" required />
-							<label class="Control__label" for="lName">Last Name</label>
-							<input class="Control__input" name="lName" type="text" placeholder="Last Name" required />
-							<label class="Control__label" for="address">Street Address</label>
-							<input class="Control__input" name="address" type="text" placeholder="Address (Optional)" />
-							<label class="Control__label" for="city">City</label>
-							<input class="Control__input" name="city" type="text" placeholder="City" required />
-							<label class="Control__label" for="state">State</label>
-							<input class="Control__input" name="state" type="text" placeholder="State" required />
-							<label class="Control__label" for="zipCode">Zip Code</label>
-							<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code" required />
-							<label class="Control__label" for="phoneNum">Contact Number</label>
-							<input class="Control__input" name="phoneNum" type="text" placeholder="(xxx)xxx-xxxx" />
-							<br>
-							<input type="checkbox" name="joinEmail" required>I have read and accepted the <a href="toc.txt" target="_blank"> Terms of Service </a></label>
-							<br>
-							<input class="Control__input" type="submit" value="Sign me up!" />
-						</div>
-				</form>
-			</div>
-		</script>
-
-		<script type="text/html" id="ConfirmForm">
-			<div class="ConfirmForm">
-				<div class="title"></div>
-				<form class="form">
-					<div class="Control">
-						<label class="Control__label" for="code">Authorization Code</label>
-						<input class="Control__input" name="code" type="text" placeholder="Authorization code" />
-					</div>
-					<input class="Control__input" type="submit" value="Confirm Account" />
-					<a class="Control__link" href="#"> Resend the authorization code </a>
-					<hr />
-				</form>
-			</div>
-		</script>
-
-		<script type="text/html" id="pwdResetForm">
-			<div class="pwdResetForm">
-			  <div class="title"></div>
-			  <form class="form">
-				<div class="Control">
-					<label class="Control__label" for="email">Please provide your Email Address:</label>
-					<input class="Control__input" id="email" name="email" type="text" placeholder="Email" required />
-				</div>
-				<input class="Control__input" type="submit" value="Reset Password" />
-			  </form>
-			</div>
-		</script>
-
-		<script type="text/html" id="pwdResetConfirm">
-			<form class="form">
-				<div class="Control">
-					<label for="confirmCode">Confirmation Code: </label>
-					<input id="confirmCode" name="confirmCode" type="text" placeholder=" " required />
-					<label for="newPass1">New Password:</label>
-					<input id="newPass1" name="newPass1" type="password" placeholder=" " required />
-					<label for="newPass2">Re-enter Password:</label>
-					<input id="newPass2" name="newPass2" type="password" placeholder=" " required />
-					<div id="message2" class="message">
-							<h4> Password must contain the following:</h4>
-							<p id = "number" class = "invalid">A <b>number</b></p>
-							<p id = "length" class = "invalid">Minimum <b>8 characters</b></p>
-							<p id = "match" class = "invalid">Passwords <b>match</b></p>
-					</div>
-				</div>
-					<button class="Control__input" id="pwConfirmSubmit"type="submit">Confirm Reset</button>
-			</form>
-		</script>	
-
-		<script type="text/html" id="Alert">
-			<div class="Alert Alert__<%= type %>">
-			  <%= message %>
-			</div>
-		</script>
-		  
-		<script type="text/html" id="topNavButton">
-			<button class="button2" id="topNav__<%= name %>" >	
-				<span><%= msg %></span>
-			</button>
-		</script>
-		
-		
-		
 		<!-- Scripts -->
 		<script type="text/javascript" src="/js/config/config.js"></script>
 		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
@@ -185,4 +50,136 @@
 		<script type="text/javascript" src="/js/pages/pwResetForm.js"></script>
 		<script type="text/javascript" src="/js/login.js"></script>
 	</body>
+		<!-- Templates -->
+	<script type="text/html" id="LoginForm">
+		<div class="LoginForm">			
+			<div id="signupWindow">
+				<div id="logo">
+					<img src="./images/tklogo.png" style=" vertical-align: middle;" height=100px>
+					<div class="title">
+						<h2> Application Login </h2>
+					</div>
+				</div>
+				<form class="form">
+					<div class="Control">
+						<label class="Control__label" for="email">Email</label>
+						<input class="Control__input" id="uEM" name="email" type="text" placeholder="Email" />
+						<label class="Control__label" for="password">Password</label>
+						<input class="Control__input" id="uPW" name="password" type="password" placeholder="Password" />
+					</div>
+					<input class="Control__input" type="submit" value="Login" />
+					<a class="Control__link" href="#signup"> Create a New Account </a>
+					<p></p>
+					<a class="Control__link pwReset" href="#reset"> Forgot Your Password? </a>
+					<p></p>
+				</form>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="SignupForm">
+		<div id="signupWindow">
+			<div class="title"><h2>Sign Up</h2></div>
+			<form class="form">
+					<div class="Control">
+						<label class="Control__label" for="email">Email</label>
+						<input class="Control__input" name="email" type="email" placeholder="Email" required />
+						<label class="Control__label" for="password">Password</label>
+						<input class="Control__input" id="password" name="password" type="password" placeholder="Password" pattern ="(?=.*\d).{8,}"
+						title = "Must contain at least one number and have at least 8 or more characters" required />
+						<label class="Control__label" for="repeatPassword">	Repeat Password	</label>
+						<input class="Control__input" id ="repeatPassword" name="repeatPassword" type="password" placeholder="Repeat Password"  pattern ="(?=.*\d).{8,}"
+						title = "Must contain at least one number and have at least 8 or more characters" required />
+						
+						<div id="message" class="message">
+							<h4> Password must contain the following:</h4>
+							<p id = "number" class = "invalid">A <b>number</b></p>
+							<p id = "length" class = "invalid">Minimum <b>8 characters</b></p>
+							<p id = "match" class = "invalid">Passwords <b>match</b></p>
+
+						</div>
+						
+						<br><hr><br>
+						<label class="Control__label" for="fName">First Name</label>
+						<input class="Control__input" name="fName" type="text" placeholder="First Name" required />
+						<label class="Control__label" for="lName">Last Name</label>
+						<input class="Control__input" name="lName" type="text" placeholder="Last Name" required />
+						<label class="Control__label" for="address">Street Address</label>
+						<input class="Control__input" name="address" type="text" placeholder="Address (Optional)" />
+						<label class="Control__label" for="city">City</label>
+						<input class="Control__input" name="city" type="text" placeholder="City" required />
+						<label class="Control__label" for="state">State</label>
+						<input class="Control__input" name="state" type="text" placeholder="State" required />
+						<label class="Control__label" for="zipCode">Zip Code</label>
+						<input class="Control__input" name="zipCode" type="text" placeholder="Zip Code" required />
+						<label class="Control__label" for="phoneNum">Contact Number</label>
+						<input class="Control__input" name="phoneNum" type="text" placeholder="(xxx)xxx-xxxx" />
+						<br>
+						<input type="checkbox" name="joinEmail" required>I have read and accepted the <a href="toc.txt" target="_blank"> Terms of Service </a></label>
+						<br>
+						<input class="Control__input" type="submit" value="Sign me up!" />
+					</div>
+			</form>
+		</div>
+	</script>
+
+	<script type="text/html" id="ConfirmForm">
+		<div class="ConfirmForm">
+			<div class="title"></div>
+			<form class="form">
+				<div class="Control">
+					<label class="Control__label" for="code">Authorization Code</label>
+					<input class="Control__input" name="code" type="text" placeholder="Authorization code" />
+				</div>
+				<input class="Control__input" type="submit" value="Confirm Account" />
+				<a class="Control__link" href="#"> Resend the authorization code </a>
+				<hr />
+			</form>
+		</div>
+	</script>
+
+	<script type="text/html" id="pwdResetForm">
+		<div class="pwdResetForm">
+		  <div class="title"></div>
+		  <form class="form">
+			<div class="Control">
+				<label class="Control__label" for="email">Please provide your Email Address:</label>
+				<input class="Control__input" id="email" name="email" type="text" placeholder="Email" required />
+			</div>
+			<input class="Control__input" type="submit" value="Reset Password" />
+		  </form>
+		</div>
+	</script>
+
+	<script type="text/html" id="pwdResetConfirm">
+		<form class="form">
+			<div class="Control">
+				<label for="confirmCode">Confirmation Code: </label>
+				<input id="confirmCode" name="confirmCode" type="text" placeholder=" " required />
+				<label for="newPass1">New Password:</label>
+				<input id="newPass1" name="newPass1" type="password" placeholder=" " required />
+				<label for="newPass2">Re-enter Password:</label>
+				<input id="newPass2" name="newPass2" type="password" placeholder=" " required />
+				<div id="message2" class="message">
+						<h4> Password must contain the following:</h4>
+						<p id = "number" class = "invalid">A <b>number</b></p>
+						<p id = "length" class = "invalid">Minimum <b>8 characters</b></p>
+						<p id = "match" class = "invalid">Passwords <b>match</b></p>
+				</div>
+			</div>
+				<button class="Control__input" id="pwConfirmSubmit"type="submit">Confirm Reset</button>
+		</form>
+	</script>	
+
+	<script type="text/html" id="Alert">
+		<div class="Alert Alert__<%= type %>">
+		  <%= message %>
+		</div>
+	</script>
+	  
+	<script type="text/html" id="topNavButton">
+		<button class="button2" id="topNav__<%= name %>" >	
+			<span><%= msg %></span>
+		</button>
+	</script>
 </html> 
