@@ -53,14 +53,16 @@
 			return;
 		}
 		if($inputs.address == null)  { $inputs.address.value = '';  }
-		if($inputs.phoneNum == null) { $inputs.phoneNum.value = '';	}		
+		if($inputs.phoneNum == null) { $inputs.phoneNum.value = '';	}	
+		console.log($inputs)		
 		var params = {
 			email: $inputs.email.value,
 			password: $inputs.password.value,
-			firstName: $inputs.fName.value,
-			lastName: $inputs.lName.value,
+			name: $inputs.fName.value,
+			family_name: $inputs.lName.value,
 			address: $inputs.address.value,
 			city: $inputs.city.value,
+			state: $inputs.state.value,
 			zipCode: $inputs.zipCode.value,
 			phoneNum: $inputs.phoneNum.value,
 		}	

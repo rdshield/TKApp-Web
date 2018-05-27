@@ -19,10 +19,18 @@
 	function signUp(params) {
 		//Set email to all lower-case, as default Cognito behavior is case-sensitive
 		email = params.email.toLowerCase();
-		var attributes = [new CognitoUserAttribute({
-			Name: 'email',
-			Value: email,
-		})]
+		console.log(params);
+		var attributes = [
+			new CognitoUserAttribute({ Name: 'email', Value: email }),
+			new CognitoUserAttribute({ Name: 'name', Value: params.name }),
+			new CognitoUserAttribute({ Name: 'family_name', Value: params.family_name }),
+			new CognitoUserAttribute({ Name: 'custom:address', Value: params.address }),
+			new CognitoUserAttribute({ Name: 'custom:city', Value: params.city }),
+			new CognitoUserAttribute({ Name: 'custom:state', Value: params.state }),
+			new CognitoUserAttribute({ Name: 'custom:zipCode', Value: params.zipCode }),
+			new CognitoUserAttribute({ Name: 'custom:phone_number', Value: params.phoneNum}),
+		] 
+		console.log(attributes);
 		//Promise required as this is run asynchronously
 		return new Promise(function(resolve, reject) {
 			UserPool.signUp(
@@ -182,7 +190,7 @@
 					AWS.config.region = 'us-west-2';
 					AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 						region: 'us-west-2',
-						IdentityPoolId: 'us-west-2:1a49aa9f-09bc-4052-9e22-7c3cf3d78fe5',
+						IdentityPoolId: window.IDENTITY_POOL_ID,
 						Logins: {
 							[a] : session.getIdToken().getJwtToken()
 						}

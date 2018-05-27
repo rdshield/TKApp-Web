@@ -208,7 +208,7 @@ body {
   /* background-color: var(--grey); */
   /* background-color: var(--tkred); */
   padding-left: 25%;
-  background-image: url('../../images/TKLoginPicture.png');
+  background-image: url('/tkapp-web/images/TKLoginPicture.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment:fixed;
