@@ -57,12 +57,6 @@
 		window.location.replace("./admin-login.html","Admin Login") 
 	}
 	
-	// function setupAddControls() {
-		// $("button#addRow").on('click', function() {
-			// setPopUp("Create a Challenge");
-		// });
-	// }
-	
 	function setPopUp(title, params=null) {
 		var modal = document.getElementById('myModal');
 		modal.style.display = "block";
@@ -91,11 +85,11 @@
 			$gAccount.innerHTML = params.email_address;
 			$gFName.value   = params.firstName;
 			$gLName.value   = params.lastName;
-			$gLAddress.value= params.streetAddress;
+			$gLAddress.value= params.address;
 			$gCity.value    = params.city;
 			$gState.value   = params.state;
 			$gZip.value     = params.zipCode;
-			$gPhone.value   = params.phoneNum;
+			//$gPhone.value   = params.phoneNum;
 		}
 		var $submit = document.getElementById('addRowSubmit');
 		
@@ -105,11 +99,11 @@
 				email_address: $gAccount.innerHTML,
 				firstName: $gFName.value,
 				lastName: $gLName.value,
-				streetAddress: $gLAddress.value,
+				address: $gLAddress.value,
 				city: $gCity.value,
 				state: $gState.value,
 				zipCode: $gZip.value,
-				phoneNum: $gPhone.value,
+				//phoneNum: $gPhone.value,
 				userCount: $count,
 			}	
 			var submitParams = DBClient.getParameters('user',param);
@@ -142,11 +136,10 @@
 				{ title: "Email Address", field: 'email_address',},
 				{ title: "First Name", field: 'firstName', sortable:true, sorter:"string"},
 				{ title: "Last Name" , field: 'lastName', sortable:true, sorter:"string"},
-				{ title: "Street Address", field: 'streetAddress', sortable:true, sorter:"string"},
+				{ title: "Street Address", field: 'address', sortable:true, sorter:"string"},
 				{ title: "City", field: 'city', sortable:true, sorter:"string"},
 				{ title: "State", field: 'state', sortable:true, sorter:"string"},
 				{ title: "ZIP", field: 'zipCode', sortable:true, sorter:"number"},
-				{ title: "Contact Number", field: 'phoneNum', sortable:true, sorter:"string"},
 			],	
 			cellClick: function(e, cell) {
 				var rowData = cell.getRow().getData();

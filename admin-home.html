@@ -127,20 +127,19 @@
 
 	<script type="text/html" id="addChallengePage">
 		<form class="form" id="addChalForm" method="post" action="">
-			<label for="cName">Challenge Name: </label>
-			<input id="cName" name="cName" type="text" placeholder="Challenge Name" required />
+			<label for="cName">Mission Name: </label>
+			<input id="cName" name="cName" type="text" placeholder="Mission Name" required />
 			<label for="cDesc">Description: </label>
 			<textarea id="cDesc" name="cDesc" required ></textarea>
 			<label for="Challenge Type">Mission Category: </label>
 			<select id="cCategory" name="cCategory" type="select" placeholder="Category"></select>	
 			<label for="cValue">Point Value: </label>
 			<input id="cValue" name="cValue" type="number" placeholder="ex: 10,15,30,50" required />
-			<label for="cMissionImage">Mission Image: </label>
+<!--			<label for="cMissionImage">Mission Image: </label>
 			<input type="file" id="cMissionImage" accept="image/*" reguired >
-			<label for="cBadgeImage">Badge Image: </label>
-			<input type="file" id="cBadgeImage" accept="image/*" reguired >
+-->
 			<label for="cActivate"></label>
-			<input id="cActivate" type="checkbox">Set Challenge as Active</input>
+			<input id="cActivate" type="checkbox">Set Mission as Active</input>
 		</form>
 	</script>
 
@@ -159,13 +158,20 @@
 		<input id="gState" name="gState" type="text" placeholder=" " />
 		<label for="gZip">ZIP: </label>
 		<input id="gZip" name="gZip" type="text" placeholder=" " />
+<!--
 		<label for="gPhone">Contact: </label>
 		<input id="gPhone" name="gPhone" type="text" placeholder=" " />
+-->
 	</script>
 
 	<script type="text/html" id="categoryAdd">
-		<label for="catName">Category Name</label>
-		<input id="catName" name="catName" type="text"> </text>
+	<div>
+		<label for="catName">Category Name: <input id="catName" name="catName" type="text"> </text> </label>
+		<label for="catLevels">Levels: <button id="newLevel" type="button">+</button> </label>
+		<div id="levels"> </div>
+		<div id="categoryInfo"> </div>
+		<button id="delLevel" type="button">Delete Level #</button>
+	</div>
 	</script>
 	 
 	<script type="text/html" id="Alert">
@@ -181,4 +187,35 @@
 
 		</div>
 	</script>
+	
+	<script type="text/html" id="categoryLevel">
+		<button class="button" id="catLevel__<%= num %>" >	
+			<%= num %>
+		</button>
+
+		</div>
+	</script>
+	
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+				$('#catPicDemo')
+					.attr('src', e.target.result);
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+	
+	<script type="text/html" ID="catInfo">
+		<form class="form" method=push action="">
+			<h3 id="catLabel"> Level #<%= num %> </h3>
+			<label for="catValue">Awarded at: <input id="catValue" name="cName" type="number" value="0" required /> points </label>
+			<label for="categoryPic"> Badge:	<!--<input id="catPic" type="file" name="categoryPic" accept="image/*" onChange="readURL(this)"> --></label> 
+			<img id="catPicDemo" src="images/badgePH.png" alt="Default Badge">
+		</form	
+	</script>	
+	
 </html> 

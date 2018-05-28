@@ -72,7 +72,7 @@
 			$container.innerHTML = tmpl('AdminChallenges', {})
 			setupTNLeft();
 			setupTNRight();
-			DBClient.readItems('challenges').then(function(data) {
+			DBClient.readItems('missions').then(function(data) {
 				setupTable(data);
 				$('#table').tabulator("setData", data.Items);
 				setupAddControls();
@@ -111,7 +111,7 @@
 
 	function setupTable(data) {
 		cats = [], catFormat= {};
-		DBClient.readItems('challengeCategory').then(function(data) {
+		DBClient.readItems('categories').then(function(data) {
 			var item = data.Items;
 			for(var i=0;i<data.Count;i++) {	cats.push({key: data.Items[i].categoryId, value: data.Items[i].categoryName});	}
 			cats.map(obj =>{ catFormat[obj.key] = obj.value;	})
@@ -119,18 +119,20 @@
 		})
 		$('#table').tabulator( {
 			initialSort:[
-				{column:"challengeId", dir:"asc"},
+				{column:"missionId", dir:"asc"},
 			],
 			columns: [
-				{ title: "ID#", field: "challengeId", sortable:true, sorter:"number"},
-				{ title: "Challenge", field: "challengeName", sortable:true, sorter:"string"},
-				{ title: "Description", field: 'challengeDesc', formatter:"textarea", width:300, sortable:true, sorter:"string",},
+				{ title: "ID#", field: "missionId", sortable:true, sorter:"number"},
+				{ title: "Mission", field: "missionName", sortable:true, sorter:"string"},
+				{ title: "Description", field: 'missionDesc', formatter:"textarea", width:300, sortable:true, sorter:"string",},
+				{ title: "Point Value", field: 'value', sortable:true, sorter:"number",},
 				{ title: "Category", field: 'categoryId', sortable:true, sorter:"string", formatter:"lookup", formatterParams:catFormat},
 				{ title: "Active", field: "isActive", formatter:"tickCross", },
+				
 			],
 			cellClick: function(e, cell) {
 				var rowData = cell.getRow().getData();
-				setPopUp("Edit Challenge",rowData);
+				setPopUp("Edit Mission",rowData);
 			},
 			
 		});
@@ -151,7 +153,7 @@
 
 	function setupAddControls() {
 		$("button#addRow").on('click', function() {
-			setPopUp("Create a Challenge");
+			setPopUp("Create a mission");
 		});
 	}
 	
@@ -185,7 +187,7 @@
 		$body.innerHTML = tmpl('addChallengePage', {})
 		$sel = document.getElementById('cCategory');
 		
-		DBClient.readItems('challengeCategory').then(function(data) {
+		DBClient.readItems('categories').then(function(data) {
 			var item = data.Items;
 			for(var i=0;i<data.Count;i++) {
 				$sel.insertAdjacentHTML('beforeend',"<option value='"+ item[i].categoryId + "'>" + item[i].categoryName + "</option>");
@@ -200,34 +202,38 @@
 		var $challengeCat  = document.getElementById('cCategory');
 		var $challengeAct  = document.getElementById('cActivate');
 		var $challengeVal  = document.getElementById('cValue');
-		var $challengeId  = $challengeCount+1;
+		var $missionId     = -1;
 		if(params != null) {
-			$challengeName.value = params.challengeName;
-			$challengeDesc.value = params.challengeDesc;
+			$challengeName.value = params.missionName;
+			$challengeDesc.value = params.missionDesc;
 			$challengeCat.value = params.categoryId;
 			$challengeAct.checked = params.isActive;
-			$challengeId = params.challengeId;
+			$challengeId = params.missionId;
 			$challengeVal.value = params.value;
 			document.getElementById('addRowSubmit').innerHTML = "Update Challenge";
+			$missionId = params.missionId;
 		}
 		
 		$('#addChalForm').on('submit', function(event) {	
 			if(event != null) {event.preventDefault();}
-			
-			var params = {
-				challengeId: 	$challengeId,
-				challengeName:  $challengeName.value,
-				challengeDesc:  $challengeDesc.value,
-				categoryId: 	    $challengeCat.value,
-				isActive:		$challengeAct.checked,
-				value:			$challengeVal.value,
-			}
-			var param = DBClient.getParameters('challenges',params);
-			console.log(param);
-			DBClient.writeItem(param);
-			modal.style.display = "none"; 
-			$(document.getElementById('modalTitle')).remove();
-			handleChallengeLink();
+			DBClient.readItems('missions').then(function(data) {
+				console.log($missionId);
+				if($missionId < 0) { $missionId = data.Count };
+				var params = {
+					missionId: 	  $missionId,
+					missionName:  $challengeName.value,
+					missionDesc:  $challengeDesc.value,
+					categoryId:   $challengeCat.value,
+					isActive:	  $challengeAct.checked,
+					value:		  $challengeVal.value,
+				}
+				var param = DBClient.getParameters('missions',params);
+				console.log(param);
+				DBClient.writeItem(param);
+				modal.style.display = "none"; 
+				$(document.getElementById('modalTitle')).remove();
+				handleChallengeLink();
+			});
 		})
 				
 		// When the user clicks on <span> (x), close the modal	
