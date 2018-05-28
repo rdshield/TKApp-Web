@@ -37,7 +37,7 @@
 	  
 	function redirectToHome() {									
 		EventEmitter.emit('AdminLogin:unmount');
-		window.location.replace('Admin-Home.html');
+		window.location.replace('admin-home.html');
 	}
 	  
 	function handleLoginLink() {
@@ -131,7 +131,7 @@
 				return;
 			} else {
 				Cognito.confirmPassword(username, conf.value, pass1.value).then( function() {
-					console.log("A")
+					//console.log("A")
 					modal.style.display = "none"; 
 					$(document.getElementById('modalTitle')).remove();
 					addAlert({
