@@ -75,7 +75,6 @@
 		var $button = document.getElementById('cAddChildRow');
 		var childCount = 0, $complChallenges = [], $currChallenges = [], $points=[], $badges= [], $new = false, $cId = '';
 
-		console.log(params);
 		if(params != null) {
 			$button.value = "Update this Child";
 			$childName.value 	= params.childName;

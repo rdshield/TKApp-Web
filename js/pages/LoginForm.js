@@ -38,7 +38,6 @@
   
 	//Redirect to the home page (Usually after successful authentication or when visiting Login after being authenticated)
 	function redirectToHome() {
-		//console.log("Redirecting to Home Page");
 		EventEmitter.emit('LoginForm:unmount');
 		window.location.replace('home.html');
 	}
@@ -138,7 +137,6 @@
 					type: 'error',
 					message: 'Passwords do not match!',
 				})
-				console.log('Passwords do not match!')
 				return;
 			} else {
 				Cognito.confirmPassword(username, conf.value, pass1.value).then( function() {

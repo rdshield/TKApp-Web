@@ -56,7 +56,6 @@
 			type: 'error',
 			message: 'Passwords do not match!',
 		  })
-		  console.log('Passwords do not match!')
 		  return;
 		}
 	}
@@ -83,7 +82,6 @@
 					type: 'error',
 					message: 'Passwords do not match!',
 				})
-			console.log('Passwords do not match!')
 			return;
 			} else {
 				Cognito.confirmPassword(username, conf.value, pass1.value).then( function() {

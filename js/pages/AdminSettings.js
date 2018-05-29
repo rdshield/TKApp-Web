@@ -71,7 +71,6 @@
 	}
 	
 	function setPopUp(title, params=null) {
-		console.log(params);
 		var modal = document.getElementById('myModal');
 		modal.style.display = "block";
 		var span = document.getElementsByClassName("close")[0];
@@ -123,10 +122,8 @@
 				//levelArr[prev-1].badge = $catPic.src;
 				$catValue.value = levelArr[next-1].points;
 				//$catPic.src = levelArr[next-1].badge;
-				console.log(levelArr);
 			}
 			$levelCount++;
-			console.log(levelArr);
 		}
 		
 		function addLevel() {			
@@ -157,7 +154,6 @@
 		
 		var $submit = document.getElementById('addRowSubmit');		
 		$submit.onclick = function(event) {
-			console.log(levelArr);
 			var $catName = document.getElementById('catName');
 			var $catLabel = document.getElementById('catLabel');
 			//var $catPic = document.getElementById('catPicDemo');
@@ -193,7 +189,6 @@
 					badges		 : badges,
 					levels		 : points,
 				}	
-				console.log(param)
 				var submitParams = DBClient.getParameters('categories',param);
 				DBClient.writeItem(submitParams);
 				modal.style.display = "none"; 

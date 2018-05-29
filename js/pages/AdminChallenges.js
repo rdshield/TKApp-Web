@@ -217,7 +217,6 @@
 		$('#addChalForm').on('submit', function(event) {	
 			if(event != null) {event.preventDefault();}
 			DBClient.readItems('missions').then(function(data) {
-				console.log($missionId);
 				if($missionId < 0) { $missionId = data.Count };
 				var params = {
 					missionId: 	  $missionId,
@@ -228,7 +227,6 @@
 					value:		  $challengeVal.value,
 				}
 				var param = DBClient.getParameters('missions',params);
-				console.log(param);
 				DBClient.writeItem(param);
 				modal.style.display = "none"; 
 				$(document.getElementById('modalTitle')).remove();

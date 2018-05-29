@@ -127,11 +127,9 @@
 					type: 'error',
 					message: 'Passwords do not match!',
 				})
-				console.log('Passwords do not match!')
 				return;
 			} else {
 				Cognito.confirmPassword(username, conf.value, pass1.value).then( function() {
-					//console.log("A")
 					modal.style.display = "none"; 
 					$(document.getElementById('modalTitle')).remove();
 					addAlert({

@@ -49,12 +49,10 @@
 				type: 'error',
 				message: 'Passwords do not match!',
 			})
-			console.log('Passwords do not match!')
 			return;
 		}
 		if($inputs.address == null)  { $inputs.address.value = '';  }
 		if($inputs.phoneNum == null) { $inputs.phoneNum.value = '';	}	
-		console.log($inputs)		
 		var params = {
 			email: $inputs.email.value,
 			password: $inputs.password.value,
@@ -141,7 +139,6 @@
 			$myInput2.onkeyup = function() { 
 				var numbers = /[0-9]/g;
 				if($myInput2.value.match(numbers)) {  
-				console.log('Got it')
 				$number.classList.remove("invalid");
 				$number.classList.add("valid");
 				} else {
