@@ -110,6 +110,13 @@
 	
 
 	function setupTable(data) {
+		cats = [], catFormat= {};
+		DBClient.readItems('challengeCategory').then(function(data) {
+			var item = data.Items;
+			for(var i=0;i<data.Count;i++) {	cats.push({key: data.Items[i].categoryId, value: data.Items[i].categoryName});	}
+			cats.map(obj =>{ catFormat[obj.key] = obj.value;	})
+			$("#table").tabulator("redraw", true);
+		})
 		$('#table').tabulator( {
 			initialSort:[
 				{column:"challengeId", dir:"asc"},
@@ -118,7 +125,7 @@
 				{ title: "ID#", field: "challengeId", sortable:true, sorter:"number"},
 				{ title: "Challenge", field: "challengeName", sortable:true, sorter:"string"},
 				{ title: "Description", field: 'challengeDesc', formatter:"textarea", width:300, sortable:true, sorter:"string",},
-				{ title: "Category", field: 'category', sortable:true, sorter:"string",},
+				{ title: "Category", field: 'categoryId', sortable:true, sorter:"string", formatter:"lookup", formatterParams:catFormat},
 				{ title: "Active", field: "isActive", formatter:"tickCross", },
 			],
 			cellClick: function(e, cell) {
@@ -178,41 +185,45 @@
 		$body.innerHTML = tmpl('addChallengePage', {})
 		$sel = document.getElementById('cCategory');
 		
-		DBClient.readItems('challengeCat').then(function(data) {
+		DBClient.readItems('challengeCategory').then(function(data) {
 			var item = data.Items;
 			for(var i=0;i<data.Count;i++) {
-				$sel.insertAdjacentHTML('beforeend',"<option value='"+ item[i].chalCategory + "'>" + item[i].chalCategory + "</option>");
+				$sel.insertAdjacentHTML('beforeend',"<option value='"+ item[i].categoryId + "'>" + item[i].categoryName + "</option>");
 			}
 			sortSelect($sel);
 		})
-		$footer.innerHTML = '<button id="addRowSubmit" type="button">Add Challenge</button>';
+		$footer.innerHTML = '<button id="addRowSubmit" type="submit" form="addChalForm">Add Challenge</button>';
 		
 		
 		var $challengeName = document.getElementById('cName');
 		var $challengeDesc = document.getElementById('cDesc');
 		var $challengeCat  = document.getElementById('cCategory');
 		var $challengeAct  = document.getElementById('cActivate');
+		var $challengeVal  = document.getElementById('cValue');
 		var $challengeId  = $challengeCount+1;
 		if(params != null) {
-			console.log("NOT");
 			$challengeName.value = params.challengeName;
 			$challengeDesc.value = params.challengeDesc;
-			$challengeCat.value = params.category;
+			$challengeCat.value = params.categoryId;
 			$challengeAct.checked = params.isActive;
 			$challengeId = params.challengeId;
+			$challengeVal.value = params.value;
+			document.getElementById('addRowSubmit').innerHTML = "Update Challenge";
 		}
 		
-		$('#addRowSubmit').on('submit', function(event) {	
+		$('#addChalForm').on('submit', function(event) {	
 			if(event != null) {event.preventDefault();}
 			
 			var params = {
 				challengeId: 	$challengeId,
 				challengeName:  $challengeName.value,
 				challengeDesc:  $challengeDesc.value,
-				category: 	    $challengeCat.value,
+				categoryId: 	    $challengeCat.value,
 				isActive:		$challengeAct.checked,
+				value:			$challengeVal.value,
 			}
 			var param = DBClient.getParameters('challenges',params);
+			console.log(param);
 			DBClient.writeItem(param);
 			modal.style.display = "none"; 
 			$(document.getElementById('modalTitle')).remove();

@@ -256,11 +256,11 @@ body {
   padding-top:2%;
   padding-left:5%;
   padding-right: 5%;
-  margin-top: 9%;
+  margin-top: 8%;
   margin-left: 5%;
   margin-right: 5%;
   width: 80%;
-  height: 100%;
+  height: 89%;
   /* background-color: var(--grey); */
   background-color: var(--very-light-grey);
 }
@@ -338,7 +338,7 @@ body {
 .pwdResetForm{
 	/* transform: translate(150px, 125px); */
 	transform: translate(80%, 50%);
-	
+	margin-left: 11%;
 	padding-top: 50px;
 	display: block;
 	align-items: center;

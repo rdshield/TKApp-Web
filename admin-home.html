@@ -39,127 +39,6 @@
 			<div id="root"> </div>
 		</section>
 		
-		<!-- Templates -->
-		<script type="text/html" id="HomePage">
-			<div class="HomePage">
-				<div class="title"></div>
-				<div id="data"> </div>		
-			</div>
-		</script>
-
-		<script type="text/html" id="ChildPage">
-			<div class="ChildPage">
-				<div class="title"></div>
-				<div id="data">
-					<table id="table" >
-
-					</table>
-				</div>		
-			</div>
-		</script>
-
-		<script type="text/html" id="AdminSettingsPage">
-			<div class="SettingsPage">
-				<div class="title"></div>
-				<div id="data">
-					<div id="categoryPage">
-						<button id="addCat" type="button">Add Category</button>
-						<table id="catTable"></table>
-					</div>
-				</div>	
-			</div>
-		</script>
-
-		<script type="text/html" id="AdminHome">
-			<div class="AdminPage">
-				<div class="title"></div>
-				<div id="data">
-					<table id="table" >
-
-					</table>
-				</div>		
-			</div>
-		</script>
-
-		<script type="text/html" id="AdminGuardians">
-			<div class="GuardiansPage">
-				<div class="title"></div>
-				<div id="data">
-					<table id="table"></table>
-				</div>		
-			</div>
-		</script>
-
-		<script type="text/html" id="AdminChallenges">
-			<div class="AdminChallengesPage">
-				<div class="title"></div>
-				<div id="data">
-					<div tableDisplayControl>
-						Show
-						<select id="tableView" name="tableView" placeholder="All">
-							<option selected value="All">All</option>
-							<option value="Active">Active</option>
-							<option value="Disabled">Disabled</option>
-						</select>
-						Challenges <br>
-					</div>
-					<button id="addRow" type="button">Add Challenge</button>
-					<table id="table" ></table>
-				</div>		
-			</div>
-		</script>
-
-		<script type="text/html" id="addChallengePage">
-			<form class="form">
-				<label for="cName">Challenge Name: </label>
-				<input id="cName" name="cName" type="text" placeholder="Challenge Name" />
-				<label for="cDesc">Description: </label>
-				<textarea id="cDesc" name="cDesc"></textarea>
-				<label for="Challenge Type">Challenge Type: </label>
-				<select id="cCategory" name="cCategory" type="select" placeholder="Category"></select>	
-				<label for="cActivate"></label>
-				<input id="cActivate" type="checkbox">Set Challenge as Active</input>
-			</form>
-		</script>
-
-		<script type="text/html" id="GuardianEdit">
-			<label for="gName">User Name: </label>
-			<text id="gName" name="gName" type="text"> </text>
-			<label for="gFName">First Name: </label>
-			<input id="gFName" name="gFName" type="text" placeholder=" " />
-			<label for="gLName">Last Name: </label>
-			<input id="gLName" name="gLName" type="text" placeholder=" " />
-			<label for="gAddress">Address: </label>
-			<input id="gAddress" name="gAddress" type="text" placeholder=" " />
-			<label for="gCity">City: </label>
-			<input id="gCity" name="gCity" type="text" placeholder=" " />
-			<label for="gCity">State: </label>
-			<input id="gState" name="gState" type="text" placeholder=" " />
-			<label for="gZip">ZIP: </label>
-			<input id="gZip" name="gZip" type="text" placeholder=" " />
-			<label for="gPhone">Contact: </label>
-			<input id="gPhone" name="gPhone" type="text" placeholder=" " />
-		</script>
-
-		<script type="text/html" id="categoryAdd">
-			<label for="catName">Category Name</label>
-			<input id="catName" name="catName" type="text"> </text>
-		</script>
-		 
-		<script type="text/html" id="Alert">
-			<div class="Alert Alert__<%= type %>">
-			  <%= message %>
-			</div>
-		</script>
-		  
-		<script type="text/html" id="topNavButton">
-			<button class="button2" id="topNav__<%= name %>" >	
-				<span><%= msg %></span>
-			</button>
-
-			</div>
-		</script>
-		
 		<!-- Scripts -->
 		<script type="text/javascript" src="/js/config/adminconfig.js"></script>
 		<script type="text/javascript" src="/js/lib/aws-cognito-sdk.min.js"></script>
@@ -175,4 +54,131 @@
 		<script type="text/javascript" src="/js/pages/AdminSettings.js"></script>
 		<script type="text/javascript" src="/js/adminHome.js"></script>
 	</body>
+			
+	<!-- Templates -->
+	<script type="text/html" id="HomePage">
+		<div class="HomePage">
+			<div class="title"></div>
+			<div id="data"> </div>		
+		</div>
+	</script>
+
+	<script type="text/html" id="ChildPage">
+		<div class="ChildPage">
+			<div class="title"></div>
+			<div id="data">
+				<table id="table" >
+
+				</table>
+			</div>		
+		</div>
+	</script>
+
+	<script type="text/html" id="AdminSettingsPage">
+		<div class="SettingsPage">
+			<div class="title"></div>
+			<div id="data">
+				<div id="categoryPage">
+					<button id="addCat" type="button">Add Category</button>
+					<table id="catTable"></table>
+				</div>
+			</div>	
+		</div>
+	</script>
+
+	<script type="text/html" id="AdminHome">
+		<div class="AdminPage">
+			<div class="title"></div>
+			<div id="data">
+				<table id="table" >
+
+				</table>
+			</div>		
+		</div>
+	</script>
+
+	<script type="text/html" id="AdminGuardians">
+		<div class="GuardiansPage">
+			<div class="title"></div>
+			<div id="data">
+				<table id="table"></table>
+			</div>		
+		</div>
+	</script>
+
+	<script type="text/html" id="AdminChallenges">
+		<div class="AdminChallengesPage">
+			<div class="title"></div>
+			<div id="data">
+				<div tableDisplayControl>
+					Show
+					<select id="tableView" name="tableView" placeholder="All">
+						<option selected value="All">All</option>
+						<option value="Active">Active</option>
+						<option value="Disabled">Disabled</option>
+					</select>
+					Challenges <br>
+				</div>
+				<button id="addRow" type="button">Add Challenge</button>
+				<table id="table" ></table>
+			</div>		
+		</div>
+	</script>
+
+	<script type="text/html" id="addChallengePage">
+		<form class="form" id="addChalForm" method="post" action="">
+			<label for="cName">Challenge Name: </label>
+			<input id="cName" name="cName" type="text" placeholder="Challenge Name" required />
+			<label for="cDesc">Description: </label>
+			<textarea id="cDesc" name="cDesc" required ></textarea>
+			<label for="Challenge Type">Mission Category: </label>
+			<select id="cCategory" name="cCategory" type="select" placeholder="Category"></select>	
+			<label for="cValue">Point Value: </label>
+			<input id="cValue" name="cValue" type="number" placeholder="ex: 10,15,30,50" required />
+			<label for="cMissionImage">Mission Image: </label>
+			<input type="file" id="cMissionImage" accept="image/*" reguired >
+			<label for="cBadgeImage">Badge Image: </label>
+			<input type="file" id="cBadgeImage" accept="image/*" reguired >
+			<label for="cActivate"></label>
+			<input id="cActivate" type="checkbox">Set Challenge as Active</input>
+		</form>
+	</script>
+
+	<script type="text/html" id="GuardianEdit">
+		<label for="gName">User Name: </label>
+		<text id="gName" name="gName" type="text"> </text>
+		<label for="gFName">First Name: </label>
+		<input id="gFName" name="gFName" type="text" placeholder=" " />
+		<label for="gLName">Last Name: </label>
+		<input id="gLName" name="gLName" type="text" placeholder=" " />
+		<label for="gAddress">Address: </label>
+		<input id="gAddress" name="gAddress" type="text" placeholder=" " />
+		<label for="gCity">City: </label>
+		<input id="gCity" name="gCity" type="text" placeholder=" " />
+		<label for="gCity">State: </label>
+		<input id="gState" name="gState" type="text" placeholder=" " />
+		<label for="gZip">ZIP: </label>
+		<input id="gZip" name="gZip" type="text" placeholder=" " />
+		<label for="gPhone">Contact: </label>
+		<input id="gPhone" name="gPhone" type="text" placeholder=" " />
+	</script>
+
+	<script type="text/html" id="categoryAdd">
+		<label for="catName">Category Name</label>
+		<input id="catName" name="catName" type="text"> </text>
+	</script>
+	 
+	<script type="text/html" id="Alert">
+		<div class="Alert Alert__<%= type %>">
+		  <%= message %>
+		</div>
+	</script>
+	  
+	<script type="text/html" id="topNavButton">
+		<button class="button2" id="topNav__<%= name %>" >	
+			<span><%= msg %></span>
+		</button>
+
+		</div>
+	</script>
 </html> 

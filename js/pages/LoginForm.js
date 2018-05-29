@@ -173,7 +173,7 @@
 			if (message) {	addAlert(message);	} //Print message to Alert section, if one was passed
 		}) .catch(function(error) {
 				console.log(error);
-				//redirectToHome();
+				redirectToHome();
 		})   //If user is already authenticated, redirect to Home Page
 	})
  

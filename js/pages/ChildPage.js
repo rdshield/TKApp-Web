@@ -72,19 +72,23 @@
 		var $childName  = document.getElementById('cName');
 		var $childGrade = document.getElementById('cGrade');
 		var $childGender= document.getElementById('cGender');
-		var childCount = 0, $complChallenges = [], $currChallenges = [], $new = false, $cId = '';
+		var $button = document.getElementById('cAddChildRow');
+		var childCount = 0, $complChallenges = [], $currChallenges = [], $points=[], $badges= [], $new = false, $cId = '';
 
+		console.log(params);
 		if(params != null) {
+			$button.value = "Update this Child";
 			$childName.value 	= params.childName;
 			$childGrade.value 	= params.childGrade;
 			$childGender.value 	= params.childGender;
 			childCount 			= params.Id;
 			$complChallenges 	= params.complChallenges;
 			$currChallenges 	= params.currChallenges;
-			$cId				= params.childId;
+			$cId				= params.childId,
+			$points				= params.points,
+			$badges 			= params.badges;
 			
 			$footer.innerHTML = '<button id="deleteChild" type="button">Delete Child</button>';
-			
 			$("#deleteChild").on('click', function() {
 				var del = window.confirm("Are you sure you want to delete this account?");
 				if(del){
@@ -98,8 +102,7 @@
 				$(document.getElementById('modalTitle')).remove();
 			});
 		}
-		
-		var $submit = document.getElementById('addChildRow');
+		var $submit = document.getElementById('cAddChildRow');
 		$submit.onclick = function(exec) {	
 			event.preventDefault();
 			var sub = Cognito.getSub();
@@ -117,6 +120,8 @@
 					childGender:    $childGender.value,
 					complChallenges:$complChallenges,
 					currChallenges: $currChallenges,
+					points:			$points,
+					badges:			$badges,
 					parentId:		sub,
 				}
 				
