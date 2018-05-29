@@ -61,14 +61,14 @@ body {
 
 .topNav .left{
 	width: 33%;
-	background-image: url('../../images/tklogo.png');
+	background-image: url('images/tklogo.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment:fixed;
 }
 
 #topNavLeft{
-	background-image: url('../../images/tklogo.png');
+	background-image: url('images/tklogo.png');
 }
 
 .topNav .left .button {
