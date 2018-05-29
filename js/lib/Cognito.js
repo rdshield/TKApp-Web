@@ -28,7 +28,6 @@
 			new CognitoUserAttribute({ Name: 'custom:city', Value: params.city }),
 			new CognitoUserAttribute({ Name: 'custom:state', Value: params.state }),
 			new CognitoUserAttribute({ Name: 'custom:zipCode', Value: params.zipCode }),
-			new CognitoUserAttribute({ Name: 'custom:phone_number', Value: params.phoneNum}),
 		] 
 		console.log(attributes);
 		//Promise required as this is run asynchronously
