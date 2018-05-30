@@ -1,5 +1,5 @@
 (function(ready, EventEmitter) {
 	ready(function() {
-		EventEmitter.emit('AdminHome:mount')
+		EventEmitter.emit('AdminChallenges:mount')
 	})
 })(window.ready, window.EventEmitter)

@@ -7,9 +7,9 @@
 		$title, $button, $form,	$link, $s3;
 	
 	function setupTNLeft(){
-		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
+/* 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
 		$temp = document.getElementById('topNav__LHome');
-		$temp.addEventListener('click', handleHomeLink);
+		$temp.addEventListener('click', handleHomeLink); */
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Challenges'  }));
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.addEventListener('click', handleChallengeLink);
@@ -239,8 +239,8 @@
 	})
 
 	EventEmitter.on('AdminSettings:unmount', function() {
-		$temp = document.getElementById('topNav__LHome');
-		$temp.removeEventListener('click', handleHomeLink);
+/* 		$temp = document.getElementById('topNav__LHome');
+		$temp.removeEventListener('click', handleHomeLink); */
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.removeEventListener('click', handleChallengeLink);
 		$temp = document.getElementById('topNav__LUsers');
