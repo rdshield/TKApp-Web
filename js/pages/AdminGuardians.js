@@ -129,17 +129,21 @@
 	
 	function setupTable(data) {
 		$('#table').tabulator( {
+			layout: "fitColumns",
+			responsiveLayout: true,
+			resizableRows: true,
+
 			initialSort:[
 				{column:"email_address", dir:"asc"},
 			],
 			columns: [
-				{ title: "Email Address", field: 'email_address',},
-				{ title: "First Name", field: 'firstName', sortable:true, sorter:"string"},
-				{ title: "Last Name" , field: 'lastName', sortable:true, sorter:"string"},
-				{ title: "Street Address", field: 'address', sortable:true, sorter:"string"},
-				{ title: "City", field: 'city', sortable:true, sorter:"string"},
-				{ title: "State", field: 'state', sortable:true, sorter:"string"},
-				{ title: "ZIP", field: 'zipCode', sortable:true, sorter:"number"},
+				{ title: "Email Address", field: 'email_address', widthGrow: 3},
+				{ title: "First Name", field: 'firstName', sortable:true, sorter:"string", widthGrow:2},
+				{ title: "Last Name" , field: 'lastName', sortable:true, sorter:"string", widthGrow:2},
+				{ title: "Street Address", field: 'address', sortable:true, sorter:"string", widthGrow:3},
+				{ title: "City", field: 'city', sortable:true, sorter:"string", widthGrow:2},
+				{ title: "State", field: 'state', sortable:true, sorter:"string", widthGrow:2},
+				{ title: "ZIP", field: 'zipCode', sortable:true, sorter:"number", widthGrow:2},
 			],	
 			cellClick: function(e, cell) {
 				var rowData = cell.getRow().getData();

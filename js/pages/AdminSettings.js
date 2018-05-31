@@ -55,6 +55,8 @@
   
 	function setupCatTable(data) {
 		$('#catTable').tabulator( {
+			layout: "fitColumns",
+			resizableColumns:true,
 			initialSort:[
 				{column:"categoryName", dir:"asc"},
 			],

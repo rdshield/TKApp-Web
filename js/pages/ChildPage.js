@@ -164,17 +164,21 @@
 			
 			DBClient.readItems('child','parentId = :thisParent', {':thisParent': Cognito.getSub() }).then(function(data) {
 				var idCount= data.Count+1;
+
 				$('#table').tabulator( {
-					layout:"fitDataFill",
-					resizableColumns:false,
+					// layout:"fitDataFill",
+					layout: "fitColumns",
+					responsiveLayout: true,
+					resizableColumns:true,
+					
 					initialSort:[
 						{column:"childName", dir:"asc"},
 					],
 					columns: [
-						//{ title: "ID#", field: "childId", sortable:true, sorter:"number"},
-						{ title: "Child's Name", field: 'childName', width:"150", sortable:true,},
-						{ title: "Grade", field: 'childGrade', width:"100", widthShrink:1, sortable:true, sorter:"number", align: 'right',},
-						{ title: "Gender", field: 'childGender', width: "100", sortable:true, sorter:"number"},
+						// { title: "Child's Name", field: 'childName', width:"150", sortable:true,},
+						{ title: "Child's Name", field: 'childName', widthGrow: 1, sortable:true,},
+						{ title: "Grade", field: 'childGrade', widthGrow:1, widthShrink:1, sortable:true, sorter:"number", align: 'right',},
+						{ title: "Gender", field: 'childGender', widthGrow: 1, sortable:true, sorter:"number"},
 					],
 
 					cellClick: function(e, cell) {
