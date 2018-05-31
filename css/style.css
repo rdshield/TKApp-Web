@@ -21,7 +21,7 @@
 html, body {
 	height: 100%;
 	margin:0;
-	background-color: var(--grey);
+	background-color: #f1f1f1;
 }
 
 body {
@@ -207,7 +207,9 @@ body {
   margin-right: 5%;
   width: 80%;
   height: 89%;
-  background-color: var(--very-light-grey);
+  /* background-color: var(--very-light-grey); */
+  background-color: white;
+  box-shadow: -5px -5px 33px #bbb;
 }
 
 #login {
