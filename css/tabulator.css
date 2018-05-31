@@ -11,7 +11,8 @@
 }
 
 .tabulator[tabulator-layout="fitDataFill"] .tabulator-tableHolder .tabulator-table {
-  min-width: 100%;
+  /* min-width: 100%; */
+  min-width: 50%;
 }
 
 .tabulator.tabulator-block-select {
@@ -27,7 +28,8 @@
   width: 100%;
   border-bottom: 1px solid #999;
   background-color: #e6e6e6;
-  color: #555;
+  /* color: #555; */
+  color: black;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;

@@ -118,17 +118,21 @@
 			$("#table").tabulator("redraw", true);
 		})
 		$('#table').tabulator( {
+			// layout:"fitDataFill",
+			layout:"fitColumns",
+
+			responsiveLayout: true,
+			resizableRows: true,
 			initialSort:[
 				{column:"missionId", dir:"asc"},
 			],
 			columns: [
-				{ title: "ID#", field: "missionId", sortable:true, sorter:"number"},
-				{ title: "Mission", field: "missionName", sortable:true, sorter:"string"},
-				{ title: "Description", field: 'missionDesc', formatter:"textarea", width:300, sortable:true, sorter:"string",},
-				{ title: "Point Value", field: 'value', sortable:true, sorter:"number",},
-				{ title: "Category", field: 'categoryId', sortable:true, sorter:"string", formatter:"lookup", formatterParams:catFormat},
-				{ title: "Active", field: "isActive", formatter:"tickCross", },
-				
+				{ title: "ID#", field: "missionId", sortable:true, sorter:"number" ,width:75, widthGrow: 1},
+				{ title: "Mission", field: "missionName", sortable:true, sorter:"string", widthGrow: 3},
+				{ title: "Description", field: 'missionDesc', formatter:"textarea", sortable:true, sorter:"string",widthGrow: 5},
+				{ title: "Point Value", field: 'value', sortable:true, sorter:"number", width: 120, widthGrow: 1},
+				{ title: "Category", field: 'categoryId', sortable:true, sorter:"string", formatter:"lookup", formatterParams:catFormat, width: 300, widthGrow: 3},
+				{ title: "Active", field: "isActive", formatter:"tickCross", width: 75},
 			],
 			cellClick: function(e, cell) {
 				var rowData = cell.getRow().getData();
