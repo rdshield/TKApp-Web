@@ -73,7 +73,7 @@
 		var $childGrade = document.getElementById('cGrade');
 		var $childGender= document.getElementById('cGender');
 		var $button = document.getElementById('cAddChildRow');
-		var childCount = 0, $complChallenges = [], $currChallenges = [], $points=[], $badges= [], $new = false, $cId = '';
+		var childCount = 0, $completedMissions = [], $currentMissions = [], $points=[], $badges= [], $new = false, $cId = '';
 
 		if(params != null) {
 			$button.value = "Update this Child";
@@ -81,8 +81,8 @@
 			$childGrade.value 	= params.childGrade;
 			$childGender.value 	= params.childGender;
 			childCount 			= params.Id;
-			$complChallenges 	= params.complChallenges;
-			$currChallenges 	= params.currChallenges;
+			$completedMissions 	= params.completeMissions;
+			$currentMissions 	= params.currentMissions;
 			$cId				= params.childId,
 			$points				= params.points,
 			$badges 			= params.badges;
@@ -112,16 +112,16 @@
 				}
 				
 				var params = {
-					childId:		(sub +":"+ childCount),
-					Id:				childCount,
-					childName:		$childName.value,
-					childGrade: 	$childGrade.value,
-					childGender:    $childGender.value,
-					complChallenges:$complChallenges,
-					currChallenges: $currChallenges,
-					points:			$points,
-					badges:			$badges,
-					parentId:		sub,
+					childId:			(sub +":"+ childCount),
+					Id:					childCount,
+					childName:			$childName.value,
+					childGrade: 		$childGrade.value,
+					childGender:    	$childGender.value,
+					completeMissions:	$completedMissions,
+					currentMissions: 	$currentMissions,
+					points:				$points,
+					badges:				$badges,
+					parentId:			sub,
 				}
 				
 				var param = DBClient.getParameters('child',params);
