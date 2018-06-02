@@ -25,7 +25,7 @@
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
 		$temp = document.getElementById('topNav__LHome');
 		$temp.addEventListener('click', handleHomeLink);
-		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Challenges'  }));
+		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Missions'  }));
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.addEventListener('click', handleChallengeLink);
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LUsers', msg:'Guardians' }));

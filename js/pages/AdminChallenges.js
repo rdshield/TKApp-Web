@@ -23,7 +23,7 @@
 /* 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LHome' , msg:'Home'  }));
 		$temp = document.getElementById('topNav__LHome');
 		$temp.addEventListener('click', handleHomeLink); */
-		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Challenges'  }));
+		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LChallenges' , msg:'Missions'  }));
 		$temp = document.getElementById('topNav__LChallenges');
 		$temp.addEventListener('click', handleChallengeLink);
 		$tnLeft.insertAdjacentHTML('beforeend', tmpl('topNavButton', { name:'LUsers', msg:'Guardians' }));
@@ -198,7 +198,7 @@
 			}
 			sortSelect($sel);
 		})
-		$footer.innerHTML = '<button id="addRowSubmit" type="submit" form="addChalForm">Add Challenge</button>';
+		$footer.innerHTML = '<button id="addRowSubmit" type="submit" form="addChalForm">Add Mission</button>';
 		
 		
 		var $challengeName = document.getElementById('cName');
@@ -214,7 +214,7 @@
 			$challengeAct.checked = params.isActive;
 			$challengeId = params.missionId;
 			$challengeVal.value = params.value;
-			document.getElementById('addRowSubmit').innerHTML = "Update Challenge";
+			document.getElementById('addRowSubmit').innerHTML = "Update Mission";
 			$missionId = params.missionId;
 		}
 		
