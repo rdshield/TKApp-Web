@@ -67,10 +67,6 @@ body {
 	background-attachment:fixed;
 }
 
-#topNavLeft{
-	background-image: url('images/tklogo.png');
-}
-
 .topNav .left .button {
 	float: left;
 	padding: 5px 6px;
@@ -116,7 +112,6 @@ body {
 	height: 35px;
 	padding: 10px 20px 10px 20px ; 
 	color: white;
-	background-color: var(--tkred);
 	background-color: #047558;
 	vertical-align: middle;
 	margin-left: 5px;
@@ -127,10 +122,12 @@ body {
 }
 
 .topNav .right .button2 {
+	margin-top: 5px;
+	margin-right: 5px;
 	font-family: "Garamond", Gadget, sans-serif;
 	float:right;
 	color: white;
-	/* padding: 16px 0; */
+	padding: 10px 20px 10px 20px ;
 	background-color: #047558;
 	text-align: center;
 	border: 2px solid;
@@ -199,11 +196,11 @@ body {
 
 #content2 {
   color: black;
-  padding-top: 25px;
-  padding-left:5%;
-  padding-right: 5%;
+  padding-top: 4%;
+  padding-left: 4%;
+  padding-right: 4%;
 
-  margin-top: 8%;
+  margin-top: 90px;
   margin-left: 5%;
   margin-right: 5%;
   width: 80%;
@@ -305,6 +302,17 @@ body {
   font-weight:bold;
   color: black;
   text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+
+.Control__labelL{
+  /* padding: 50 0 0 0 px; */
+  position: relative;
+  font-weight:bold;
+  color: black;
+  text-align: left;
+  padding-left: 5px;
   margin: 0 auto;
   display: block;
 }
@@ -524,7 +532,7 @@ body {
 
 /* The Close Button */
 .close {
-    color: white;
+    color: #047558;
     float: right;
     font-size: 28px;
     font-weight: bold;

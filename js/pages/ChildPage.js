@@ -66,28 +66,30 @@
 		var $body = document.getElementsByClassName("modal-body")[0];
 		var $footer = document.getElementsByClassName("modal-footer")[0];
 		
-		$header.insertAdjacentHTML('beforeend',"<h3 id='modalTitle'> "+title+" </h3>")
+		$header.insertAdjacentHTML('afterBegin',"<h3 id='modalTitle'> "+title+" </h3>")
 		$body.innerHTML = tmpl('addChildPage', {})
 		
 		var $childName  = document.getElementById('cName');
 		var $childGrade = document.getElementById('cGrade');
 		var $childGender= document.getElementById('cGender');
-		var $button = document.getElementById('cAddChildRow');
 		var childCount = 0, $completedMissions = [], $currentMissions = [], $points=[], $badges= [], $new = false, $cId = '';
-
+		
+		$footer.insertAdjacentHTML('beforeend','<input id="cAddChildRow" type="submit" form="addChild" value="Add Child"></button>')
+		var $button = document.getElementById('cAddChildRow');
+		
 		if(params != null) {
-			$button.value = "Update this Child";
+			$button.value = "Update This Child";
 			$childName.value 	= params.childName;
 			$childGrade.value 	= params.childGrade;
 			$childGender.value 	= params.childGender;
 			childCount 			= params.Id;
-			$completedMissions 	= params.completeMissions;
+			$completedMissions 	= params.completedMissions;
 			$currentMissions 	= params.currentMissions;
 			$cId				= params.childId,
 			$points				= params.points,
 			$badges 			= params.badges;
 			
-			$footer.innerHTML = '<button id="deleteChild" type="button">Delete Child</button>';
+			$footer.insertAdjacentHTML('beforeend','  <button id="deleteChild" type="button" value="Delete Child">Delete This Child</button>')
 			$("#deleteChild").on('click', function() {
 				var del = window.confirm("Are you sure you want to delete this account?");
 				if(del){
@@ -98,6 +100,7 @@
 				}
 				handleChildLink();				
 				modal.style.display = "none"; 
+				$footer.innerText = "";
 				$(document.getElementById('modalTitle')).remove();
 			});
 		}
@@ -117,7 +120,7 @@
 					childName:			$childName.value,
 					childGrade: 		$childGrade.value,
 					childGender:    	$childGender.value,
-					completeMissions:	$completedMissions,
+					completedMissions:	$completedMissions,
 					currentMissions: 	$currentMissions,
 					points:				$points,
 					badges:				$badges,
@@ -144,6 +147,7 @@
 				}
 				handleChildLink();
 				modal.style.display = "none"; 
+				$footer.innerText = "";
 				$(document.getElementById('modalTitle')).remove();
 			});
 		}
@@ -151,6 +155,7 @@
 		// When the user clicks on <span> (x), close the modal	
 		span.onclick = function() { 
 			modal.style.display = "none"; 
+			$footer.innerText = "";
 			$(document.getElementById('modalTitle')).remove();
 		}
 	}
@@ -206,15 +211,8 @@
 
  
   EventEmitter.on('ChildPage:unmount', function() {
-	$b = document.getElementById('topNav__LHome');
-	$b && $b.removeEventListener('click', handleHomeLink);
-	$c = document.getElementById('topNav__LChild');
-	$c && $c.removeEventListener('click', handleChildLink);
 	while ($tnRight.firstChild) {
 		$tnRight.removeChild($tnRight.firstChild);
-	}
-	while ($tnLeft.firstChild) {
-		$tnLeft.removeChild($tnLeft.firstChild);
 	}
 	$container.remove();
   })
